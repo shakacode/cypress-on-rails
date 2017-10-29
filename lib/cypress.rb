@@ -1,0 +1,3 @@
+module Cypress
+
+end
