@@ -17,8 +17,7 @@ module Cypress
       def cypress_cli(server_port)
         result  = ['yarn', 'run']
         result += ['cypress', 'open']
-        result += ['--env', "SERVER_PORT=#{server_port}"]
-        result += ['--env', "CALLBACK=#{@callback_url}"]
+        result += ['--env', "SERVER_PORT=#{server_port},CALLBACK=#{@callback_url}"]
         result += ['-c', 'fixturesFolder=spec/cypress/fixtures,integrationFolder=spec/cypress/integrations/,supportFile=spec/cypress/support/setup.js']
         result
       end
