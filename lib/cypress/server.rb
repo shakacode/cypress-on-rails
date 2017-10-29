@@ -21,6 +21,8 @@ module Cypress
 
     def run_command(command)
       @scenario_bank.load
+      RSpec::Mocks.teardown
+      RSpec::Mocks.setup
 
       if command['scenario'] and (block = @scenario_bank[command['scenario']])
         block.call
