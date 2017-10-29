@@ -1,4 +1,4 @@
-require 'active_support/core_ext/module/delegation'
+require 'active_support/dependencies/autoload'
 
 module Cypress
   extend ActiveSupport::Autoload

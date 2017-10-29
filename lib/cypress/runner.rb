@@ -5,7 +5,6 @@ module Cypress
     end
 
     def run(server_port)
-      puts 'run'
       Open3.popen2(*cypress_cli(server_port)) do |sin, sout, status|
         sout.each_line do |line|
           puts "CYPRESS: #{line}"
