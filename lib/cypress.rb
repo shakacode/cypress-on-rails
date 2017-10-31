@@ -7,4 +7,13 @@ module Cypress
   autoload :CallbackServer, 'cypress/callback_server'
   autoload :Runner,         'cypress/runner'
   autoload :ScenarioBank,   'cypress/scenario_bank'
+  autoload :Configuration,  'cypress/configuration'
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.configure(&block)
+    yield configuration if block_given?
+  end
 end

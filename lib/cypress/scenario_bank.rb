@@ -4,6 +4,13 @@ module Cypress
       @scenarios = {}
     end
 
+    def boot
+      if Cypress.configuration.test_framework == :rspec
+        require 'rspec/rails'
+        extend RSpec::Mocks::ExampleMethods
+      end
+    end
+
     def load
       Dir['./spec/cypress/scenarios/**/*.rb'].each do |f|
         instance_eval(File.read(f), f)
