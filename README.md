@@ -76,6 +76,8 @@ scenario :basic do
 end
 ```
 
+An example application is available at https://github.com/konvenit/cypress-on-rails-example
+
 # Limitations
 This code is very much at the proof-of-concept stage. The following limitations are known:
 * It requires yarn for the javascript dependency management
