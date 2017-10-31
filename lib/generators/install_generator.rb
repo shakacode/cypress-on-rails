@@ -48,5 +48,6 @@ Cypress.Commands.add('setupScenario', function(name) {
   cy.request('POST', Cypress.env("CALLBACK"), JSON.stringify({ scenario: name }))
 });
 FILE
+    end
   end
 end

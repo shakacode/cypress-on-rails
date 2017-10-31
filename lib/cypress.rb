@@ -17,3 +17,7 @@ module Cypress
     yield configuration if block_given?
   end
 end
+
+if defined?(Rails)
+  require_relative './cypress/railtie'
+end
