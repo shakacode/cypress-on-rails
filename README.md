@@ -38,7 +38,7 @@ The generator adds the following files/directory to your application:
 
 ### Using scenarios
 
-When writing End-to-End tests, you will probably want to prepare your database to a known state. Maybe using a gem like factory_girl. This gem introduces the concept of a scenario for this purpose. Think of it as a named `before` block in RSpec.
+When writing End-to-End tests, you will probably want to prepare your database to a known state. Maybe using a gem like factory_girl. This gem introduces the concept of a scenario for this purpose. Think of them as named `before` blocks in RSpec.
 
 You define a scenario in the `spec/cypress/scenarios` directory:
 ```
@@ -68,6 +68,13 @@ The `setupScenario` call does the following things:
 * clears the database using database_cleaner (can be disabled)
 * calls the scenario block associated with the name given
 * calls the optional `before` block from `spec/cypress/cypress_helper.rb`
+
+In the scenario you also have access to RSpec mocking functions. So you could do something like:
+```
+scenario :basic do
+  allow(ExternalService).to receive(:retrieve).and_return("result")
+end
+```
 
 # Limitations
 This code is very much at the proof-of-concept stage. The following limitations are known:
