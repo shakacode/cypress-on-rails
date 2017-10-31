@@ -3,9 +3,9 @@ require 'json'
 
 module Cypress
   class Server
-    def initialize
+    def initialize(args)
       @callback_server = CallbackServer.new(self)
-      @runner          = Runner.new @callback_server.callback_url
+      @runner          = Runner.new args, @callback_server.callback_url
       @scenario_bank   = ScenarioBank.new
     end
 
