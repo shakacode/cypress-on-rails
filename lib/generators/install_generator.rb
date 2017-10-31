@@ -41,7 +41,7 @@ scenario :basic do
 end
 FILE
 
-    create_file "spec/cypress/integrations/simple_spec.js", <<-FILE
+    create_file "spec/cypress/support/setup.js", <<-FILE
 // dont remove this command
 Cypress.Commands.add('setupScenario', function(name) {
   Cypress.log({ message: name })
