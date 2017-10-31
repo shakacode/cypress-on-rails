@@ -4,14 +4,23 @@ require 'json'
 module Cypress
   class Server
     def initialize(args)
+      @args            = args
       @callback_server = CallbackServer.new(self)
-      @runner          = Runner.new args, @callback_server.callback_url
+      @runner          = Runner.new self, @callback_server.callback_url
       @scenario_bank   = ScenarioBank.new
     end
 
+    def mode
+      if @args.first == 'run'
+        'run'
+      else
+        'open'
+      end
+    end
+
     def run
-      server_port = boot_rails
       load_cypress_helper
+      server_port = boot_rails
       @scenario_bank.boot
 
       @callback_thread = Thread.new { @callback_server.start }
@@ -49,6 +58,7 @@ module Cypress
 
       def load_cypress_helper
         require "./spec/cypress/cypress_helper"
+        configuration.disable_class_caching if mode == 'open'
       end
 
       def reset_rspec
