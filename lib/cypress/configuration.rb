@@ -8,6 +8,10 @@ module Cypress
       @before         = proc {}
     end
 
+    def include(mod)
+      ScenarioContext.send :include, mod
+    end
+
     def before(&block)
       if block_given?
         @before = block

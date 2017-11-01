@@ -13,6 +13,9 @@ module Cypress
       gsub_file 'config/environments/test.rb', 'config.cache_classes = true', replace.join("\n")
 
       create_file "spec/cypress/cypress_helper.rb", <<-FILE
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../../../config/environment', __FILE__)
+
 Cypress.configure do |c|
   # change this to nil, if you are not using RSpec Mocks
   c.test_framework = :rspec
@@ -24,6 +27,9 @@ Cypress.configure do |c|
     # this is called when you call cy.setupScenario
     # use it to reset your application state
   end
+
+  # add a module to your run context
+  # c.include MyModule
 end
 FILE
 
