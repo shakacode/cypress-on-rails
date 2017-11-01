@@ -4,7 +4,7 @@ module Cypress
     def initialize(owner)
       @port    = 9293
       @webrick = WEBrick::HTTPServer.new(:Port => port)
-      @webrick.mount_proc '/' do |req, res|
+      @webrick.mount_proc '/scenario' do |req, res|
         owner.run_command JSON.parse(req.body)
         res.body = ''
       end
