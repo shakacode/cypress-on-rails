@@ -1,7 +1,7 @@
 # cypress-on-rails
 
 Proof-of-Concept gem for using [cypress.io](http://github.com/cypress-io/) in Rails applications. It provides the following features:
-* scenarios to setup database before test run
+* run ruby code in your application context before executing a test
 * database cleaning before test run (using database_cleaner)
 * ability to use RSpec Mocks for your Rails code
 
@@ -36,9 +36,31 @@ The generator adds the following files/directory to your application:
 * `spec/cypress/scenarios/` contains your scenario definitions
 * `spec/cypress/support/setup.js` contains support code
 
+When writing End-to-End tests, you will probably want to prepare your database to a known state. Maybe using a gem like factory_girl. This gem implements two methods to achieve this goal:
+
+### Using embedded ruby
+You can embed ruby code in your test file. This code will then be executed in the context of your application. For example:
+
+// spec/cypress/integrations/simple_spec.js
+describe('My First Test', function() {
+  it('visit root', function() {
+    // This calls to the backend to prepare the application state
+    cy.rails(`
+      Profile.create name: "Cypress Hill"
+    `)
+
+    // The application unter test is available at SERVER_PORT
+    cy.visit('http://localhost:'+Cypress.env("SERVER_PORT"))
+
+    cy.contains("Cypress Hill")
+  })
+})
+
+Use the (`) backtick string syntax to allow multiline strings.
+
 ### Using scenarios
 
-When writing End-to-End tests, you will probably want to prepare your database to a known state. Maybe using a gem like factory_girl. This gem introduces the concept of a scenario for this purpose. Think of them as named `before` blocks in RSpec.
+Scenarios are named `before` blocks that you can reference in your test.
 
 You define a scenario in the `spec/cypress/scenarios` directory:
 ```
@@ -66,8 +88,8 @@ describe('My First Test', function() {
 
 The `setupScenario` call does the following things:
 * clears the database using database_cleaner (can be disabled)
-* calls the scenario block associated with the name given
 * calls the optional `before` block from `spec/cypress/cypress_helper.rb`
+* calls the scenario block associated with the name given
 
 In the scenario you also have access to RSpec mocking functions. So you could do something like:
 ```
