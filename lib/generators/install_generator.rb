@@ -64,10 +64,8 @@ Cypress.Commands.add('setupScenario', function(name) {
   cy.request('POST', Cypress.env("CALLBACK")+"/scenario", JSON.stringify({ scenario: name }))
 });
 
-Cypress.Commands.add('rails', function(fn) {
-  var code = fn.toString();
-  var body = eval(code.substring(code.indexOf("{") + 1, code.lastIndexOf("}")));
-  cy.request('POST', Cypress.env("CALLBACK") + "/eval", JSON.stringify({ code: body }))
+Cypress.Commands.add('rails', function(code) {
+  cy.request('POST', Cypress.env("CALLBACK") + "/eval", JSON.stringify({ code: code }))
 })
 // cypress-on-rails: end
 
