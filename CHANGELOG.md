@@ -1,4 +1,4 @@
-## Unreleased
+## 0.1.5 (2017-11-01)
 
 ### Added
 * `cy.rails` command for executing raw ruby on the backend
