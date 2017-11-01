@@ -41,6 +41,7 @@ When writing End-to-End tests, you will probably want to prepare your database t
 ### Using embedded ruby
 You can embed ruby code in your test file. This code will then be executed in the context of your application. For example:
 
+```
 // spec/cypress/integrations/simple_spec.js
 describe('My First Test', function() {
   it('visit root', function() {
@@ -55,6 +56,7 @@ describe('My First Test', function() {
     cy.contains("Cypress Hill")
   })
 })
+```
 
 Use the (`) backtick string syntax to allow multiline strings.
 
