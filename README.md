@@ -9,7 +9,7 @@ Proof-of-Concept gem for using [cypress.io](http://github.com/cypress-io/) in Ra
 
 Add this to your Gemfile:
 ```
-group :test do
+group :test, :development do
   gem 'cypress-on-rails'
 end
 ```

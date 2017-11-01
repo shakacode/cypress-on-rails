@@ -12,7 +12,7 @@ module Cypress
       ]
       gsub_file 'config/environments/test.rb', 'config.cache_classes = true', replace.join("\n")
 
-      create_file "spec/cypress/cypress_helper.rb", <<-FILE
+      create_file "spec/cypress/cypress_helper.rb", <<-EOF
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../../config/environment', __FILE__)
 
@@ -31,7 +31,7 @@ Cypress.configure do |c|
   # add a module to your run context
   # c.include MyModule
 end
-FILE
+EOF
 
     create_file "spec/cypress/integrations/simple_spec.js", <<-FILE
 describe('My First Test', function() {
