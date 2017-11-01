@@ -6,6 +6,12 @@ module Cypress
       empty_directory "spec/cypress/scenarios"
       empty_directory "spec/cypress/support"
 
+      replace = [
+        "# when running the cypress UI, allow reloading of classes",
+        "config.cache_classes = (defined?(Cypress) ? Cypress.configuration.cache_classes : true)"
+      ]
+      gsub_file 'config/environments/test.rb', 'config.cache_classes = true', replace.join("\n")
+
       create_file "spec/cypress/cypress_helper.rb", <<-FILE
 Cypress.configure do |c|
   # change this to nil, if you are not using RSpec Mocks
