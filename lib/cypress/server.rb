@@ -1,6 +1,3 @@
-require 'webrick'
-require 'json'
-
 module Cypress
   class Server
     def initialize(args)
@@ -21,7 +18,6 @@ module Cypress
     def run
       load_cypress_helper
       server_port = boot_rails
-      @scenario_bank.boot
 
       @callback_thread = Thread.new { @callback_server.start }
       @runner_thread   = Thread.new { @runner.run server_port }
@@ -30,15 +26,9 @@ module Cypress
       @callback_server.shutdown
     end
 
-    def run_command(command)
-      @scenario_bank.load
-
-      if command['scenario'] and (block = @scenario_bank[command['scenario']])
-        reset_rspec           if configuration.test_framework == :rspec
-        call_database_cleaner if configuration.db_resetter    == :database_cleaner
-        configuration.before.call
-
-        block.call
+    def run_command(command, options={})
+      if respond_to?("run_command_#{command}", true)
+        send "run_command_#{command}", options
       end
     end
 
@@ -61,6 +51,12 @@ module Cypress
         configuration.disable_class_caching if mode == 'open'
       end
 
+      def run_command_setup(options={})
+        reset_rspec           if configuration.test_framework == :rspec
+        call_database_cleaner if configuration.db_resetter    == :database_cleaner
+        configuration.before.call
+      end
+
       def reset_rspec
         RSpec::Mocks.teardown
         RSpec::Mocks.setup
@@ -70,6 +66,23 @@ module Cypress
         require 'database_cleaner'
         DatabaseCleaner.strategy = :truncation
         DatabaseCleaner.clean
+      end
+
+      def run_command_scenario(options={})
+        run_command_setup
+
+        @scenario_bank.load
+        if block = @scenario_bank[options['scenario']]
+          new_context.execute block
+        end
+      end
+
+      def run_command_eval(options={})
+        new_context.execute options['code']
+      end
+
+      def new_context
+        ScenarioContext.new(configuration)
       end
   end
 end

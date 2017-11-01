@@ -48,11 +48,25 @@ end
 FILE
 
     create_file "spec/cypress/support/setup.js", <<-FILE
-// dont remove this command
+// cypress-on-rails: dont remove these command
+Cypress.Commands.add('setupRails', function () {
+  cy.request('POST', Cypress.env("CALLBACK") + "/setup")
+});
+
 Cypress.Commands.add('setupScenario', function(name) {
   Cypress.log({ message: name })
   cy.request('POST', Cypress.env("CALLBACK")+"/scenario", JSON.stringify({ scenario: name }))
 });
+
+Cypress.Commands.add('rails', function(fn) {
+  var code = fn.toString();
+  var body = eval(code.substring(code.indexOf("{") + 1, code.lastIndexOf("}")));
+  cy.request('POST', Cypress.env("CALLBACK") + "/eval", JSON.stringify({ code: body }))
+})
+// cypress-on-rails: end
+
+// The next setup is optional, but if you remove it you will have to manually reset the database
+beforeEach(() => { cy.setupRails() });
 FILE
     end
   end
