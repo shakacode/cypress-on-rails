@@ -48,7 +48,7 @@ module Cypress
       def run_command_setup(options={})
         reset_rspec           if configuration.test_framework == :rspec
         call_database_cleaner if configuration.db_resetter    == :database_cleaner
-        configuration.before.call
+        new_context.execute configuration.before
       end
 
       def reset_rspec
