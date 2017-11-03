@@ -1,8 +1,7 @@
 module Cypress
   class Runner
-    def initialize(owner, callback_url)
-      @owner        = owner
-      @callback_url = callback_url
+    def initialize(owner)
+      @owner = owner
     end
 
     def run(server_port)
@@ -17,7 +16,7 @@ module Cypress
       def cypress_cli(server_port)
         result  = ['yarn', 'run']
         result += ['cypress', @owner.mode]
-        result += ['--env', "SERVER_PORT=#{server_port},CALLBACK=#{@callback_url}"]
+        result += ['--env', "SERVER_PORT=#{server_port}"]
         result += ['-c', 'videosFolder=spec/cypress/videos,fixturesFolder=spec/cypress/fixtures,integrationFolder=spec/cypress/integrations/,supportFile=spec/cypress/support/setup.js']
         result
       end
