@@ -37,6 +37,7 @@ module Cypress
       end
 
       def reset_rspec
+        require 'rspec/rails'
         RSpec::Mocks.teardown
         RSpec::Mocks.setup
       end
