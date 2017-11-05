@@ -1,3 +1,7 @@
+## 0.2.1 (2017-11-05)
+### Fixed
+* fix failure in api tests
+
 ## 0.2.0 (2017-11-05)
 ### Changed
 * remove the need for a seperate port for the setup calls. Requires rerunning `cypress:install` generator
