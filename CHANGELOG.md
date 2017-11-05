@@ -1,3 +1,7 @@
+## 0.2.0 (2017-11-05)
+### Changed
+* remove the need for a seperate port for the setup calls. Requires rerunning `cypress:install` generator
+
 ## 0.1.5 (2017-11-01)
 
 ### Added
