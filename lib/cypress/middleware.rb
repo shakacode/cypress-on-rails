@@ -7,7 +7,7 @@ module Cypress
     end
 
     def call(env)
-      if env['REQUEST_PATH'].starts_with?('/__cypress__/')
+      if env['REQUEST_PATH'].to_s.starts_with?('/__cypress__/')
         path = env['REQUEST_PATH'].sub('/__cypress__/', '')
         cmd  = path.split('/').first
         if respond_to?("handle_#{cmd}", true)
