@@ -3,7 +3,6 @@ require 'active_support/dependencies/autoload'
 module Cypress
   extend ActiveSupport::Autoload
   
-  autoload :Server,          'cypress/server'
   autoload :Runner,          'cypress/runner'
   autoload :ScenarioBank,    'cypress/scenario_bank'
   autoload :ScenarioContext, 'cypress/scenario_context'
@@ -16,6 +15,10 @@ module Cypress
 
   def self.configure(&block)
     yield configuration if block_given?
+  end
+
+  def self.run_middleware?
+    Rails.env.test?
   end
 end
 
