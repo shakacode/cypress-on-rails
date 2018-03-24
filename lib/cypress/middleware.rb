@@ -55,6 +55,7 @@ module Cypress
       def handle_scenario(req)
         handle_setup(req)
 
+        @scenario_bank = ScenarioBank.new
         @scenario_bank.load
         if block = @scenario_bank[json_from_body(req)['scenario']]
           new_context.execute block
