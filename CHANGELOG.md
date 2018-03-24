@@ -1,3 +1,7 @@
+## 0.2.2 (2018-03-24)
+### Fixed
+* fix major bug when using scenarios
+
 ## 0.2.1 (2017-11-05)
 ### Fixed
 * fix failure in api tests
