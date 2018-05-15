@@ -17,6 +17,9 @@ end
 The generate the boilerplate code using:
 ```
 rails g cypress:install
+
+# or for rails engines
+rails g cypress:install_engine
 ```
 
 Finally add the `cypress` package using yarn:

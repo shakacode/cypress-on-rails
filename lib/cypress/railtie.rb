@@ -7,9 +7,5 @@ module Cypress
         app.middleware.use Middleware
       end
     end
-
-    generators do
-      require_relative '../generators/install_generator'
-    end
   end
 end
