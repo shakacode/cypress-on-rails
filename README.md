@@ -7,19 +7,6 @@ Proof-of-Concept gem for using [cypress.io](http://github.com/cypress-io/) in Ra
 
 ## Getting started
 
-### Cypress
-
-install and setup cypress
-
-```
-mkdir -p spec
-cd spec
-yarn add --dev cypress
-
-```
-
-### Rails
-
 Add this to your Gemfile:
 ```
 group :test, :development do
@@ -29,28 +16,15 @@ end
 
 The generate the boilerplate code using:
 ```
-rails g cypress:install
+bin/rails g cypress:install
 
-# if you have an existing cypress folder
-rails g cypress:install --cypress_folder=test/cypress
+# if you have/want a different cypress folder
+bin/rails g cypress:install --cypress_folder=test/cypress
 ```
 
 if you are not using database_cleaner look at `spec/cypress/app_commands/clean_db.rb`.
 
 ## Usage
-
-This gem provides the `cypress` command. 
-
-it will start the cypress.io UI
-
-```
-  bundle exec cypress-on-rails open
-``` 
-
-While running the UI you can edit both your application and test code and 
-see the effects on the next test run. 
-
-When run as `bundle exec cypress-on-rails ci` it runs headless for CI testing.
 
 The generator adds the following files/directory to your application:
 * `spec/cypress/integrations/` contains your tests
@@ -60,6 +34,18 @@ The generator adds the following files/directory to your application:
 
 When writing End-to-End tests, you will probably want to prepare your database to a known state. 
 Maybe using a gem like factory_bot. This gem implements two methods to achieve this goal:
+
+example of getting started
+
+```
+# start rails
+RAILS_ENV=test bin/rake db:create db:schema:load
+bin/rails server -e test -p 5002
+
+# in separate window start cypress
+cd spec
+yarn run cypress open
+```
 
 ### Using embedded ruby
 You can embed ruby code in your test file. This code will then be executed in the context of your application. For example:

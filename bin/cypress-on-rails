@@ -1,3 +1,0 @@
-#!/usr/bin/env ruby
-require 'cypress'
-Cypress::Runner.start(ARGV)
