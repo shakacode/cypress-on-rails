@@ -11,8 +11,12 @@ module Cypress
         path = env['REQUEST_PATH'].sub('/__cypress__/', '')
         cmd  = path.split('/').first
         if respond_to?("handle_#{cmd}", true)
-          send "handle_#{cmd}", Rack::Request.new(env)
-          [201, {}, ["success"]]
+          begin
+            send "handle_#{cmd}", Rack::Request.new(env)
+          rescue => e
+            STDERR.puts e.message
+            [500, {}, [e.message]]
+          end
         else
           [404, {}, ["unknown command: #{cmd}"]]
         end
@@ -26,44 +30,32 @@ module Cypress
         Cypress.configuration
       end
 
-      def new_context
-        ScenarioContext.new(configuration)
-      end
-
-      def handle_setup(req)
-        reset_rspec           if configuration.test_framework == :rspec
-        call_database_cleaner if configuration.db_resetter    == :database_cleaner
-        new_context.execute configuration.before
-      end
-
-      def reset_rspec
-        require 'rspec/rails'
-        RSpec::Mocks.teardown
-        RSpec::Mocks.setup
-      end
-
-      def call_database_cleaner
-        require 'database_cleaner'
-        DatabaseCleaner.strategy = :truncation
-        DatabaseCleaner.clean
+      def cypress_folder
+        configuration.cypress_folder
       end
 
       def json_from_body(req)
         JSON.parse(req.body.read)
       end
 
-      def handle_scenario(req)
-        handle_setup(req)
+      def handle_ping(req)
+        [200,
+         { 'Content-Type' => 'text/html' },
+         ['<html><body>Hello Cypress on Rails</body></html>']]
+      end
 
-        @scenario_bank = ScenarioBank.new
-        @scenario_bank.load
-        if block = @scenario_bank[json_from_body(req)['scenario']]
-          new_context.execute block
-        end
+      def handle_command(req)
+        name = json_from_body(req).fetch('name')
+        c = File.open("#{configuration.cypress_folder}/app_commands/#{name}.rb") {|f| f.read }
+        eval(c)
+        [201, {}, ["success"]]
       end
 
       def handle_eval(req)
-        new_context.execute json_from_body(req)['code']
+        result = eval(json_from_body(req).fetch('code'))
+        [200,
+         { 'Content-Type' => 'text/plain' },
+         [result.to_s]]
       end
   end
 end

@@ -1,0 +1,5 @@
+if defined?(Cypress)
+  Cypress.configure do |c|
+    c.cypress_folder = File.expand_path("#{__dir__}/../../<%= options.cypress_folder %>")
+  end
+end

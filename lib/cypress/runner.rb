@@ -1,42 +1,52 @@
+require 'thor'
+require 'open3'
+
 module Cypress
-  class Runner
-    def initialize(args)
-      @args          = args
-      @scenario_bank = ScenarioBank.new
+  class Runner < ::Thor
+    desc 'open', 'starts rails server and run'
+    method_option :rails_bin, desc: 'where bin/rails is', default: 'bin/rails', type: :string
+    def open
+      boot_rails
+      start_cypress('open')
     end
 
-    def run
-      configuration.setup(@args)
+    desc 'ci', 'starts rails server and run'
+    method_option :rails_bin, desc: 'where bin/rails is', default: 'bin/rails', type: :string
+    def ci
       boot_rails
-      Open3.popen2(*cypress_cli) do |sin, sout, status|
-        sout.each_line do |line|
-          puts "CYPRESS: #{line}"
-        end
-      end
+      start_cypress('run')
     end
 
     private
+
       def configuration
+        require './config/initializers/cypress_on_rails'
         Cypress.configuration
       end
 
       def boot_rails
-        require 'cypress/railtie'
-        configuration.load_support
-        require 'capybara/rails'
-
-        Capybara.current_driver   = :selenium # oh, the irony....
-        Capybara.server           = :puma
-        configuration.server_port = Capybara.current_session.server.port
+        Open3.popen2(*rails_server) do |sin, sout, status|
+          sout.each_line do |line|
+            puts "RAILS: #{line}"
+          end
+        end
       end
 
-      def cypress_cli
-        result  = ['yarn', 'run']
-        result += ['cypress', configuration.run_mode]
-        result += ['--env', "SERVER_PORT=#{configuration.server_port}"]
-        result += ['--record', "--key", "1511081a-e957-44f8-8df7-f305da53a39f"]
-        result += ['-c', 'videosFolder=spec/cypress/videos,fixturesFolder=spec/cypress/fixtures,integrationFolder=spec/cypress/integrations/,supportFile=spec/cypress/support/setup.js']
-        result
+      def rails_server
+        [options.rails_bin, 'server', '-p', '5002']
+      end
+
+      def start_cypress(run_mode)
+        Open3.popen2(*cypress_cli(run_mode)) do |sin, sout, status|
+          sout.each_line do |line|
+            puts "CYPRESS: #{line}"
+          end
+        end
+      end
+
+      def cypress_cli(run_mode)
+        ['yarn', 'run', '--cwd=spec',
+         'cypress', run_mode]
       end
   end
 end
