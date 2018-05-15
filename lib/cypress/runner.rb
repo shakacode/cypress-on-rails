@@ -1,3 +1,5 @@
+require 'open3'
+
 module Cypress
   class Runner
     def initialize(args)
@@ -16,6 +18,7 @@ module Cypress
     end
 
     private
+
       def configuration
         Cypress.configuration
       end
@@ -34,7 +37,6 @@ module Cypress
         result  = ['yarn', 'run']
         result += ['cypress', configuration.run_mode]
         result += ['--env', "SERVER_PORT=#{configuration.server_port}"]
-        result += ['--record', "--key", "1511081a-e957-44f8-8df7-f305da53a39f"]
         result += ['-c', 'videosFolder=spec/cypress/videos,fixturesFolder=spec/cypress/fixtures,integrationFolder=spec/cypress/integrations/,supportFile=spec/cypress/support/setup.js']
         result
       end
