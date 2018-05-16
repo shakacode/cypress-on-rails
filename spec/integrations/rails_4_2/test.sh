@@ -4,6 +4,7 @@ set -euo pipefail
 echo '--- testing rails 4.2'
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 RAILS_ENV=test
+BUNDLE_GEMFILE="$DIR/Gemfile"
 
 cd $DIR
 bundle install --retry 2 --jobs 2 --path vendor/bundle

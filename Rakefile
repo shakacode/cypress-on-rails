@@ -4,7 +4,7 @@ namespace :spec do
   namespace :integrations do
     desc 'Test rails 4.2'
     task :rails_4_2 do
-      exec "#{__dir__}/spec/integrations/rails_4_2/test.sh"
+      exec "export && #{__dir__}/spec/integrations/rails_4_2/test.sh"
     end
   end
 end
