@@ -10,7 +10,7 @@ cd $DIR
 
 echo '-- bundle install'
 bundle --version
-bundle install --gemfile="$DIR/Gemfile" --retry 2 --jobs 2 --path vendor/bundle
+bundle install --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- database setup'
 bin/rake db:create db:schema:load
