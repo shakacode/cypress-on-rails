@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+echo '--- testing rails 4.2'
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 RAILS_ENV=test
 
