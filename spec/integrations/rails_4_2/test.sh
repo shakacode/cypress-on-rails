@@ -6,11 +6,11 @@ echo '--- testing rails 4.2'
 echo '-- setting environment'
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 RAILS_ENV=test
-BUNDLE_GEMFILE="$DIR/Gemfile"
 cd $DIR
 
 echo '-- bundle install'
-bundle install --retry 2 --jobs 2 --path vendor/bundle
+bundle --version
+bundle install --gemfile="$DIR/Gemfile" --retry 2 --jobs 2 --path vendor/bundle
 
 echo '-- database setup'
 bin/rake db:create db:schema:load
