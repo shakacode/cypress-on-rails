@@ -29,8 +29,8 @@ if you are not using database_cleaner look at `spec/cypress/app_commands/clean_d
 The generator adds the following files/directory to your application:
 * `spec/cypress/integrations/` contains your tests
 * `spec/cypress/support/on-rails.js` contains support code
-* `spec/cypress/app_commands/scenarios/` contains your scenario defin
-* `spec/cypress/cypress_helper.rb` contains helper code for app_commandsitions
+* `spec/cypress/app_commands/scenarios/` contains your scenario definitions
+* `spec/cypress/cypress_helper.rb` contains helper code for app commands
 
 When writing End-to-End tests, you will probably want to prepare your database to a known state. 
 Maybe using a gem like factory_bot. This gem implements two methods to achieve this goal:
@@ -47,10 +47,64 @@ cd spec
 yarn run cypress open
 ```
 
+Now you can create scenarios and commands that are plan ruby files that get loaded 
+through middleware, the ruby sky is your limit.
+
+### Example of using scenarios
+
+Scenarios are named `before` blocks that you can reference in your test.
+
+You define a scenario in the `spec/cypress/app_commands/scenarios` directory:
+```ruby
+# spec/cypress/app_commands/scenarios/basic.rb
+require_relative '../../cypress_helper' 
+Profile.create name: "Cypress Hill"
+
+# or if you have factory_bot enabled in your cypress_helper
+FactoryBot.create(:profile, name: "Cypress Hill") 
+```
+
+Then reference the scenario in your test:
+```js
+// spec/cypress/integrations/scenario_example_spec.js
+describe('My First Test', function() {
+  it('visit root', function() {
+    // This calls to the backend to prepare the application state
+    cy.appScenario('basic')
+
+    cy.visit('/profiles')
+
+    cy.contains("Cypress Hill")
+  })
+})
+```
+
+### Example of using app commands
+
+create a ruby file in `spec/cypress/app_commands` directory:
+```ruby
+# spec/cypress/app_commands/load_seed.rb 
+load "#{Rails.root}/db/seeds.rb" 
+```
+
+Then reference the command in your test with `cy.app('load_seed')`:
+```js
+// spec/cypress/integrations/simple_spec.js
+describe('My First Test', function() {
+  beforeEach(() => { cy.app('load_seed') })
+  
+  it('visit root', function() {
+    cy.visit('/')
+
+    cy.contains("Seeds")
+  })
+})
+```
+
 ### Using embedded ruby
 You can embed ruby code in your test file. This code will then be executed in the context of your application. For example:
 
-```
+```js
 // spec/cypress/integrations/simple_spec.js
 describe('My First Test', function() {
   it('visit root', function() {
@@ -69,44 +123,8 @@ describe('My First Test', function() {
 
 Use the (`) backtick string syntax to allow multiline strings.
 
-### Using scenarios
-
-Scenarios are named `before` blocks that you can reference in your test.
-
-You define a scenario in the `spec/cypress/scenarios` directory:
-```
-# spec/cypress/scenarios/basic.rb
-Profile.create name: "Cypress Hill"
-```
-
-Then reference the scenario in your test:
-```
-// spec/cypress/integrations/simple_spec.js
-describe('My First Test', function() {
-  it('visit root', function() {
-    // This calls to the backend to prepare the application state
-    cy.appScenario('basic')
-
-    // The application unter test is available at SERVER_PORT
-    cy.visit('http://localhost:'+Cypress.env("SERVER_PORT"))
-
-    cy.contains("Cypress Hill")
-  })
-})
-```
-
-The `appScenario` call does the following things:
-* calls the scenario block associated with the name given
-
-In the scenario you also have access to RSpec mocking functions. So you could do something like:
-```
-allow(ExternalService).to receive(:retrieve).and_return("result")
-```
-
-An example application is available at https://github.com/konvenit/cypress-on-rails-example
 
 # Limitations
 This code is very much at the proof-of-concept stage. The following limitations are known:
-* It requires yarn for the javascript dependency management
-* Only tested on Rails 5.1
-* Only works with RSpec and database_cleaner
+* the generator installs using yarn
+* Only tested on Rails 4.2 & 5.1
