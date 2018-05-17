@@ -4,8 +4,6 @@ module Cypress
   extend ActiveSupport::Autoload
 
   autoload :Runner,          'cypress/runner'
-  autoload :ScenarioBank,    'cypress/scenario_bank'
-  autoload :ScenarioContext, 'cypress/scenario_context'
   autoload :Configuration,   'cypress/configuration'
   autoload :Middleware,      'cypress/middleware'
 
