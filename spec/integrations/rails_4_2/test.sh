@@ -11,7 +11,7 @@ cd $DIR
 
 echo '-- bundle install'
 bundle --version
-bundle install --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
+bundle install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- cypress install'
 bundle exec ./bin/rails g cypress:install --cypress_folder=cypress

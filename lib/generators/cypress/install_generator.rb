@@ -8,7 +8,8 @@ module Cypress
         directories = options.cypress_folder.split('/')
         directories.pop
         install_dir = directories.join('/')
-        yarn_command = "yarn --cwd=#{install_dir} add cypress --dev"
+        say 'installing cypress'
+        yarn_command = "yarn --cwd=#{install_dir} add cypress --dev --silent"
         say yarn_command
         unless system(yarn_command)
           fail 'failed to install cypress'
