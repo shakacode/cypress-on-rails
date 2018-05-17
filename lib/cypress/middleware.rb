@@ -1,17 +1,21 @@
 require 'json'
+require 'rack'
+require 'cypress/configuration'
 
 module Cypress
+  # Middleware to handle cypress commands and eval
   class Middleware
-    def initialize(app)
+    def initialize(app, kernel = ::Kernel, file = ::File)
       @app = app
+      @kernel = kernel
+      @file = file
     end
 
     def call(env)
-      if env['REQUEST_PATH'].to_s.starts_with?('/__cypress__/command')
-        request = Rack::Request.new(env)
+      request = Rack::Request.new(env)
+      if request.path.start_with?('/__cypress__/command')
         handle_command(request)
-      elsif env['REQUEST_PATH'].to_s.starts_with?('/__cypress__/eval')
-        request = Rack::Request.new(env)
+      elsif request.path.to_s.start_with?('/__cypress__/eval')
         handle_eval(request)
       else
         @app.call(env)
@@ -19,34 +23,33 @@ module Cypress
     end
 
     private
-      def configuration
-        Cypress.configuration
-      end
 
-      def cypress_folder
-        configuration.cypress_folder
-      end
+    def configuration
+      Cypress.configuration
+    end
 
-      def json_from_body(req)
-        JSON.parse(req.body.read)
-      end
+    def cypress_folder
+      configuration.cypress_folder
+    end
 
-      def handle_command(req)
-        name = json_from_body(req).fetch('name')
-        file_path = "#{configuration.cypress_folder}/app_commands/#{name}.rb"
-        if File.exists?(file_path)
-          load(file_path)
-          [201, {}, ["success"]]
-        else
-          [404, {}, ["could not find command file: #{file_path}"]]
-        end
-      end
+    def json_from_body(req)
+      JSON.parse(req.body.read)
+    end
 
-      def handle_eval(req)
-        result = eval(json_from_body(req).fetch('code'))
-        [200,
-         { 'Content-Type' => 'text/plain' },
-         [result.to_s]]
+    def handle_command(req)
+      name = json_from_body(req).fetch('name')
+      file_path = "#{configuration.cypress_folder}/app_commands/#{name}.rb"
+      if @file.exists?(file_path)
+        @kernel.load(file_path)
+        [201, {}, ['success']]
+      else
+        [404, {}, ["could not find command file: #{file_path}"]]
       end
+    end
+
+    def handle_eval(req)
+      result = @kernel.eval(json_from_body(req).fetch('code'))
+      [201, {}, [result.to_s]]
+    end
   end
 end

@@ -1,19 +1,12 @@
 require 'active_support/dependencies/autoload'
 
+require 'cypress/configuration'
+
 module Cypress
   extend ActiveSupport::Autoload
 
   autoload :Runner,          'cypress/runner'
-  autoload :Configuration,   'cypress/configuration'
   autoload :Middleware,      'cypress/middleware'
-
-  def self.configuration
-    @configuration ||= Configuration.new
-  end
-
-  def self.configure(&block)
-    yield configuration if block_given?
-  end
 
   def self.run_middleware?
     Rails.env.test?
