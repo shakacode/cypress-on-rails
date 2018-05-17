@@ -12,18 +12,14 @@ echo '-- bundle install'
 bundle --version
 bundle install --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
-echo '-- database setup'
-bin/rake db:create db:schema:load
-
 echo '-- cypress install'
-bin/rails g cypress:install --cypress_folder=test/cypress
-
+../rails_4_2/bin/rails g cypress:install --cypress_folder=test/cypress
 
 echo '-- start rails server'
 # make sure the server is not running
 (kill -9 `cat tmp/pids/server.pid` || true )
 
-bin/rails server -p 5002 -d -e test
+../rails_4_2/bin/rails server -p 5002 -d -e test
 sleep 2 # give rails a chance to start up correctly
 
 echo '-- cypress run'
