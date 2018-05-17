@@ -3,7 +3,7 @@ module Cypress
     attr_accessor :cypress_folder
 
     def initialize
-      self.cypress_folder ||= 'spec/cypress'
+      self.cypress_folder = 'spec/cypress'
     end
   end
 
