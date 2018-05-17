@@ -11,6 +11,5 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y build-essential patch ruby-dev zlib1g-dev liblzma-dev libxml2-dev
 
-
 after_script:
   - ./spec/integrations/rails_4_2/test.sh
