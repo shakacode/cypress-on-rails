@@ -1,9 +1,12 @@
 # cypress-on-rails
 
-Proof-of-Concept gem for using [cypress.io](http://github.com/cypress-io/) in Rails applications. It provides the following features:
-* run ruby code in your application context before executing a test
-* database cleaning before test run (using database_cleaner)
-* ability to use RSpec Mocks for your Rails code
+Gem for using [cypress.io](http://github.com/cypress-io/) in Rails applications. 
+It allows to run code in the application context when executing cypress tests.
+Do things like:
+* use database_cleaner before each test
+* stub objects using rspec-mocks
+* seed the database with default data for each test
+* create scenario files used for specific tests
 
 ## Getting started
 
