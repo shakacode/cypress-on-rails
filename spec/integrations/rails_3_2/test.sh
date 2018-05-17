@@ -6,6 +6,7 @@ echo '--- testing rails 3.2'
 echo '-- setting environment'
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 RAILS_ENV=test
+BUNDLE_GEMFILE="$DIR/Gemfile"
 cd $DIR
 
 echo '-- bundle install'
