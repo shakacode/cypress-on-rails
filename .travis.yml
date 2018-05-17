@@ -4,6 +4,8 @@ rvm:
 
 cache:
   directories:
+    - spec/integrations/rails_5_2/test/node_modules
+    - spec/integrations/rails_5_2/vendor/bundle
     - spec/integrations/rails_4_2/test/node_modules
     - spec/integrations/rails_4_2/vendor/bundle
     - spec/integrations/rails_3_2/test/node_modules
@@ -17,3 +19,4 @@ script:
   - bundle exec rake
   - ./spec/integrations/rails_3_2/test.sh
   - ./spec/integrations/rails_4_2/test.sh
+  - ./spec/integrations/rails_5_2/test.sh
