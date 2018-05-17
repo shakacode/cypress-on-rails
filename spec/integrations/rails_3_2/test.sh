@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo '--- testing rails 4.2'
+echo '--- testing rails 3.2'
 
 echo '-- setting environment'
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -13,7 +13,7 @@ bundle --version
 bundle install --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- cypress install'
-./bin/rails g cypress:install --cypress_folder=test/cypress
+./bin/rails g cypress:install --cypress_folder=cypress
 
 echo '-- start rails server'
 # make sure the server is not running

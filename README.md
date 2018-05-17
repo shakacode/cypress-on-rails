@@ -130,4 +130,3 @@ Use the (`) backtick string syntax to allow multiline strings.
 # Limitations
 This code is very much at the proof-of-concept stage. The following limitations are known:
 * the generator installs using yarn
-* Only tested on Rails 4.2 & 5.1

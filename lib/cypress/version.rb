@@ -1,3 +1,3 @@
 module Cypress
-  VERSION = "1.0.0.alpha".freeze
+  VERSION = "1.0.0.alpha"
 end
