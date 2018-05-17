@@ -27,4 +27,4 @@ echo '-- cypress run'
 yarn run cypress run
 
 echo '-- stop rails server'
-kill -9 `cat ../tmp/pids/server.pid`
+kill -9 `cat tmp/pids/server.pid`
