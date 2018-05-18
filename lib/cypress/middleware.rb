@@ -33,14 +33,23 @@ module Cypress
 
     def handle_command(req)
       body = JSON.parse(req.body.read)
+      configuration.logger.info "Cypress#handle_command: #{body}"
       name = body.fetch('name')
       options = body['options']
       file_path = "#{configuration.cypress_folder}/app_commands/#{name}.rb"
       if @file.exists?(file_path)
+        require_cypress_helper
         @command_executor.load(file_path, options)
         [201, {}, ['success']]
       else
         [404, {}, ["could not find command file: #{file_path}"]]
+      end
+    end
+
+    def require_cypress_helper
+      cypress_helper_file = "#{configuration.cypress_folder}/cypress_helper"
+      if File.exists?(cypress_helper_file)
+        require cypress_helper_file
       end
     end
   end

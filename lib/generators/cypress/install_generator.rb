@@ -14,6 +14,9 @@ module Cypress
         unless system(yarn_command)
           fail 'failed to install cypress'
         end
+        copy_file "spec/cypress/support/index.js", "#{options.cypress_folder}/support/index.js"
+        copy_file "spec/cypress/support/commands.js", "#{options.cypress_folder}/support/commands.js"
+        copy_file "spec/cypress.json", "#{options.cypress_folder}/../cypress.json"
       end
     end
 
@@ -21,15 +24,12 @@ module Cypress
       template "config/initializers/cypress_on_rails.rb.erb", "config/initializers/cypress_on_rails.rb"
       copy_file "spec/cypress/cypress_helper.rb", "#{options.cypress_folder}/cypress_helper.rb"
       copy_file "spec/cypress/integration/on_rails_spec.js", "#{options.cypress_folder}/integration/on_rails_spec.js"
-      copy_file "spec/cypress/support/index.js", "#{options.cypress_folder}/support/index.js"
-      copy_file "spec/cypress/support/commands.js", "#{options.cypress_folder}/support/commands.js"
       copy_file "spec/cypress/support/on-rails.js", "#{options.cypress_folder}/support/on-rails.js"
       copy_file "spec/cypress/app_commands/scenarios/basic.rb", "#{options.cypress_folder}/app_commands/scenarios/basic.rb"
       copy_file "spec/cypress/app_commands/clean_db.rb", "#{options.cypress_folder}/app_commands/clean_db.rb"
       copy_file "spec/cypress/app_commands/stub_services.rb", "#{options.cypress_folder}/app_commands/stub_services.rb"
       copy_file "spec/cypress/app_commands/eval.rb", "#{options.cypress_folder}/app_commands/eval.rb"
       copy_file "spec/cypress/app_commands/factory_bot.rb", "#{options.cypress_folder}/app_commands/factory_bot.rb"
-      copy_file "spec/cypress.json", "#{options.cypress_folder}/../cypress.json"
     end
 
     def update_files

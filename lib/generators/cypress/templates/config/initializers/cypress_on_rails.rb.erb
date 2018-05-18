@@ -2,5 +2,6 @@ if defined?(Cypress)
   Cypress.configure do |c|
     c.cypress_folder = File.expand_path("#{__dir__}/../../<%= options.cypress_folder %>")
     c.use_middleware = Rails.env.test?
+    c.logger = Rails.logger
   end
 end

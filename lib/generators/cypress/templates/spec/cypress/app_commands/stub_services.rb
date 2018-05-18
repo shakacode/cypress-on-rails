@@ -1,13 +1,8 @@
 # Example of stubbing external services using rspec
-require_relative '../cypress_helper'
-begin
-  require 'rspec-mocks'
+if defined?(RSpec::Mocks)
   RSpec::Mocks.teardown
   RSpec::Mocks.setup
-
-  # Add code to stub services here
-  # allow(ExternalService).to receive(:retrieve).and_return("result")
-rescue LoadError
-  message = "add rspec-mocks or update stub_services"
-  puts message
+else
+  logger.warn "add rspec-mocks or update stub_services"
 end
+

@@ -20,7 +20,7 @@ echo '-- start rails server'
 # make sure the server is not running
 (kill -9 `cat tmp/pids/server.pid` || true )
 
-bundle exec ./bin/rails server -p 5002 -d -e test
+bundle exec ./bin/rails server -p 5002 -e test &
 sleep 2 # give rails a chance to start up correctly
 
 echo '-- cypress run'
