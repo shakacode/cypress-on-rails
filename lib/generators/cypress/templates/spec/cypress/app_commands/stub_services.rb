@@ -8,7 +8,6 @@ begin
   # Add code to stub services here
   # allow(ExternalService).to receive(:retrieve).and_return("result")
 rescue LoadError
-  message = "add rspec-mocks or update #{__FILE__}"
-  Rails.logger.warn message
+  message = "add rspec-mocks or update stub_services"
   puts message
 end

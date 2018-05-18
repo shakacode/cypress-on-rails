@@ -5,7 +5,6 @@ begin
   DatabaseCleaner.strategy = :truncation
   DatabaseCleaner.clean
 rescue LoadError
-  message = "add database_cleaner or update #{__FILE__}"
-  Rails.logger.warn message
+  message = "add database_cleaner or update clean_db"
   puts message
 end
