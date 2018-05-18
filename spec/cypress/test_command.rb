@@ -1,1 +1,0 @@
-DummyTest.values << 'hello'
