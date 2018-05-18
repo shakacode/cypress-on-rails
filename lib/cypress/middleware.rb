@@ -48,7 +48,7 @@ module Cypress
 
     def require_cypress_helper
       cypress_helper_file = "#{configuration.cypress_folder}/cypress_helper"
-      if File.exists?(cypress_helper_file)
+      if File.exists?("#{cypress_helper_file}.rb")
         require cypress_helper_file
       end
     end
