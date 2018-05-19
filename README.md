@@ -54,6 +54,9 @@ cd spec
 yarn run cypress open
 ```
 
+*WARNING!!:* ``cypress-on-rails can execute arbitrary ruby code ``
+please use with extra caution if starting your local server on 0.0.0.0
+
 Now you can create scenarios and commands that are plan ruby files that get loaded 
 through middleware, the ruby sky is your limit.
 
