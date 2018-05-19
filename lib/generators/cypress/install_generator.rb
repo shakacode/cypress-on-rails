@@ -1,18 +1,23 @@
 module Cypress
   class InstallGenerator < Rails::Generators::Base
     class_option :cypress_folder, type: :string, default: 'spec/cypress'
+    class_option :install_cypress_with, type: :string, default: 'yarn'
     source_root File.expand_path('../templates', __FILE__)
 
     def install_cypress
       if !Dir.exists?(options.cypress_folder) || Dir["#{options.cypress_folder}/*"].empty?
         directories = options.cypress_folder.split('/')
         directories.pop
-        install_dir = directories.join('/')
-        say 'installing cypress'
-        yarn_command = "yarn --cwd=#{install_dir} add cypress --dev --silent"
-        say yarn_command
-        unless system(yarn_command)
-          fail 'failed to install cypress'
+        install_dir = "#{Dir.pwd}/#{directories.join('/')}"
+        command = nil
+        if options.install_cypress_with == 'yarn'
+          command = "yarn --cwd=#{install_dir} add cypress --dev --silent"
+        elsif options.install_cypress_with == 'npm'
+          command = "cd #{install_dir}; npm add cypress --save-dev --silent"
+        end
+        if command
+          say command
+          fail 'failed to install cypress' unless system(command)
         end
         copy_file "spec/cypress/support/index.js", "#{options.cypress_folder}/support/index.js"
         copy_file "spec/cypress/support/commands.js", "#{options.cypress_folder}/support/commands.js"
