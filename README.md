@@ -1,11 +1,11 @@
 # cypress-on-rails
 
-Gem for using [cypress.io](http://github.com/cypress-io/) in Rails applications. 
+Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and ruby rack applications. 
 It allows to run code in the application context when executing cypress tests.
 Do things like:
 * use database_cleaner before each test
-* stub objects using rspec-mocks
 * seed the database with default data for each test
+* use factory_bot to setup data
 * create scenario files used for specific tests
 
 ## Getting started
@@ -26,6 +26,7 @@ bin/rails g cypress:install --cypress_folder=test/cypress
 ```
 
 if you are not using database_cleaner look at `spec/cypress/app_commands/clean_db.rb`.
+if you are not using factory_bot look at `spec/cypress/app_commands/factory_bot.rb`.
 
 ## Usage
 
@@ -126,7 +127,6 @@ describe('My First Test', function() {
 
 Use the (`) backtick string syntax to allow multiline strings.
 
-
 # Limitations
 This code is very much at the proof-of-concept stage. The following limitations are known:
-* the generator installs using yarn
+* the generator installs cypress using yarn
