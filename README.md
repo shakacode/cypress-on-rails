@@ -61,7 +61,6 @@ through middleware, the ruby sky is your limit.
 *WARNING!!:* cypress-on-rails can execute arbitrary ruby code
 Please use with extra caution if starting your local server on 0.0.0.0
 
-
 ### Example of using scenarios
 
 Scenarios are named `before` blocks that you can reference in your test.
@@ -134,6 +133,49 @@ describe('My First Test', function() {
 ```
 
 Use the (`) backtick string syntax to allow multiline strings.
+
+## Usage with other rack applications
+
+Add cypress-on-rails to your config.ru
+
+```ruby
+# an example config.ru
+require File.expand_path('my_app', File.dirname(__FILE__))
+
+require 'cypress/middleware'
+Cypress.configure do |c|
+  c.cypress_folder = File.expand_path("#{__dir__}/test/cypress")
+end
+use Cypress::Middleware
+
+run MyApp 
+```
+
+add the following file to cypress
+
+```js
+// test/cypress/support/on-rails.js
+// cypress-on-rails: dont remove these command
+Cypress.Commands.add('app', function (name, command_options) {
+  cy.request({
+    method: 'POST',
+    url: "/__cypress__/command",
+    body: JSON.stringify({name: name, options: command_options}),
+    log: true,
+    failOnStatusCode: true
+  })
+});
+
+Cypress.Commands.add('appScenario', function (name) {
+  cy.app('scenarios/' + name)
+});
+// cypress-on-rails: end
+
+// The next is optional
+beforeEach(() => {
+  cy.app('clean_db') // have a look at cypress/app_commands/clean_db
+});
+```
 
 # Limitations
 This code is very much at the proof-of-concept stage. The following limitations are known:
