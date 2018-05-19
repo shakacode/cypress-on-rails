@@ -13,7 +13,7 @@ Do things like:
 Add this to your Gemfile:
 ```
 group :test, :development do
-  gem 'cypress-on-rails'
+  gem 'cypress-on-rails', git: 'https://github.com/grantspeelman/cypress-on-rails'
 end
 ```
 
