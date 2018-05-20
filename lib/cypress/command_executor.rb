@@ -1,7 +1,7 @@
 require 'cypress/configuration'
 
 module Cypress
-  # Middleware to handle cypress commands and eval
+  # loads and evals the command files
   class CommandExecutor
     def self.load(file,command_options = nil)
       load_cypress_helper
