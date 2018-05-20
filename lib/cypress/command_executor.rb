@@ -9,6 +9,7 @@ module Cypress
       eval file_data
     rescue => e
       logger.error("fail to execute #{file}: #{e.message}")
+      logger.error(e.backtrace.join("\n"))
       raise e
     end
 
