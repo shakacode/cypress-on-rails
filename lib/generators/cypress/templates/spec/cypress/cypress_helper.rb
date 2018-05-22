@@ -8,7 +8,14 @@ end
 
 begin
   require 'factory_bot_rails'
-  Dir["./spec/factories/**/*.rb"].each { |f| require f }
+  module FactoryBot
+    def self.reset
+      factories.clear
+      traits.clear
+      callbacks.clear
+      sequences.clear
+    end
+  end
 rescue LoadError => e
   puts e.message
 end
