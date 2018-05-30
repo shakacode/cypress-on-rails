@@ -27,17 +27,34 @@ module Cypress
       Cypress.configuration
     end
 
+    Command = Struct.new(:name, :options, :cypress_folder) do
+      # @return [Array<Cypress::Middleware::Command>]
+      def self.from_body(body, configuration)
+        if body.is_a?(Array)
+          command_params = body
+        else
+          command_params = [body]
+        end
+        command_params.map do |params|
+          new(params.fetch('name'), params['options'], configuration.cypress_folder)
+        end
+      end
+
+      def file_path
+        "#{cypress_folder}/app_commands/#{name}.rb"
+      end
+    end
+
     def handle_command(req)
       body = JSON.parse(req.body.read)
       configuration.logger.info "Cypress#handle_command: #{body}"
-      name = body.fetch('name')
-      options = body['options']
-      file_path = "#{configuration.cypress_folder}/app_commands/#{name}.rb"
-      if @file.exists?(file_path)
-        @command_executor.load(file_path, options)
+      commands = Command.from_body(body, configuration)
+      missing_command = commands.find {|command| !@file.exists?(command.file_path) }
+      if missing_command.nil?
+        commands.each { |command| @command_executor.load(command.file_path, command.options) }
         [201, {}, ['success']]
       else
-        [404, {}, ["could not find command file: #{file_path}"]]
+        [404, {}, ["could not find command file: #{missing_command.file_path}"]]
       end
     end
   end

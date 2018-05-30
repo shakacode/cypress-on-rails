@@ -52,6 +52,30 @@ RSpec.describe Cypress::Middleware do
         expect(command_executor).to_not have_received(:load)
       end
     end
+
+    it 'running multiple commands' do
+      env['rack.input'] = rack_input([{name: 'load_user'},
+                                      {name: 'load_sample', options: {'all' => 'true'}}])
+      allow(file).to receive(:exists?).with('spec/cypress/app_commands/load_user.rb').and_return(true)
+      allow(file).to receive(:exists?).with('spec/cypress/app_commands/load_sample.rb').and_return(true)
+
+      aggregate_failures do
+        expect(response).to eq([201, {}, ['success']])
+        expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/load_user.rb', nil)
+        expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/load_sample.rb', {'all' => 'true'})
+      end
+    end
+
+    it 'running multiple commands but one missing' do
+      env['rack.input'] = rack_input([{name: 'load_user'}, {name: 'load_sample'}])
+      allow(file).to receive(:exists?).with('spec/cypress/app_commands/load_user.rb').and_return(true)
+      allow(file).to receive(:exists?).with('spec/cypress/app_commands/load_sample.rb').and_return(false)
+
+      aggregate_failures do
+        expect(response).to eq([404, {}, ['could not find command file: spec/cypress/app_commands/load_sample.rb']])
+        expect(command_executor).to_not have_received(:load)
+      end
+    end
   end
 
   context '"Other paths"' do
