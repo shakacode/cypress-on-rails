@@ -8,12 +8,12 @@ end
 
 begin
   require 'factory_bot_rails'
-  module FactoryBot
-    def self.reset
-      factories.clear
-      traits.clear
-      callbacks.clear
-      sequences.clear
+  module FactoryCleaner
+    def self.clean(f = FactoryBot)
+      f.factories.clear
+      f.traits.clear
+      f.callbacks.clear
+      f.sequences.clear
     end
   end
 rescue LoadError => e
