@@ -25,7 +25,7 @@ module Cypress
     end
 
     def self.create_list(*args)
-      instance.create(*args)
+      instance.create_list(*args)
     end
 
     # @return [Array]
