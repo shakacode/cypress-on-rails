@@ -8,17 +8,25 @@ end
 
 begin
   require 'factory_bot_rails'
-  module FactoryCleaner
-    def self.clean(f = FactoryBot)
-      f.factories.clear
-      f.traits.clear
-      f.callbacks.clear
-      f.sequences.clear
-    end
-  end
 rescue LoadError => e
   puts e.message
+  begin
+    require 'factory_girl_rails'
+  rescue LoadError => e
+    puts e.message
+  end
 end
+
+require 'cypress/smart_factory_wrapper'
+
+factory = Cypress::SimpleRailsFactory
+factory = FactoryBot if defined?(FactoryBot)
+factory = FactoryGirl if defined?(FactoryGirl)
+
+Cypress::SmartFactoryWrapper.configure(
+    factory: factory,
+    files: Dir["./spec/factories/**/*.rb"]
+)
 
 begin
   require 'rspec-mocks'
