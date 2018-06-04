@@ -5,7 +5,7 @@ Rails32::Application.configure do
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
-  config.cache_classes = true
+  config.cache_classes = ENV['CI'].present?
 
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_assets = true
