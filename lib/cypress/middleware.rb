@@ -15,7 +15,11 @@ module Cypress
     def call(env)
       request = Rack::Request.new(env)
       if request.path.start_with?('/__cypress__/command')
-        handle_command(request)
+        if logger.respond_to?(:tagged)
+          logger.tagged('CYPRESS') { handle_command(request) }
+        else
+          handle_command(request)
+        end
       else
         @app.call(env)
       end
@@ -25,6 +29,10 @@ module Cypress
 
     def configuration
       Cypress.configuration
+    end
+
+    def logger
+      configuration.logger
     end
 
     Command = Struct.new(:name, :options, :cypress_folder) do
@@ -47,7 +55,7 @@ module Cypress
 
     def handle_command(req)
       body = JSON.parse(req.body.read)
-      configuration.logger.info "Cypress#handle_command: #{body}"
+      logger.info "Cypress#handle_command: #{body}"
       commands = Command.from_body(body, configuration)
       missing_command = commands.find {|command| !@file.exists?(command.file_path) }
       if missing_command.nil?
