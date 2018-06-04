@@ -17,6 +17,14 @@ module Cypress
       self.use_middleware = true
       self.logger = Logger.new(STDOUT)
     end
+
+    def tagged_logged
+      if logger.respond_to?(:tagged)
+        logger.tagged('CYPRESS') { yield }
+      else
+        yield
+      end
+    end
   end
 
   def self.configuration

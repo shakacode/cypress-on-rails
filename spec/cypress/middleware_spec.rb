@@ -14,8 +14,6 @@ RSpec.describe Cypress::Middleware do
     StringIO.new(JSON.generate(json_value))
   end
 
-  before { Cypress.configuration.reset }
-
   context '/__cypress__/command' do
     before do
       allow(command_executor).to receive(:load)
