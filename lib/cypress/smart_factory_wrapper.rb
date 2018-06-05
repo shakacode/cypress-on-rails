@@ -16,8 +16,8 @@ module Cypress
       @instance ||= new(files: [], factory: SimpleRailsFactory)
     end
 
-    def self.configure(files:, factory:)
-      @instance = new(files: files, factory: factory)
+    def self.configure(files:, factory:, always_reload: true)
+      @instance = new(files: files, factory: factory, always_reload: always_reload)
     end
 
     def self.create(*args)
@@ -31,11 +31,13 @@ module Cypress
     # @return [Array]
     attr_accessor :files
     attr_accessor :factory
+    attr_accessor :always_reload
 
-    def initialize(files:, factory:,
+    def initialize(files:, factory:, always_reload: false,
                    factory_cleaner: FactoryCleaner, kernel: Kernel, file_system: File)
       self.files = files
       self.factory = factory
+      self.always_reload = always_reload
       @kernel = kernel
       @file_system = file_system
       @factory_cleaner = factory_cleaner
@@ -60,15 +62,18 @@ module Cypress
 
     def load_files
       current_latest_mtime = files.map{|file| @file_system.mtime(file) }.max
-      if @latest_mtime.nil? || @latest_mtime < current_latest_mtime
-        logger.info 'Loading Factories'
-        @latest_mtime = current_latest_mtime
-        @factory_cleaner.clean(factory)
-        files.each do |file|
-          logger.debug "-- Loading: #{file}"
-          @kernel.load(file)
-        end
+      return unless should_reload?(current_latest_mtime)
+      logger.info 'Loading Factories'
+      @latest_mtime = current_latest_mtime
+      @factory_cleaner.clean(factory)
+      files.each do |file|
+        logger.debug "-- Loading: #{file}"
+        @kernel.load(file)
       end
+    end
+
+    def should_reload?(current_latest_mtime)
+      @always_reload || @latest_mtime.nil? || @latest_mtime < current_latest_mtime
     end
   end
 end

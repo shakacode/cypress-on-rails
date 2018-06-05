@@ -24,6 +24,7 @@ factory = FactoryBot if defined?(FactoryBot)
 factory = FactoryGirl if defined?(FactoryGirl)
 
 Cypress::SmartFactoryWrapper.configure(
+    always_reload: !Rails.configuration.cache_classes,
     factory: factory,
     files: Dir["./spec/factories/**/*.rb"]
 )

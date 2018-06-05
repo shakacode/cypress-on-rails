@@ -72,4 +72,12 @@ RSpec.describe Cypress::SmartFactoryWrapper do
 
     expect(factory_cleaner).to have_received(:clean).with(factory_double).twice
   end
+
+  it 'will always reload the files enabled' do
+    subject.always_reload = true
+    subject.create_list(:user)
+    subject.create(:user)
+    expect(kernel_double).to have_received(:load).with('file1.rb').twice
+    expect(kernel_double).to have_received(:load).with('file2.rb').twice
+  end
 end
