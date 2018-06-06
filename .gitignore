@@ -1,1 +1,6 @@
 .DS_Store
+Gemfile.lock
+.ruby-version
+spec/examples.txt
+.idea
+spec/test.log

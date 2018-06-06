@@ -1,41 +1,37 @@
+require 'logger'
+
 module Cypress
   class Configuration
-    attr_accessor :test_framework, :db_resetter, :cache_classes, :server_port
+    attr_accessor :cypress_folder
+    attr_accessor :use_middleware
+    attr_accessor :logger
 
-    def initialize(args=[])
-      setup(args)
+    def initialize
+      reset
     end
 
-    def setup(args)
-      @args           = args
-      @test_framework = :rspec
-      @db_resetter    = :database_cleaner
-      @before         = proc {}
-      @cache_classes  = run_mode == 'run'
+    alias :use_middleware? :use_middleware
+
+    def reset
+      self.cypress_folder = 'spec/cypress'
+      self.use_middleware = true
+      self.logger = Logger.new(STDOUT)
     end
 
-    def include(mod)
-      ScenarioContext.send :include, mod
-    end
-
-    def before(&block)
-      if block_given?
-        @before = block
+    def tagged_logged
+      if logger.respond_to?(:tagged)
+        logger.tagged('CYPRESS') { yield }
       else
-        @before
+        yield
       end
     end
+  end
 
-    def run_mode
-      if @args.first == 'run'
-        'run'
-      else
-        'open'
-      end
-    end
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
 
-    def load_support
-      require "./spec/cypress/cypress_helper"
-    end
+  def self.configure
+    yield configuration if block_given?
   end
 end

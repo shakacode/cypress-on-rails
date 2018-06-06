@@ -1,69 +1,65 @@
 require 'json'
+require 'rack'
+require 'cypress/configuration'
+require 'cypress/command_executor'
 
 module Cypress
+  # Middleware to handle cypress commands and eval
   class Middleware
-    def initialize(app)
+    def initialize(app, command_executor = CommandExecutor, file = ::File)
       @app = app
+      @command_executor = command_executor
+      @file = file
     end
 
     def call(env)
-      if env['REQUEST_PATH'].to_s.starts_with?('/__cypress__/')
-        path = env['REQUEST_PATH'].sub('/__cypress__/', '')
-        cmd  = path.split('/').first
-        if respond_to?("handle_#{cmd}", true)
-          send "handle_#{cmd}", Rack::Request.new(env)
-          [201, {}, ["success"]]
-        else
-          [404, {}, ["unknown command: #{cmd}"]]
-        end
+      request = Rack::Request.new(env)
+      if request.path.start_with?('/__cypress__/command')
+        configuration.tagged_logged { handle_command(request) }
       else
         @app.call(env)
       end
     end
 
     private
-      def configuration
-        Cypress.configuration
-      end
 
-      def new_context
-        ScenarioContext.new(configuration)
-      end
+    def configuration
+      Cypress.configuration
+    end
 
-      def handle_setup(req)
-        reset_rspec           if configuration.test_framework == :rspec
-        call_database_cleaner if configuration.db_resetter    == :database_cleaner
-        new_context.execute configuration.before
-      end
+    def logger
+      configuration.logger
+    end
 
-      def reset_rspec
-        require 'rspec/rails'
-        RSpec::Mocks.teardown
-        RSpec::Mocks.setup
-      end
-
-      def call_database_cleaner
-        require 'database_cleaner'
-        DatabaseCleaner.strategy = :truncation
-        DatabaseCleaner.clean
-      end
-
-      def json_from_body(req)
-        JSON.parse(req.body.read)
-      end
-
-      def handle_scenario(req)
-        handle_setup(req)
-
-        @scenario_bank = ScenarioBank.new
-        @scenario_bank.load
-        if block = @scenario_bank[json_from_body(req)['scenario']]
-          new_context.execute block
+    Command = Struct.new(:name, :options, :cypress_folder) do
+      # @return [Array<Cypress::Middleware::Command>]
+      def self.from_body(body, configuration)
+        if body.is_a?(Array)
+          command_params = body
+        else
+          command_params = [body]
+        end
+        command_params.map do |params|
+          new(params.fetch('name'), params['options'], configuration.cypress_folder)
         end
       end
 
-      def handle_eval(req)
-        new_context.execute json_from_body(req)['code']
+      def file_path
+        "#{cypress_folder}/app_commands/#{name}.rb"
       end
+    end
+
+    def handle_command(req)
+      body = JSON.parse(req.body.read)
+      logger.info "handle_command: #{body}"
+      commands = Command.from_body(body, configuration)
+      missing_command = commands.find {|command| !@file.exists?(command.file_path) }
+      if missing_command.nil?
+        commands.each { |command| @command_executor.load(command.file_path, command.options) }
+        [201, {}, ['success']]
+      else
+        [404, {}, ["could not find command file: #{missing_command.file_path}"]]
+      end
+    end
   end
 end

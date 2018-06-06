@@ -1,0 +1,5 @@
+<h1>Welcome</h1>
+<p>Posts:</p>
+<% Post.all.each do |post| %>
+  <p><%= post.inspect %></p>
+<% end %>

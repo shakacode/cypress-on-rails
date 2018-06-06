@@ -1,15 +1,13 @@
 require 'rails/railtie'
+require 'cypress/configuration'
+require 'cypress/middleware'
+
 module Cypress
   class Railtie < Rails::Railtie
     initializer :setup_cypress_middleware do |app|
-      if Cypress.run_middleware?
-        Cypress.configuration.load_support
+      if Cypress.configuration.use_middleware?
         app.middleware.use Middleware
       end
-    end
-
-    generators do
-      require_relative '../generators/install_generator'
     end
   end
 end

@@ -15,7 +15,8 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]
-  s.add_dependency 'activesupport'
-  s.add_dependency 'selenium-webdriver' # to be replaced
+  s.add_dependency 'rack'
+  s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
+  s.add_development_dependency 'railties', '>= 3.2'
 end
