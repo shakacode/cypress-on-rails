@@ -1,4 +1,4 @@
-module Cypress
+module CypressDev
   class InstallGenerator < Rails::Generators::Base
     class_option :cypress_folder, type: :string, default: 'spec/cypress'
     class_option :install_cypress_with, type: :string, default: 'yarn'
@@ -26,7 +26,7 @@ module Cypress
     end
 
     def add_initial_files
-      template "config/initializers/cypress_on_rails.rb.erb", "config/initializers/cypress_on_rails.rb"
+      template "config/initializers/cypress_dev.rb.erb", "config/initializers/cypress_dev.rb"
       copy_file "spec/cypress/cypress_helper.rb", "#{options.cypress_folder}/cypress_helper.rb"
       copy_file "spec/cypress/integration/on_rails_spec.js", "#{options.cypress_folder}/integration/on_rails_spec.js"
       copy_file "spec/cypress/support/on-rails.js", "#{options.cypress_folder}/support/on-rails.js"

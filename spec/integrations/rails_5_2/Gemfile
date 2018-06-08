@@ -8,5 +8,5 @@ gem 'rails', '~> 5.2.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
-  gem 'cypress-on-rails', path: '../../../'
+  gem 'cypress_dev', path: '../../../'
 end

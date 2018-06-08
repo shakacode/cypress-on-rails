@@ -1,7 +1,7 @@
-if defined?(Cypress)
-  Cypress.configure do |c|
+if defined?(CypressDev)
+  CypressDev.configure do |c|
     c.cypress_folder = File.expand_path("#{__dir__}/../../<%= options.cypress_folder %>")
-    # WARNING!! cypress-on-rails can execute arbitrary ruby code
+    # WARNING!! CypressDev can execute arbitrary ruby code
     # please use with extra caution if enabling on hosted servers or starting your local server on 0.0.0.0
     c.use_middleware = Rails.env.test?
     c.logger = Rails.logger

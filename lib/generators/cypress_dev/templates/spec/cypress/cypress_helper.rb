@@ -17,22 +17,14 @@ rescue LoadError => e
   end
 end
 
-require 'cypress/smart_factory_wrapper'
+require 'cypress_dev/smart_factory_wrapper'
 
-factory = Cypress::SimpleRailsFactory
+factory = CypressDev::SimpleRailsFactory
 factory = FactoryBot if defined?(FactoryBot)
 factory = FactoryGirl if defined?(FactoryGirl)
 
-Cypress::SmartFactoryWrapper.configure(
+CypressDev::SmartFactoryWrapper.configure(
     always_reload: !Rails.configuration.cache_classes,
     factory: factory,
-    files: Dir["./spec/factories/**/*.rb"]
+    files: Dir['./spec/factories/**/*.rb']
 )
-
-begin
-  require 'rspec-mocks'
-rescue LoadError => e
-  puts e.message
-end
-
-

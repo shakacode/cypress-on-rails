@@ -95,8 +95,8 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   config.before(:each) do
-    require 'cypress/configuration'
-    Cypress.configure do |config|
+    require 'cypress_dev/configuration'
+    CypressDev.configure do |config|
       config.reset
       config.logger = Logger.new('spec/test.log')
     end

@@ -1,11 +1,11 @@
 require 'rails/railtie'
-require 'cypress/configuration'
-require 'cypress/middleware'
+require 'cypress_dev/configuration'
+require 'cypress_dev/middleware'
 
-module Cypress
+module CypressDev
   class Railtie < Rails::Railtie
     initializer :setup_cypress_middleware do |app|
-      if Cypress.configuration.use_middleware?
+      if CypressDev.configuration.use_middleware?
         app.middleware.use Middleware
       end
     end

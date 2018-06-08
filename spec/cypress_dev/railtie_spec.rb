@@ -1,11 +1,11 @@
-require_relative '../../lib/cypress/railtie'
+require 'cypress_dev/railtie'
 
 module Rails
   def self.env
   end
 end
 
-RSpec.describe Cypress::Railtie do
+RSpec.describe CypressDev::Railtie do
   let(:rails_env) { double }
   let(:middleware) { double('Middleware', use: true) }
   let(:rails_app) { double('RailsApp', middleware: middleware) }
@@ -15,7 +15,7 @@ RSpec.describe Cypress::Railtie do
   end
 
   it 'runs the middleware in test mode' do
-    Cypress::Railtie.initializers.each do |initializer|
+    CypressDev::Railtie.initializers.each do |initializer|
       initializer.run(rails_app)
     end
   end

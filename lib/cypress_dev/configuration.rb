@@ -1,6 +1,6 @@
 require 'logger'
 
-module Cypress
+module CypressDev
   class Configuration
     attr_accessor :cypress_folder
     attr_accessor :use_middleware
@@ -20,7 +20,7 @@ module Cypress
 
     def tagged_logged
       if logger.respond_to?(:tagged)
-        logger.tagged('CYPRESS') { yield }
+        logger.tagged('CY_DEV') { yield }
       else
         yield
       end
