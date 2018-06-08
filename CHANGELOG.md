@@ -1,3 +1,9 @@
+## 1.0.0
+* renamed to CypressDev
+* middleware stripped down to make it more flexible and generic
+* concept of generic commands introduced that can have any ruby in it
+* and lots of other changes
+
 ## 0.2.2 (2018-03-24)
 ### Fixed
 * fix major bug when using scenarios

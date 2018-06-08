@@ -1,6 +1,8 @@
-# cypress-on-rails
+# CypressDev
 
-Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and ruby rack applications. 
+Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and ruby rack applications 
+with the goal of controlling State as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
+
 It allows to run code in the application context when executing cypress tests.
 Do things like:
 * use database_cleaner before each test
@@ -8,36 +10,39 @@ Do things like:
 * use factory_bot to setup data
 * create scenario files used for specific tests
 
+This gem is based off https://github.com/konvenit/cypress-on-rails
+
 ## Getting started
 
 Add this to your Gemfile:
 ```
 group :test, :development do
-  gem 'cypress-on-rails', git: 'https://github.com/grantspeelman/cypress-on-rails'
+  gem 'cypress_dev'
 end
 ```
 
 The generate the boilerplate code using:
 ```
-bin/rails g cypress:install
+bin/rails g cypress_dev:install
 
 # if you have/want a different cypress folder (default is spec/cypress)
-bin/rails g cypress:install --cypress_folder=test/cypress
+bin/rails g cypress_dev:install --cypress_folder=test/cypress
 
 # if you want to install cypress with npm
-bin/rails g cypress:install --install_cypress_with=npm
+bin/rails g cypress_dev:install --install_cypress_with=npm
 ```
+
+The generator adds the following files/directory to your application:
+* `config/initializers/cypress_dev` used to configure CypressDev
+* `spec/cypress/integrations/` contains your cypress tests
+* `spec/cypress/support/on-rails.js` contains CypressDev support code
+* `spec/cypress/app_commands/scenarios/` contains your CypressDev scenario definitions
+* `spec/cypress/cypress_helper.rb` contains helper code for CypressDev app commands
 
 if you are not using database_cleaner look at `spec/cypress/app_commands/clean_db.rb`.
 if you are not using factory_bot look at `spec/cypress/app_commands/factory_bot.rb`.
 
 ## Usage
-
-The generator adds the following files/directory to your application:
-* `spec/cypress/integrations/` contains your tests
-* `spec/cypress/support/on-rails.js` contains support code
-* `spec/cypress/app_commands/scenarios/` contains your scenario definitions
-* `spec/cypress/cypress_helper.rb` contains helper code for app commands
 
 When writing End-to-End tests, you will probably want to prepare your database to a known state. 
 Maybe using a gem like factory_bot. This gem implements two methods to achieve this goal:
@@ -59,7 +64,7 @@ through middleware, the ruby sky is your limit.
 
 ### WARNING
 *WARNING!!:* cypress-on-rails can execute arbitrary ruby code
-Please use with extra caution if starting your local server on 0.0.0.0
+Please use with extra caution if starting your local server on 0.0.0.0 or running on a hosted server
 
 ### Example of using scenarios
 
@@ -68,11 +73,10 @@ Scenarios are named `before` blocks that you can reference in your test.
 You define a scenario in the `spec/cypress/app_commands/scenarios` directory:
 ```ruby
 # spec/cypress/app_commands/scenarios/basic.rb
-require_relative '../../cypress_helper' 
 Profile.create name: "Cypress Hill"
 
 # or if you have factory_bot enabled in your cypress_helper
-FactoryBot.create(:profile, name: "Cypress Hill") 
+CypressDev::SmartFactoryWrapper.create(:profile, name: "Cypress Hill") 
 ```
 
 Then reference the scenario in your test:
@@ -86,6 +90,38 @@ describe('My First Test', function() {
     cy.visit('/profiles')
 
     cy.contains("Cypress Hill")
+  })
+})
+```
+
+### Example of using factory bot
+You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) directly as well
+
+```ruby
+# spec/cypress/app_commands/scenarios/basic.rb
+require 'cypress/smart_factory_wrapper'
+
+CypressDev::SmartFactoryWrapper.configure(
+    always_reload: !Rails.configuration.cache_classes,
+    factory: FactoryBot,
+    files: Dir['./spec/factories/**/*.rb']
+) 
+```
+
+```js
+// spec/cypress/integrations/simple_spec.js
+describe('My First Test', function() {
+  it('visit root', function() {
+    // This calls to the backend to prepare the application state
+    cy.appFactories([
+      ['create_list', 'post', 10],
+      ['create', 'post', {title: 'Hello World'} ]
+    ])
+
+    // The application unter test is available at SERVER_PORT
+    cy.visit('/')
+
+    cy.contains("Hello World")
   })
 })
 ```
@@ -112,38 +148,16 @@ describe('My First Test', function() {
 })
 ```
 
-### Using embedded ruby
-You can embed ruby code in your test file. This code will then be executed in the context of your application. For example:
-
-```js
-// spec/cypress/integrations/simple_spec.js
-describe('My First Test', function() {
-  it('visit root', function() {
-    // This calls to the backend to prepare the application state
-    cy.appEval(`
-      Profile.create name: "Cypress Hill"
-    `)
-
-    // The application unter test is available at SERVER_PORT
-    cy.visit('/')
-
-    cy.contains("Cypress Hill")
-  })
-})
-```
-
-Use the (`) backtick string syntax to allow multiline strings.
-
 ## Usage with other rack applications
 
-Add cypress-on-rails to your config.ru
+Add CypressDev to your config.ru
 
 ```ruby
 # an example config.ru
 require File.expand_path('my_app', File.dirname(__FILE__))
 
 require 'cypress/middleware'
-Cypress.configure do |c|
+CypressDev.configure do |c|
   c.cypress_folder = File.expand_path("#{__dir__}/test/cypress")
 end
 use Cypress::Middleware
@@ -155,28 +169,40 @@ add the following file to cypress
 
 ```js
 // test/cypress/support/on-rails.js
-// cypress-on-rails: dont remove these command
-Cypress.Commands.add('app', function (name, command_options) {
+// CypressDev: dont remove these command
+Cypress.Commands.add('appCommands', function (body) {
   cy.request({
     method: 'POST',
     url: "/__cypress__/command",
-    body: JSON.stringify({name: name, options: command_options}),
+    body: JSON.stringify(body),
     log: true,
     failOnStatusCode: true
   })
 });
 
+Cypress.Commands.add('app', function (name, command_options) {
+  cy.appCommands({name: name, options: command_options})
+});
+
 Cypress.Commands.add('appScenario', function (name) {
   cy.app('scenarios/' + name)
 });
-// cypress-on-rails: end
+
+Cypress.Commands.add('appFactories', function (options) {
+  cy.app('factory_bot', options)
+});
+// CypressDev: end
 
 // The next is optional
 beforeEach(() => {
-  cy.app('clean_db') // have a look at cypress/app_commands/clean_db
+  cy.app('clean') // have a look at cypress/app_commands/clean.rb
 });
 ```
 
-# Limitations
-This code is very much at the proof-of-concept stage. The following limitations are known:
-* the generator installs cypress using yarn
+## Contributing
+
+1. Fork it ( https://github.com/[my-github-username]/cypress-on-rails/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request

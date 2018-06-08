@@ -1,4 +1,4 @@
-module Cypress
+module CypressDev
   module SimpleRailsFactory
     def self.create(type, params = {})
       type.camelize.constantize.create(params)

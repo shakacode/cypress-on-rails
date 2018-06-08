@@ -1,6 +1,6 @@
-require 'cypress/configuration'
+require 'cypress_dev/configuration'
 
-module Cypress
+module CypressDev
   # loads and evals the command files
   class CommandExecutor
     def self.load(file,command_options = nil)
@@ -27,7 +27,7 @@ module Cypress
     end
 
     def self.configuration
-      Cypress.configuration
+      CypressDev.configuration
     end
   end
 end

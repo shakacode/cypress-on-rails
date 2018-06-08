@@ -1,7 +1,7 @@
-require 'cypress/configuration'
-require 'cypress/simple_rails_factory'
+require 'cypress_dev/configuration'
+require 'cypress_dev/simple_rails_factory'
 
-module Cypress
+module CypressDev
   class SmartFactoryWrapper
     module FactoryCleaner
       def self.clean(f = FactoryBot)
@@ -57,7 +57,7 @@ module Cypress
     private
 
     def logger
-      Cypress.configuration.logger
+      CypressDev.configuration.logger
     end
 
     def load_files

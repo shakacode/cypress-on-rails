@@ -1,6 +1,6 @@
-require_relative '../../lib/cypress/command_executor'
+require 'cypress_dev/command_executor'
 
-RSpec.describe Cypress::CommandExecutor do
+RSpec.describe CypressDev::CommandExecutor do
   describe '.load' do
     let(:folder) { "#{__dir__}/command_executor" }
     subject { described_class }
@@ -10,7 +10,7 @@ RSpec.describe Cypress::CommandExecutor do
     end
 
     before do
-      Cypress.configuration.cypress_folder = folder
+      CypressDev.configuration.cypress_folder = folder
       DummyTest.values.clear if defined?(DummyTest)
     end
 

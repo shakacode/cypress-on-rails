@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
 $LOAD_PATH.push File.expand_path("../lib", __FILE__)
-require "cypress/version"
+require "cypress_dev/version"
 
 Gem::Specification.new do |s|
-  s.name        = "cypress-on-rails"
-  s.version     = Cypress::VERSION
-  s.author      = "miceportal team"
-  s.email       = "info@miceportal.de"
-  s.homepage    = "http://github.com/konvenit/cypress-on-rails"
-  s.summary     = "Integrates cypress with rails"
-  s.description = "Integrates cypress with rails"
+  s.name        = "cypress_dev"
+  s.version     = CypressDev::VERSION
+  s.author      = ["miceportal team"]
+  s.email       = ["info@miceportal.de"]
+  s.homepage    = "http://github.com/grantspeelman/cypress-on-rails"
+  s.summary     = "Integrates cypress with rails or rack applications"
+  s.description = "Integrates cypress with rails or rack applications"
   s.rubyforge_project = s.name
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")

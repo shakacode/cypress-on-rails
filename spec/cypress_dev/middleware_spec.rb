@@ -1,8 +1,8 @@
-require_relative '../../lib/cypress/middleware'
+require 'cypress_dev/middleware'
 
-RSpec.describe Cypress::Middleware do
+RSpec.describe CypressDev::Middleware do
   let(:app) { ->(env) { [200, {}, ["app did #{env['PATH_INFO']}"]] } }
-  let(:command_executor) { class_double(Cypress::CommandExecutor) }
+  let(:command_executor) { class_double(CypressDev::CommandExecutor) }
   let(:file) { class_double(File) }
   subject { described_class.new(app, command_executor, file) }
 
