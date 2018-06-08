@@ -99,7 +99,7 @@ You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) direct
 
 ```ruby
 # spec/cypress/app_commands/scenarios/basic.rb
-require 'cypress/smart_factory_wrapper'
+require 'cypress_dev/smart_factory_wrapper'
 
 CypressDev::SmartFactoryWrapper.configure(
     always_reload: !Rails.configuration.cache_classes,

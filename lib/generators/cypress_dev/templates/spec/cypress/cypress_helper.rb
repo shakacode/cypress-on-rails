@@ -17,7 +17,7 @@ rescue LoadError => e
   end
 end
 
-require 'cypress/smart_factory_wrapper'
+require 'cypress_dev/smart_factory_wrapper'
 
 factory = CypressDev::SimpleRailsFactory
 factory = FactoryBot if defined?(FactoryBot)
