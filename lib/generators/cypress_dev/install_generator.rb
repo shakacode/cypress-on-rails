@@ -32,7 +32,6 @@ module CypressDev
       copy_file "spec/cypress/support/on-rails.js", "#{options.cypress_folder}/support/on-rails.js"
       copy_file "spec/cypress/app_commands/scenarios/basic.rb", "#{options.cypress_folder}/app_commands/scenarios/basic.rb"
       copy_file "spec/cypress/app_commands/clean.rb", "#{options.cypress_folder}/app_commands/clean.rb"
-      copy_file "spec/cypress/app_commands/stub_services.rb", "#{options.cypress_folder}/app_commands/stub_services.rb"
       copy_file "spec/cypress/app_commands/eval.rb", "#{options.cypress_folder}/app_commands/eval.rb"
       copy_file "spec/cypress/app_commands/factory_bot.rb", "#{options.cypress_folder}/app_commands/factory_bot.rb"
     end
