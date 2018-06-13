@@ -6,9 +6,8 @@ addons:
   artifacts:
     s3_region: "ap-southeast-2"
     paths:
-      - $(ls spec/integrations/rails_5_2/spec/cypress/*/* | tr "\n" ":")
-      - $(ls spec/integrations/rails_4_2/test/cypress/*/* | tr "\n" ":")
-      - $(ls spec/integrations/rails_3_2/cypress/*/* | tr "\n" ":")
+      - $(ls spec/integrations/*/*/cypress/{screenshots,videos}/* | tr "\n" ":")
+      - $(ls spec/integrations/rails_3_2/cypress/{screenshots,videos}/* | tr "\n" ":")
 
 cache:
   directories:
