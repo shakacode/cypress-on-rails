@@ -3,7 +3,7 @@ $LOAD_PATH.push File.expand_path("../lib", __FILE__)
 require "cypress_dev/version"
 
 Gem::Specification.new do |s|
-  s.name        = "cypress_dev"
+  s.name        = "cypress-on-rails"
   s.version     = CypressDev::VERSION
   s.author      = ["miceportal team"]
   s.email       = ["info@miceportal.de"]
