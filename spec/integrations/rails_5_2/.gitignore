@@ -4,7 +4,7 @@ spec/cypress.json
 spec/package.json
 spec/yarn.lock
 spec/cypress/
-config/initializers/cypress_on_rails.rb
+config/initializers/cypress_dev.rb
 vendor/bundle
 tmp/pids
 tmp/cache

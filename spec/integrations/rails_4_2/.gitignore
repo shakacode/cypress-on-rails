@@ -1,0 +1,10 @@
+.bundle
+test/node_modules
+test/cypress.json
+test/package.json
+test/yarn.lock
+test/cypress
+config/initializers/cypress_dev.rb
+vendor/bundle
+tmp/pids
+tmp/cache
