@@ -1,5 +1,7 @@
 # CypressDev
 
+[![Build Status](https://travis-ci.org/grantspeelman/cypress_dev.svg?branch=master)](https://travis-ci.org/grantspeelman/cypress_dev)
+
 Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and ruby rack applications 
 with the goal of controlling State as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
 
