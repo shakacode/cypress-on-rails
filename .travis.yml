@@ -5,6 +5,10 @@ rvm:
 addons:
   artifacts: true
   s3_region: "us-west-1"
+  paths:
+    - $(ls spec/integrations/rails_5_2/spec/cypress/*/* | tr "\n" ":")
+    - $(ls spec/integrations/rails_4_2/test/cypress/*/* | tr "\n" ":")
+    - $(ls spec/integrations/rails_3_2/cypress/*/* | tr "\n" ":")
 
 cache:
   directories:
