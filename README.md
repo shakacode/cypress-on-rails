@@ -17,7 +17,7 @@ This gem is based off https://github.com/konvenit/cypress-on-rails
 Add this to your Gemfile:
 ```
 group :test, :development do
-  gem 'cypress_dev'
+  gem 'cypress-on-rails'
 end
 ```
 
@@ -156,7 +156,7 @@ Add CypressDev to your config.ru
 # an example config.ru
 require File.expand_path('my_app', File.dirname(__FILE__))
 
-require 'cypress/middleware'
+require 'cypress_dev/middleware'
 CypressDev.configure do |c|
   c.cypress_folder = File.expand_path("#{__dir__}/test/cypress")
 end
