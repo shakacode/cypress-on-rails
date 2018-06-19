@@ -44,12 +44,15 @@ The generator adds the following files/directory to your application:
 if you are not using database_cleaner look at `spec/cypress/app_commands/clean_db.rb`.
 if you are not using factory_bot look at `spec/cypress/app_commands/factory_bot.rb`.
 
+Now you can create scenarios and commands that are plan ruby files that get loaded through middleware, the ruby sky is your limit.
+
+### WARNING
+*WARNING!!:* cypress-on-rails can execute arbitrary ruby code
+Please use with extra caution if starting your local server on 0.0.0.0 or running on a hosted server
+
 ## Usage
 
-When writing End-to-End tests, you will probably want to prepare your database to a known state. 
-Maybe using a gem like factory_bot. This gem implements two methods to achieve this goal:
-
-example of getting started
+Start the rails server in test mode and start cypress
 
 ```
 # start rails
@@ -60,13 +63,6 @@ bin/rails server -e test -p 5002
 cd spec
 yarn run cypress open
 ```
-
-Now you can create scenarios and commands that are plan ruby files that get loaded 
-through middleware, the ruby sky is your limit.
-
-### WARNING
-*WARNING!!:* cypress-on-rails can execute arbitrary ruby code
-Please use with extra caution if starting your local server on 0.0.0.0 or running on a hosted server
 
 ### Example of using scenarios
 
