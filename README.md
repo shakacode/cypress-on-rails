@@ -19,7 +19,7 @@ This gem is based off https://github.com/konvenit/cypress-on-rails
 Add this to your Gemfile:
 ```
 group :test, :development do
-  gem 'cypress-on-rails'
+  gem 'cypress-on-rails', '~> 1.0'
 end
 ```
 
