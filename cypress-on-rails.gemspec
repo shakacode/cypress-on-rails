@@ -5,8 +5,8 @@ require "cypress_dev/version"
 Gem::Specification.new do |s|
   s.name        = "cypress-on-rails"
   s.version     = CypressDev::VERSION
-  s.author      = ["miceportal team"]
-  s.email       = ["info@miceportal.de"]
+  s.author      = ["miceportal team", 'Grant Petersen-Speelman']
+  s.email       = ["info@miceportal.de", 'grantspeelman@gmail.com']
   s.homepage    = "http://github.com/grantspeelman/cypress-on-rails"
   s.summary     = "Integrates cypress with rails or rack applications"
   s.description = "Integrates cypress with rails or rack applications"
