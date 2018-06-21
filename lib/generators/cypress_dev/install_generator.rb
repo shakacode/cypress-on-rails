@@ -38,7 +38,7 @@ module CypressDev
 
     def update_files
       append_to_file "#{options.cypress_folder}/support/index.js",
-                     'import \'./on-rails\'',
+                     "\nimport './on-rails'",
                      after: 'import \'./commands\''
     end
 
