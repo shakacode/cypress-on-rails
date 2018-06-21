@@ -1,3 +1,7 @@
+## 1.0.1
+### Fixed
+* install generator adding on-rails.js to import.js
+
 ## 1.0.0
 * renamed to CypressDev
 * middleware stripped down to make it more flexible and generic
