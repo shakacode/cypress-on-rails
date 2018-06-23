@@ -1,3 +1,6 @@
+### Tasks
+* add cypress examples to install generator
+
 ## 1.0.1
 ### Fixed
 * install generator adding on-rails.js to import.js

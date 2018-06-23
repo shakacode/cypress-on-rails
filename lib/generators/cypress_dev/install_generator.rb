@@ -2,6 +2,7 @@ module CypressDev
   class InstallGenerator < Rails::Generators::Base
     class_option :cypress_folder, type: :string, default: 'spec/cypress'
     class_option :install_cypress_with, type: :string, default: 'yarn'
+    class_option :install_cypress_examples, type: :boolean, default: true
     source_root File.expand_path('../templates', __FILE__)
 
     def install_cypress
@@ -18,6 +19,10 @@ module CypressDev
         if command
           say command
           fail 'failed to install cypress' unless system(command)
+        end
+        if options.install_cypress_examples
+          directory 'spec/cypress/integration/examples', "#{options.cypress_folder}/integration/examples"
+          directory 'spec/cypress/fixtures', "#{options.cypress_folder}/fixtures"
         end
         copy_file "spec/cypress/support/index.js", "#{options.cypress_folder}/support/index.js"
         copy_file "spec/cypress/support/commands.js", "#{options.cypress_folder}/support/commands.js"
