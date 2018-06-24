@@ -1,5 +1,6 @@
 ### Tasks
 * add cypress examples to install generator
+* add active record integration specs
 
 ## 1.0.1
 ### Fixed

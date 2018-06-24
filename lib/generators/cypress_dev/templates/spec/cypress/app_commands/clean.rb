@@ -4,4 +4,5 @@ if defined?(DatabaseCleaner)
   DatabaseCleaner.clean
 else
   logger.warn "add database_cleaner or update clean_db"
+  Post.delete_all if defined?(Post)
 end

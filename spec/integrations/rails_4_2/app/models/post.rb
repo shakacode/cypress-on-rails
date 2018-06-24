@@ -10,4 +10,8 @@ class Post < OpenStruct
     @all ||= []
     @all
   end
+
+  def self.delete_all
+    @all = []
+  end
 end

@@ -1,9 +1,9 @@
 .bundle
-test/node_modules
-test/cypress.json
-test/package.json
-test/yarn.lock
-test/cypress
+spec/node_modules
+spec/cypress.json
+spec/package.json
+spec/yarn.lock
+spec/cypress
 config/initializers/cypress_dev.rb
 vendor/bundle
 tmp/pids

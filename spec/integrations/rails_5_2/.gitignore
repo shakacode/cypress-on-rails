@@ -1,10 +1,12 @@
 .bundle
-spec/node_modules
-spec/cypress.json
-spec/package.json
-spec/yarn.lock
-spec/cypress/
+test/node_modules
+test/cypress.json
+test/package.json
+test/yarn.lock
+test/cypress/
 config/initializers/cypress_dev.rb
 vendor/bundle
 tmp/pids
+db/*.sqlite3
+db/schema.rb
 tmp/cache
