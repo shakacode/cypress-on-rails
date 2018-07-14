@@ -12,6 +12,12 @@ Do things like:
 * use factory_bot to setup data
 * create scenario files used for specific tests
 
+Has examples of setting up state with:
+* factory_bot
+* rails test fixtures
+* scenarios
+* custom commands
+
 This gem is based off https://github.com/konvenit/cypress-on-rails
 
 ## Getting started
@@ -64,34 +70,6 @@ cd spec
 yarn run cypress open
 ```
 
-### Example of using scenarios
-
-Scenarios are named `before` blocks that you can reference in your test.
-
-You define a scenario in the `spec/cypress/app_commands/scenarios` directory:
-```ruby
-# spec/cypress/app_commands/scenarios/basic.rb
-Profile.create name: "Cypress Hill"
-
-# or if you have factory_bot enabled in your cypress_helper
-CypressDev::SmartFactoryWrapper.create(:profile, name: "Cypress Hill") 
-```
-
-Then reference the scenario in your test:
-```js
-// spec/cypress/integrations/scenario_example_spec.js
-describe('My First Test', function() {
-  it('visit root', function() {
-    // This calls to the backend to prepare the application state
-    cy.appScenario('basic')
-
-    cy.visit('/profiles')
-
-    cy.contains("Cypress Hill")
-  })
-})
-```
-
 ### Example of using factory bot
 You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) directly as well
 
@@ -116,10 +94,66 @@ describe('My First Test', function() {
       ['create', 'post', {title: 'Hello World'} ]
     ])
 
-    // The application unter test is available at SERVER_PORT
+    // Visit the application under test
     cy.visit('/')
 
     cy.contains("Hello World")
+  })
+})
+```
+
+### Example of loading rails test fixtures
+```ruby
+# spec/cypress/app_commands/activerecord_fixtures.rb
+require "active_record/fixtures"
+
+fixtures_dir = ActiveRecord::Tasks::DatabaseTasks.fixtures_path
+fixture_files = Dir["#{fixtures_dir}/**/*.yml"].map { |f| f[(fixtures_dir.size + 1)..-5] }
+
+logger.debug "loading fixtures: { dir: #{fixtures_dir}, files: #{fixture_files} }"
+ActiveRecord::FixtureSet.reset_cache
+ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, fixture_files)
+```
+
+```js
+// spec/cypress/integrations/simple_spec.js
+describe('My First Test', function() {
+  it('visit root', function() {
+    // This calls to the backend to prepare the application state
+    cy.appFixtures()
+
+    // Visit the application under test
+    cy.visit('/')
+
+    cy.contains("Hello World")
+  })
+})
+```
+
+### Example of using scenarios
+
+Scenarios are named `before` blocks that you can reference in your test.
+
+You define a scenario in the `spec/cypress/app_commands/scenarios` directory:
+```ruby
+# spec/cypress/app_commands/scenarios/basic.rb
+Profile.create name: "Cypress Hill"
+
+# or if you have factory_bot enabled in your cypress_helper
+CypressDev::SmartFactoryWrapper.create(:profile, name: "Cypress Hill") 
+```
+
+Then reference the scenario in your test:
+```js
+// spec/cypress/integrations/scenario_example_spec.js
+describe('My First Test', function() {
+  it('visit root', function() {
+    // This calls to the backend to prepare the application state
+    cy.appScenario('basic')
+
+    cy.visit('/profiles')
+
+    cy.contains("Cypress Hill")
   })
 })
 ```

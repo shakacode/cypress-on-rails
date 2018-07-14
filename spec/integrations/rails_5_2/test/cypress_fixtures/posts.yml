@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyRailsFixtures
+  title: MyCypressFixtures
   body: MyText
-  published: false
+  published: true
 
 two:
-  title: MyRailsFixtures2
+  title: MyCypressFixtures2
   body: MyText
-  published: false
+  published: true

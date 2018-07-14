@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -eo pipefail
 
 echo '--- testing rails 3.2'
 
@@ -25,7 +25,12 @@ sleep 2 # give rails a chance to start up correctly
 
 echo '-- cypress run'
 cp -fv ../cypress.json .
-node_modules/.bin/cypress run --record
+if [ -z $CYPRESS_RECORD_KEY ]
+then
+    node_modules/.bin/cypress run
+else
+    node_modules/.bin/cypress run --record
+fi
 
 echo '-- stop rails server'
 kill -9 `cat tmp/pids/server.pid`
