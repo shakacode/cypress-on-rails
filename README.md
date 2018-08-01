@@ -192,7 +192,7 @@ require 'cypress_dev/middleware'
 CypressDev.configure do |c|
   c.cypress_folder = File.expand_path("#{__dir__}/test/cypress")
 end
-use Cypress::Middleware
+use CypressDev::Middleware
 
 run MyApp 
 ```
