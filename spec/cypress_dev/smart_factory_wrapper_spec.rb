@@ -14,12 +14,18 @@ RSpec.describe CypressDev::SmartFactoryWrapper do
   let(:factory_cleaner) { class_double(CypressDev::SmartFactoryWrapper::FactoryCleaner, clean: true) }
   let(:kernel_double) { class_double(Kernel, load: true) }
   let(:file_double) { FileSystemDummy.new(mtime_hash) }
+  let(:dir_double) { class_double(Dir) }
+
+  before do
+    allow(Dir).to receive(:[]).with(*files) { mtime_hash.keys }
+  end
 
   subject do
     described_class.new(files: files,
                         factory: factory_double,
                         kernel: kernel_double,
                         file_system: file_double,
+                        dir_system: dir_double,
                         factory_cleaner: factory_cleaner)
   end
 
@@ -52,7 +58,7 @@ RSpec.describe CypressDev::SmartFactoryWrapper do
     expect(kernel_double).to have_received(:load).with('file2.rb').once
   end
 
-  it 'will reload the files if a has changed' do
+  it 'will reload the files if any have changed' do
     subject.create(:user)
     expect(kernel_double).to have_received(:load).with('file1.rb').once
     expect(kernel_double).to have_received(:load).with('file2.rb').once
@@ -60,6 +66,18 @@ RSpec.describe CypressDev::SmartFactoryWrapper do
     mtime_hash['file1.rb'] = Time.now
     subject.create_list(:user)
     expect(kernel_double).to have_received(:load).with('file1.rb').twice
+    expect(kernel_double).to have_received(:load).with('file2.rb').twice
+  end
+
+  it 'will reload only the files that exist' do
+    subject.always_reload = true
+    subject.create(:user)
+    expect(kernel_double).to have_received(:load).with('file1.rb').once
+    expect(kernel_double).to have_received(:load).with('file2.rb').once
+
+    mtime_hash.delete('file1.rb')
+    subject.create_list(:user)
+    expect(kernel_double).to have_received(:load).with('file1.rb').once
     expect(kernel_double).to have_received(:load).with('file2.rb').twice
   end
 
@@ -79,5 +97,19 @@ RSpec.describe CypressDev::SmartFactoryWrapper do
     subject.create(:user)
     expect(kernel_double).to have_received(:load).with('file1.rb').twice
     expect(kernel_double).to have_received(:load).with('file2.rb').twice
+  end
+
+  context 'files is a string' do
+    let(:files) { 'file*.rb' }
+
+    before do
+      allow(Dir).to receive(:[]).with('file*.rb') { mtime_hash.keys }
+    end
+
+    it 'loads all the files on first create it' do
+      subject.create(:user)
+      expect(kernel_double).to have_received(:load).with('file1.rb')
+      expect(kernel_double).to have_received(:load).with('file2.rb')
+    end
   end
 end

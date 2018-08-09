@@ -29,12 +29,12 @@ module CypressDev
     end
 
     # @return [Array]
-    attr_accessor :files
     attr_accessor :factory
     attr_accessor :always_reload
 
     def initialize(files:, factory:, always_reload: false,
-                   factory_cleaner: FactoryCleaner, kernel: Kernel, file_system: File)
+                   factory_cleaner: FactoryCleaner, kernel: Kernel, file_system: File,
+                   dir_system: Dir)
       self.files = files
       self.factory = factory
       self.always_reload = always_reload
@@ -42,6 +42,7 @@ module CypressDev
       @file_system = file_system
       @factory_cleaner = factory_cleaner
       @latest_mtime = nil
+      @dir_system = dir_system
     end
 
     def create(*args)
@@ -55,6 +56,17 @@ module CypressDev
     end
 
     private
+
+    # @param [String,Array] arg
+    def files=(array)
+      array = [array] if array.is_a?(String)
+      @dir_array = array
+    end
+
+    # @return [Array<String>]
+    def files
+      Dir[*@dir_array]
+    end
 
     def logger
       CypressDev.configuration.logger
