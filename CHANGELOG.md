@@ -1,8 +1,8 @@
+## 1.1.1
 ### Fixed
 * smart factory wrapper can handle when factory files get deleted
 
 ## 1.1.0
-
 ### Tasks
 * add cypress examples to install generator
 * add active record integration specs
