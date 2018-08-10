@@ -19,6 +19,7 @@ Has examples of setting up state with:
 * custom commands
 
 This gem is based off https://github.com/konvenit/cypress-on-rails
+Video of getting started with this gem https://grant-ps.blog/2018/08/10/getting-started-with-cypress-io-and-ruby-on-rails/
 
 ## Getting started
 
