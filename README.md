@@ -56,7 +56,7 @@ Now you can create scenarios and commands that are plan ruby files that get load
 
 ### WARNING
 *WARNING!!:* cypress-on-rails can execute arbitrary ruby code
-Please use with extra caution if starting your local server on 0.0.0.0 or running on a hosted server
+Please use with extra caution if starting your local server on 0.0.0.0 or running the gem on a hosted server
 
 ## Usage
 
