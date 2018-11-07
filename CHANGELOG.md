@@ -1,3 +1,6 @@
+### Tasks
+* adding additional log failure logging
+
 ## 1.1.1
 ### Fixed
 * smart factory wrapper can handle when factory files get deleted

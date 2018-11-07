@@ -29,9 +29,5 @@ module Rails52
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 end
