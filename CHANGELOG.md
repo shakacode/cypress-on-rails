@@ -1,3 +1,4 @@
+## 1.2.0
 ### Tasks
 * adding additional log failure logging
 
