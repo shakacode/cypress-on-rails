@@ -1,4 +1,8 @@
 class Post < OpenStruct
+  def self.create!(attributes)
+    create(attributes)
+  end
+
   def self.create(attributes)
     @all ||= []
     post = new(attributes)
