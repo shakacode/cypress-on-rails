@@ -1,3 +1,4 @@
+## 1.2.1
 ### Fixed
 * simple factory fails silently, changed to use create!
 
