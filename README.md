@@ -68,8 +68,7 @@ RAILS_ENV=test bin/rake db:create db:schema:load
 bin/rails server -e test -p 5002
 
 # in separate window start cypress
-cd spec
-yarn run cypress open
+yarn cypress open --project ./spec
 ```
 
 ### Example of using factory bot
