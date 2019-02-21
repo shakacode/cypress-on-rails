@@ -17,6 +17,18 @@ RSpec.describe CypressDev::SimpleRailsFactory do
   end
 
   it do
+    subject.create('AppRecord', 'trait', { my_args: 'Hello World' })
+
+    expect(AppRecord).to have_received(:create!).with( 'trait', { my_args: 'Hello World' } )
+  end
+
+  it do
+    subject.create('AppRecord')
+
+    expect(AppRecord).to have_received(:create!).with( { } )
+  end
+
+  it do
     expect{ subject.create('UnknownRecord', { my_args: 'Hello World' }) }.
       to raise_error(NameError)
   end

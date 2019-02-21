@@ -1,3 +1,5 @@
+* send any arguments to simple rails factory, not only hashes
+
 ## 1.2.1
 ### Fixed
 * simple factory fails silently, changed to use create!
