@@ -1,4 +1,6 @@
 * send any arguments to simple rails factory, not only hashes
+### Tasks
+* stop running cypress examples on CI
 
 ## 1.2.1
 ### Fixed
