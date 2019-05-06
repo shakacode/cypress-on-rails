@@ -8,8 +8,18 @@ Gem::Specification.new do |s|
   s.author      = ["miceportal team", 'Grant Petersen-Speelman']
   s.email       = ["info@miceportal.de", 'grantspeelman@gmail.com']
   s.homepage    = "http://github.com/grantspeelman/cypress-on-rails"
-  s.summary     = "Integrates cypress with rails or rack applications"
-  s.description = "Integrates cypress with rails or rack applications"
+  s.summary     = "Deprecated in favor of the 'cypress_on_rails' gem."
+  s.description = "Deprecated in favor of the 'cypress_on_rails' gem."
+  s.post_install_message = <<EOM
+  +---------------------------------------------------------------------------+
+  |                                                                           |
+  |  NOTICE: cypress-on-rails is deprecated in the favor of cypress_on_rails  |
+  |                                                                           |
+  |  Please update to use the 'cypress_on_rails' gem instead.                 |
+  |  See: https://github.com/shakacode/cypress_on_rails                       |
+  |                                                                           |
+  +---------------------------------------------------------------------------+
+EOM
   s.rubyforge_project = s.name
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
