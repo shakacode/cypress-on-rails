@@ -4,3 +4,4 @@ Gemfile.lock
 spec/examples.txt
 .idea
 spec/test.log
+pkg/
