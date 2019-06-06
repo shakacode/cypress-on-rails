@@ -1,9 +1,9 @@
 require 'json'
 require 'rack'
-require 'cypress_dev/configuration'
-require 'cypress_dev/command_executor'
+require 'cypress_on_rails/configuration'
+require 'cypress_on_rails/command_executor'
 
-module CypressDev
+module CypressOnRails
   # Middleware to handle cypress commands and eval
   class Middleware
     def initialize(app, command_executor = CommandExecutor, file = ::File)
@@ -24,7 +24,7 @@ module CypressDev
     private
 
     def configuration
-      CypressDev.configuration
+      CypressOnRails.configuration
     end
 
     def logger

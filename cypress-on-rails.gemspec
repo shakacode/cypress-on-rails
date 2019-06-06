@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $LOAD_PATH.push File.expand_path("../lib", __FILE__)
-require "cypress_dev/version"
+require "cypress_on_rails/version"
 
 Gem::Specification.new do |s|
   s.name        = "cypress-on-rails"
-  s.version     = CypressDev::VERSION
+  s.version     = CypressOnRails::VERSION
   s.licenses    = ['MIT']
   s.author      = ["miceportal team", 'Grant Petersen-Speelman']
   s.email       = ["info@miceportal.de", 'grantspeelman@gmail.com']

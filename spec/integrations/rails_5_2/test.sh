@@ -17,7 +17,7 @@ echo '-- migration'
 bin/rails db:migrate
 
 echo '-- cypress install'
-bundle exec ./bin/rails g cypress_dev:install --cypress_folder=test/cypress --no-install-cypress-examples
+bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=test/cypress --no-install-cypress-examples
 
 echo '-- start rails server'
 # make sure the server is not running

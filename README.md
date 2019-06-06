@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/grantspeelman/cypress-on-rails.svg?branch=master)](https://travis-ci.org/grantspeelman/cypress-on-rails)
 
-Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and ruby rack applications 
+Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and ruby rack applications
 with the goal of controlling State as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
 
 It allows to run code in the application context when executing cypress tests.
@@ -33,17 +33,17 @@ end
 
 The generate the boilerplate code using:
 ```
-bin/rails g cypress_dev:install
+bin/rails g cypress_on_rails:install
 
 # if you have/want a different cypress folder (default is spec/cypress)
-bin/rails g cypress_dev:install --cypress_folder=test/cypress
+bin/rails g cypress_on_rails:install --cypress_folder=test/cypress
 
 # if you want to install cypress with npm
-bin/rails g cypress_dev:install --install_cypress_with=npm
+bin/rails g cypress_on_rails:install --install_cypress_with=npm
 ```
 
 The generator adds the following files/directory to your application:
-* `config/initializers/cypress_dev` used to configure CypressOnRails
+* `config/initializers/cypress_on_rails` used to configure CypressOnRails
 * `spec/cypress/integrations/` contains your cypress tests
 * `spec/cypress/support/on-rails.js` contains CypressOnRails support code
 * `spec/cypress/app_commands/scenarios/` contains your CypressOnRails scenario definitions
@@ -82,7 +82,7 @@ CypressOnRails::SmartFactoryWrapper.configure(
     always_reload: !Rails.configuration.cache_classes,
     factory: FactoryBot,
     files: Dir['./spec/factories/**/*.rb']
-) 
+)
 ```
 
 ```js
@@ -141,7 +141,7 @@ You define a scenario in the `spec/cypress/app_commands/scenarios` directory:
 Profile.create name: "Cypress Hill"
 
 # or if you have factory_bot enabled in your cypress_helper
-CypressOnRails::SmartFactoryWrapper.create(:profile, name: "Cypress Hill") 
+CypressOnRails::SmartFactoryWrapper.create(:profile, name: "Cypress Hill")
 ```
 
 Then reference the scenario in your test:
@@ -163,8 +163,8 @@ describe('My First Test', function() {
 
 create a ruby file in `spec/cypress/app_commands` directory:
 ```ruby
-# spec/cypress/app_commands/load_seed.rb 
-load "#{Rails.root}/db/seeds.rb" 
+# spec/cypress/app_commands/load_seed.rb
+load "#{Rails.root}/db/seeds.rb"
 ```
 
 Then reference the command in your test with `cy.app('load_seed')`:
@@ -172,7 +172,7 @@ Then reference the command in your test with `cy.app('load_seed')`:
 // spec/cypress/integrations/simple_spec.js
 describe('My First Test', function() {
   beforeEach(() => { cy.app('load_seed') })
-  
+
   it('visit root', function() {
     cy.visit('/')
 
@@ -189,13 +189,13 @@ Add CypressOnRails to your config.ru
 # an example config.ru
 require File.expand_path('my_app', File.dirname(__FILE__))
 
-require 'cypress_dev/middleware'
+require 'cypress_on_rails/middleware'
 CypressOnRails.configure do |c|
   c.cypress_folder = File.expand_path("#{__dir__}/test/cypress")
 end
 use CypressOnRails::Middleware
 
-run MyApp 
+run MyApp
 ```
 
 add the following file to cypress

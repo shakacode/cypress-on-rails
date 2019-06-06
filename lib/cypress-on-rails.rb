@@ -1,3 +1,4 @@
-require 'cypress_dev'
+require 'cypress_on_rails'
 
-Cypress = CypressDev
+# TODO: do we really want to alias things like that?
+Cypress = CypressOnRails
