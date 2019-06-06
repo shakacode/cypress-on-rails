@@ -25,14 +25,16 @@ Video of getting started with this gem https://grant-ps.blog/2018/08/10/getting-
 ## Getting started
 
 Add this to your Gemfile:
-```
+
+```ruby
 group :test, :development do
   gem 'cypress-on-rails', '~> 1.0'
 end
 ```
 
 The generate the boilerplate code using:
-```
+
+```bash
 bin/rails g cypress_on_rails:install
 
 # if you have/want a different cypress folder (default is spec/cypress)
