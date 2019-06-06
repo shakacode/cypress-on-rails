@@ -1,8 +1,6 @@
 require 'logger'
 
 module CypressOnRails
-  delegate :logger, to: :configuration
-
   class Configuration
     attr_accessor :cypress_folder
     attr_accessor :use_middleware
@@ -37,4 +35,7 @@ module CypressOnRails
     yield configuration if block_given?
   end
 
+  def self.logger
+    configuration.logger
+  end
 end
