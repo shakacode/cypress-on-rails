@@ -33,14 +33,14 @@ module CypressOnRails
     def add_initial_files
       template "config/initializers/cypress_on_rails.rb.erb", "config/initializers/cypress_on_rails.rb"
       copy_file "spec/cypress/cypress_helper.rb", "#{options.cypress_folder}/cypress_helper.rb"
-      copy_file "spec/cypress/support/on-rails.js", "#{options.cypress_folder}/support/on-rails.js"
+      copy_file "spec/cypress/support/cypress-on-rails.js", "#{options.cypress_folder}/support/cypress-on-rails.js"
       directory 'spec/cypress/app_commands', "#{options.cypress_folder}/app_commands"
       directory 'spec/cypress/integration/rails_examples', "#{options.cypress_folder}/integration/rails_examples"
     end
 
     def update_files
       append_to_file "#{options.cypress_folder}/support/index.js",
-                     "\nimport './on-rails'",
+                     "\nimport './cypress-on-rails'",
                      after: 'import \'./commands\''
     end
 
