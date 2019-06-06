@@ -1,4 +1,4 @@
-# CypressDev
+# Cypress on Rails
 
 [![Build Status](https://travis-ci.org/grantspeelman/cypress-on-rails.svg?branch=master)](https://travis-ci.org/grantspeelman/cypress-on-rails)
 
@@ -43,11 +43,11 @@ bin/rails g cypress_dev:install --install_cypress_with=npm
 ```
 
 The generator adds the following files/directory to your application:
-* `config/initializers/cypress_dev` used to configure CypressDev
+* `config/initializers/cypress_dev` used to configure CypressOnRails
 * `spec/cypress/integrations/` contains your cypress tests
-* `spec/cypress/support/on-rails.js` contains CypressDev support code
-* `spec/cypress/app_commands/scenarios/` contains your CypressDev scenario definitions
-* `spec/cypress/cypress_helper.rb` contains helper code for CypressDev app commands
+* `spec/cypress/support/on-rails.js` contains CypressOnRails support code
+* `spec/cypress/app_commands/scenarios/` contains your CypressOnRails scenario definitions
+* `spec/cypress/cypress_helper.rb` contains helper code for CypressOnRails app commands
 
 if you are not using database_cleaner look at `spec/cypress/app_commands/clean_db.rb`.
 if you are not using factory_bot look at `spec/cypress/app_commands/factory_bot.rb`.
@@ -76,9 +76,9 @@ You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) direct
 
 ```ruby
 # spec/cypress/app_commands/factory_bot.rb
-require 'cypress_dev/smart_factory_wrapper'
+require 'cypress_on_rails/smart_factory_wrapper'
 
-CypressDev::SmartFactoryWrapper.configure(
+CypressOnRails::SmartFactoryWrapper.configure(
     always_reload: !Rails.configuration.cache_classes,
     factory: FactoryBot,
     files: Dir['./spec/factories/**/*.rb']
@@ -141,7 +141,7 @@ You define a scenario in the `spec/cypress/app_commands/scenarios` directory:
 Profile.create name: "Cypress Hill"
 
 # or if you have factory_bot enabled in your cypress_helper
-CypressDev::SmartFactoryWrapper.create(:profile, name: "Cypress Hill") 
+CypressOnRails::SmartFactoryWrapper.create(:profile, name: "Cypress Hill") 
 ```
 
 Then reference the scenario in your test:
@@ -183,17 +183,17 @@ describe('My First Test', function() {
 
 ## Usage with other rack applications
 
-Add CypressDev to your config.ru
+Add CypressOnRails to your config.ru
 
 ```ruby
 # an example config.ru
 require File.expand_path('my_app', File.dirname(__FILE__))
 
 require 'cypress_dev/middleware'
-CypressDev.configure do |c|
+CypressOnRails.configure do |c|
   c.cypress_folder = File.expand_path("#{__dir__}/test/cypress")
 end
-use CypressDev::Middleware
+use CypressOnRails::Middleware
 
 run MyApp 
 ```
@@ -202,7 +202,7 @@ add the following file to cypress
 
 ```js
 // test/cypress/support/on-rails.js
-// CypressDev: dont remove these command
+// CypressOnRails: dont remove these command
 Cypress.Commands.add('appCommands', function (body) {
   cy.request({
     method: 'POST',
@@ -224,7 +224,7 @@ Cypress.Commands.add('appScenario', function (name) {
 Cypress.Commands.add('appFactories', function (options) {
   cy.app('factory_bot', options)
 });
-// CypressDev: end
+// CypressOnRails: end
 
 // The next is optional
 beforeEach(() => {
