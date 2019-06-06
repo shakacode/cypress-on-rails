@@ -7,4 +7,4 @@ else
   Post.delete_all if defined?(Post)
 end
 
-Rails.logger.info "APPCLEANED" # used by log_fail.rb
+Rails.logger.info "[CypressOnRails] App Cleaned" # used by log_fail.rb
