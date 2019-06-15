@@ -1,0 +1,6 @@
+{
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^3.3.1"
+  }
+}

@@ -5,3 +5,7 @@ spec/examples.txt
 .idea
 spec/test.log
 pkg/
+spec/node_modules/
+spec/dummy_app/spec
+spec/dummy_app/node_modules/
+log/
