@@ -11,26 +11,30 @@ module CypressOnRails
         directories.pop
         install_dir = "#{Dir.pwd}/#{directories.join('/')}"
         command = nil
+
         if options.install_cypress_with == 'yarn'
           command = "yarn --cwd=#{install_dir} add cypress --dev --silent"
         elsif options.install_cypress_with == 'npm'
           command = "cd #{install_dir}; npm add cypress --save-dev --silent"
         end
+
         if command
           say command
           fail 'failed to install cypress' unless system(command)
         end
-        if options.install_cypress_examples
-          directory 'spec/cypress/integration/examples', "#{options.cypress_folder}/integration/examples"
-          directory 'spec/cypress/fixtures', "#{options.cypress_folder}/fixtures"
-        end
-        copy_file "spec/cypress/support/index.js", "#{options.cypress_folder}/support/index.js"
-        copy_file "spec/cypress/support/commands.js", "#{options.cypress_folder}/support/commands.js"
-        copy_file "spec/cypress.json", "#{options.cypress_folder}/../cypress.json"
       end
     end
 
     def add_initial_files
+      if options.install_cypress_examples
+        directory 'spec/cypress/integration/examples', "#{options.cypress_folder}/integration/examples"
+        directory 'spec/cypress/fixtures', "#{options.cypress_folder}/fixtures"
+      end
+
+      copy_file "spec/cypress/support/index.js", "#{options.cypress_folder}/support/index.js"
+      copy_file "spec/cypress/support/commands.js", "#{options.cypress_folder}/support/commands.js"
+      copy_file "spec/cypress.json", "#{options.cypress_folder}/../cypress.json"
+
       template "config/initializers/cypress_on_rails.rb.erb", "config/initializers/cypress_on_rails.rb"
       copy_file "spec/cypress/cypress_helper.rb", "#{options.cypress_folder}/cypress_helper.rb"
       copy_file "spec/cypress/support/cypress-on-rails.js", "#{options.cypress_folder}/support/cypress-on-rails.js"
@@ -39,17 +43,26 @@ module CypressOnRails
     end
 
     def update_files
-      append_to_file "#{options.cypress_folder}/support/index.js",
-                     "\nimport './cypress-on-rails'",
-                     after: 'import \'./commands\''
+      if File.exist?("#{options.cypress_folder}/support/index.js")
+        append_to_file "#{options.cypress_folder}/support/index.js",
+                      "\nimport './cypress-on-rails'",
+                      after: 'import \'./commands\''
+      end
     end
 
 
     def update_test_rb
       if File.exist?('config/environments/test.rb')
-        gsub_file 'config/environments/test.rb',
-                  'config.cache_classes = true',
-                  'config.cache_classes = ENV[\'CI\'].present?'
+        if behavior == :invoke
+          gsub_file 'config/environments/test.rb',
+                    'config.cache_classes = true',
+                    'config.cache_classes = ENV[\'CI\'].present?'
+        elsif behavior == :revoke
+          byebug
+          gsub_file 'config/environments/test.rb',
+                    'config.cache_classes = ENV[\'CI\'].present?',
+                    'config.cache_classes = true'
+        end
       end
       if File.exist?('spec/dummy/config/environments/test.rb')
         gsub_file 'spec/dummy/config/environments/test.rb',
