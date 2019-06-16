@@ -58,7 +58,6 @@ module CypressOnRails
                     'config.cache_classes = true',
                     'config.cache_classes = ENV[\'CI\'].present?'
         elsif behavior == :revoke
-          byebug
           gsub_file 'config/environments/test.rb',
                     'config.cache_classes = ENV[\'CI\'].present?',
                     'config.cache_classes = true'
