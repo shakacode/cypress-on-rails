@@ -1,4 +1,6 @@
-# CypressDev
+# DEPRECATED: Use [cypress_on_rails](https://github.com/shakacode/cypress_on_rails) gem instead.
+
+## CypressDev
 
 [![Build Status](https://travis-ci.org/grantspeelman/cypress-on-rails.svg?branch=master)](https://travis-ci.org/grantspeelman/cypress-on-rails)
 
