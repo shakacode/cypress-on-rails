@@ -1,3 +1,6 @@
+* Accept an options argument for scenarios
+
+## 1.3.0
 * send any arguments to simple rails factory, not only hashes
 ### Tasks
 * stop running cypress examples on CI
