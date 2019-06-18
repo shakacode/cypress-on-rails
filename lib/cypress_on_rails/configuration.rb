@@ -20,7 +20,7 @@ module CypressOnRails
 
     def tagged_logged
       if logger.respond_to?(:tagged)
-        logger.tagged('CY_DEV') { yield }
+        logger.tagged('CypressOnRails') { yield }
       else
         yield
       end
