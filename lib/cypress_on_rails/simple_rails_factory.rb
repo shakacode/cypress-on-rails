@@ -1,6 +1,6 @@
 require 'active_support/core_ext/string'
 
-module CypressDev
+module CypressOnRails
   module SimpleRailsFactory
     def self.create(type, *params)
       params = [{}] if params.empty?

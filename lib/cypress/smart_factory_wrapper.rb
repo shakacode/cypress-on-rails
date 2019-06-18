@@ -1,3 +1,3 @@
 require 'cypress-on-rails'
-require 'cypress_dev/smart_factory_wrapper'
+require 'cypress_on_rails/smart_factory_wrapper'
 # for backward compatibility

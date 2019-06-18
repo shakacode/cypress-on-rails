@@ -1,7 +1,7 @@
-require 'cypress_dev/simple_rails_factory'
+require 'cypress_on_rails/simple_rails_factory'
 
-RSpec.describe CypressDev::SimpleRailsFactory do
-  subject { CypressDev::SimpleRailsFactory }
+RSpec.describe CypressOnRails::SimpleRailsFactory do
+  subject { CypressOnRails::SimpleRailsFactory }
 
   class AppRecord
     def self.create!(*)

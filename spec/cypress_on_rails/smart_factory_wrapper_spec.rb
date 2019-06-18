@@ -1,6 +1,6 @@
-require 'cypress_dev/smart_factory_wrapper'
+require 'cypress_on_rails/smart_factory_wrapper'
 
-RSpec.describe CypressDev::SmartFactoryWrapper do
+RSpec.describe CypressOnRails::SmartFactoryWrapper do
   FileSystemDummy = Struct.new(:file_hash) do
     def mtime(filename)
       file_hash.fetch(filename)
@@ -11,7 +11,7 @@ RSpec.describe CypressDev::SmartFactoryWrapper do
   let(:mtime_hash) { {'file1.rb' => time_now, 'file2.rb' => time_now } }
   let(:files) { %w(file1.rb file2.rb) }
   let(:factory_double) { double('FactoryBot', create: true, create_list: true) }
-  let(:factory_cleaner) { class_double(CypressDev::SmartFactoryWrapper::FactoryCleaner, clean: true) }
+  let(:factory_cleaner) { class_double(CypressOnRails::SmartFactoryWrapper::FactoryCleaner, clean: true) }
   let(:kernel_double) { class_double(Kernel, load: true) }
   let(:file_double) { FileSystemDummy.new(mtime_hash) }
   let(:dir_double) { class_double(Dir) }
