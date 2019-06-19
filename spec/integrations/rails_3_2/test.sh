@@ -14,7 +14,7 @@ bundle --version
 bundle install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- cypress install'
-bundle exec ./bin/rails g cypress_dev:install --cypress_folder=cypress --install_cypress_with=npm --no-install-cypress-examples
+bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=cypress --install_cypress_with=npm --no-install-cypress-examples
 
 echo '-- start rails server'
 # make sure the server is not running

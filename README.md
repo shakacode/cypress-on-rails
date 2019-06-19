@@ -33,17 +33,17 @@ end
 
 The generate the boilerplate code using:
 ```
-bin/rails g cypress_dev:install
+bin/rails g cypress_on_rails:install
 
 # if you have/want a different cypress folder (default is spec/cypress)
-bin/rails g cypress_dev:install --cypress_folder=test/cypress
+bin/rails g cypress_on_rails:install --cypress_folder=test/cypress
 
 # if you want to install cypress with npm
-bin/rails g cypress_dev:install --install_cypress_with=npm
+bin/rails g cypress_on_rails:install --install_cypress_with=npm
 ```
 
 The generator adds the following files/directory to your application:
-* `config/initializers/cypress_dev` used to configure CypressDev
+* `config/initializers/cypress_on_rails` used to configure CypressDev
 * `spec/cypress/integrations/` contains your cypress tests
 * `spec/cypress/support/on-rails.js` contains CypressDev support code
 * `spec/cypress/app_commands/scenarios/` contains your CypressDev scenario definitions
