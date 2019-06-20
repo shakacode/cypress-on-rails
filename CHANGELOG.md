@@ -1,4 +1,8 @@
+## 1.4.0
 * Accept an options argument for scenarios
+
+### Tasks
+* renamed to CypressOnRails
 
 ## 1.3.0
 * send any arguments to simple rails factory, not only hashes

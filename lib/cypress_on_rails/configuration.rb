@@ -1,6 +1,6 @@
 require 'logger'
 
-module CypressDev
+module CypressOnRails
   class Configuration
     attr_accessor :cypress_folder
     attr_accessor :use_middleware
