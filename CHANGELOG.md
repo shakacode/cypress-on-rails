@@ -1,32 +1,34 @@
-## Unreleased
+## [Unreleased]
 
 ### Fixed
 * fix install generator when using npm [PR 22](https://github.com/shakacode/cypress-on-rails/pull/22) by [josephan](https://github.com/josephan).
 
-## 1.4.0
-* Accept an options argument for scenarios
+## [1.4.0] 
+* Accept an options argument for scenarios. [PR 18](https://github.com/shakacode/cypress-on-rails/pull/18) by [ericraio](https://github.com/ericraio).
 
-### Tasks
-* renamed to CypressOnRails
+### Changed
+* renamed CypressDev to CypressOnRails
 
-## 1.3.0
-* send any arguments to simple rails factory, not only hashes
-### Tasks
+## [1.3.0]
+### Added
+* Send any arguments to simple rails factory, not only hashes by [grantspeelman](https://github.com/grantspeelman).
+
+### Improved
 * stop running cypress examples on CI
 
-## 1.2.1
+## [1.2.1]
 ### Fixed
 * simple factory fails silently, changed to use create!
 
-## 1.2.0
+## [1.2.0]
 ### Tasks
 * adding additional log failure logging
 
-## 1.1.1
+## [1.1.1]
 ### Fixed
 * smart factory wrapper can handle when factory files get deleted
 
-## 1.1.0
+## [1.1.0]
 ### Tasks
 * add cypress examples to install generator
 * add active record integration specs
@@ -64,3 +66,11 @@
 
 ## 0.1.2 (2017-10-31)
 * First release.
+
+[Unreleased]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.0...master
+[1.4.0]: https://github.com/shakacode/cypress-on-rails/compare/v1.3.0...v1.4.0
+[1.3.0]: https://github.com/shakacode/cypress-on-rails/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/shakacode/cypress-on-rails/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/shakacode/cypress-on-rails/compare/v1.1.1...v1.2.0
+[1.1.1]: https://github.com/shakacode/cypress-on-rails/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/shakacode/cypress-on-rails/compare/v1.0.0...v1.1.0
