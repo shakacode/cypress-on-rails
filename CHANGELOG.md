@@ -1,3 +1,8 @@
+## [Unreleased]
+
+### Fixed
+* fix install generator when using npm [PR 22](https://github.com/shakacode/cypress-on-rails/pull/22) by [josephan](https://github.com/josephan).
+
 ## [1.4.0] 
 * Accept an options argument for scenarios. [PR 18](https://github.com/shakacode/cypress-on-rails/pull/18) by [ericraio](https://github.com/ericraio).
 
