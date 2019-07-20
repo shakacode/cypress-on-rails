@@ -5,8 +5,8 @@
 
 ### Tasks
 * Gemspec: Drop EOL'd property rubyforge_project [PR 27](https://github.com/shakacode/cypress-on-rails/pull/27) by [olleolleolle](https://github.com/olleolleolle)
-* Update Travis CI badge in README
-* Fix CI by Installing cypress dependencies on Travis CI
+* Update Travis CI badge in README [PR 31](https://github.com/shakacode/cypress-on-rails/pull/31)
+* Fix CI by Installing cypress dependencies on Travis CI [PR 31](https://github.com/shakacode/cypress-on-rails/pull/31)
 
 ## [1.4.0] 
 * Accept an options argument for scenarios. [PR 18](https://github.com/shakacode/cypress-on-rails/pull/18) by [ericraio](https://github.com/ericraio).
