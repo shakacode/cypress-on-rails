@@ -39,7 +39,7 @@ Cypress.Commands.add("forceLogin", (details) => {
     details.redirect_to = '/'
 
   cy.visit("__cypress__/forceLogin",
-    { method: "POST", body: { email: details.email, redirect_to: details.path }  })
+    { method: "POST", body: { email: details.email, redirect_to: details.redirect_to }  })
 });
 ```
 

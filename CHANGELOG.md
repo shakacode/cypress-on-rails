@@ -4,6 +4,7 @@
 * fix install generator when using npm [PR 22](https://github.com/shakacode/cypress-on-rails/pull/22) by [josephan](https://github.com/josephan).
 
 ### Tasks
+* Fix typo in authentication docs [PR 29](https://github.com/shakacode/cypress-on-rails/pull/27) by [badimalex](https://github.com/badimalex)
 * Gemspec: Drop EOL'd property rubyforge_project [PR 27](https://github.com/shakacode/cypress-on-rails/pull/27) by [olleolleolle](https://github.com/olleolleolle)
 * Update Travis CI badge in README [PR 31](https://github.com/shakacode/cypress-on-rails/pull/31)
 * Fix CI by Installing cypress dependencies on Travis CI [PR 31](https://github.com/shakacode/cypress-on-rails/pull/31)
