@@ -1,4 +1,4 @@
-## [Unreleased]
+## [1.4.1]
 
 ### Fixed
 * fix install generator when using npm [PR 22](https://github.com/shakacode/cypress-on-rails/pull/22) by [josephan](https://github.com/josephan).
@@ -73,7 +73,8 @@
 ## 0.1.2 (2017-10-31)
 * First release.
 
-[Unreleased]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.0...master
+[Unreleased]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.1...master
+[1.4.1]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/shakacode/cypress-on-rails/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/shakacode/cypress-on-rails/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/shakacode/cypress-on-rails/compare/v1.2.0...v1.2.1
