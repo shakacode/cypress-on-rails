@@ -1,3 +1,8 @@
+## [1.4.2]
+
+### Fixed
+* update generator to use full paths for Factory files [PR 33](https://github.com/shakacode/cypress-on-rails/pull/33).
+
 ## [1.4.1]
 
 ### Fixed
@@ -73,7 +78,8 @@
 ## 0.1.2 (2017-10-31)
 * First release.
 
-[Unreleased]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.1...master
+[Unreleased]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.2...master
+[1.4.2]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.1...v1.4.2
 [1.4.1]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/shakacode/cypress-on-rails/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/shakacode/cypress-on-rails/compare/v1.2.1...v1.3.0
