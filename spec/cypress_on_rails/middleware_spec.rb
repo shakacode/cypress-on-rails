@@ -1,6 +1,16 @@
 require 'cypress_on_rails/middleware'
 
 RSpec.describe CypressOnRails::Middleware do
+  class DummyResult
+    def as_json(_)
+      { id: 1, title: 'some result' }
+    end
+
+    def to_json(_)
+      as_json(_).to_json
+    end
+  end
+
   let(:app) { ->(env) { [200, {}, ["app did #{env['PATH_INFO']}"]] } }
   let(:command_executor) { class_double(CypressOnRails::CommandExecutor) }
   let(:file) { class_double(File) }
@@ -10,13 +20,15 @@ RSpec.describe CypressOnRails::Middleware do
 
   let(:response) { subject.call(env) }
 
+  let(:results) { [DummyResult.new]}
+
   def rack_input(json_value)
     StringIO.new(JSON.generate(json_value))
   end
 
   context '/__cypress__/command' do
     before do
-      allow(command_executor).to receive(:load)
+      allow(command_executor).to receive(:load).and_return(results)
       allow(file).to receive(:exists?)
       env['PATH_INFO'] = '/__cypress__/command'
     end
@@ -26,7 +38,7 @@ RSpec.describe CypressOnRails::Middleware do
       allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
 
       aggregate_failures do
-        expect(response).to eq([201, {}, ['success']])
+        expect(response).to eq([201, {}, ["[{\"id\":1,\"title\":\"some result\"}]"]])
         expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/seed.rb', nil)
       end
     end
@@ -36,7 +48,7 @@ RSpec.describe CypressOnRails::Middleware do
       allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
 
       aggregate_failures do
-        expect(response).to eq([201, {}, ['success']])
+        expect(response).to eq([201, {}, ["[{\"id\":1,\"title\":\"some result\"}]"]])
         expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/seed.rb', ['my_options'])
       end
     end
@@ -58,7 +70,7 @@ RSpec.describe CypressOnRails::Middleware do
       allow(file).to receive(:exists?).with('spec/cypress/app_commands/load_sample.rb').and_return(true)
 
       aggregate_failures do
-        expect(response).to eq([201, {}, ['success']])
+        expect(response).to eq([201, {}, ["[{\"id\":1,\"title\":\"some result\"},{\"id\":1,\"title\":\"some result\"}]"]])
         expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/load_user.rb', nil)
         expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/load_sample.rb', {'all' => 'true'})
       end

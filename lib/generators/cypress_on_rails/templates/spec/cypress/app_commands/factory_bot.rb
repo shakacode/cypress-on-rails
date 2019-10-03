@@ -1,4 +1,4 @@
-Array.wrap(command_options).each do |factory_options|
+Array.wrap(command_options).map do |factory_options|
   factory_method = factory_options.shift
   begin
     logger.debug "running #{factory_method}, #{factory_options}"
