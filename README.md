@@ -99,6 +99,11 @@ describe('My First Test', function() {
     cy.visit('/')
 
     cy.contains("Hello World")
+    
+    // Accessing result
+    cy.appFactories([['create', 'invoice', { paid: false }]]).then((records) => {  
+     cy.visit(`/invoices/${records[0].id}`);
+    });
   })
 })
 ```
