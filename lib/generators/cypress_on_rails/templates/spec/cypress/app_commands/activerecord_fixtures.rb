@@ -12,6 +12,7 @@ if defined?(ActiveRecord)
   logger.debug "loading fixtures: { dir: #{fixtures_dir}, files: #{fixture_files} }"
   ActiveRecord::FixtureSet.reset_cache
   ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, fixture_files)
+  "Fixtures Done" # this gets returned
 else # this else part can be removed
   logger.error "Looks like activerecord_fixtures has to be modified to suite your need"
   Post.create(title: 'MyCypressFixtures')
