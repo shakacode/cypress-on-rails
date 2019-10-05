@@ -1,16 +1,6 @@
 require 'cypress_on_rails/middleware'
 
 RSpec.describe CypressOnRails::Middleware do
-  class DummyResult
-    def as_json(_)
-      { id: 1, title: 'some result' }
-    end
-
-    def to_json(_)
-      as_json(_).to_json
-    end
-  end
-
   let(:app) { ->(env) { [200, {}, ["app did #{env['PATH_INFO']}"]] } }
   let(:command_executor) { class_double(CypressOnRails::CommandExecutor) }
   let(:file) { class_double(File) }
@@ -20,25 +10,26 @@ RSpec.describe CypressOnRails::Middleware do
 
   let(:response) { subject.call(env) }
 
-  let(:results) { [DummyResult.new]}
-
   def rack_input(json_value)
     StringIO.new(JSON.generate(json_value))
   end
 
   context '/__cypress__/command' do
     before do
-      allow(command_executor).to receive(:load).and_return(results)
+      allow(command_executor).to receive(:load).and_return({ id: 1, title: 'some result' })
       allow(file).to receive(:exists?)
       env['PATH_INFO'] = '/__cypress__/command'
     end
 
     it 'command file exists' do
+      allow(command_executor).to receive(:load).and_return({ id: 1, title: 'some result' })
       env['rack.input'] = rack_input(name: 'seed')
       allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
 
       aggregate_failures do
-        expect(response).to eq([201, {}, ["[{\"id\":1,\"title\":\"some result\"}]"]])
+        expect(response).to eq([201,
+                                {"Content-Type"=>"application/json"},
+                                ["[{\"id\":1,\"title\":\"some result\"}]"]])
         expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/seed.rb', nil)
       end
     end
@@ -48,18 +39,36 @@ RSpec.describe CypressOnRails::Middleware do
       allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
 
       aggregate_failures do
-        expect(response).to eq([201, {}, ["[{\"id\":1,\"title\":\"some result\"}]"]])
+        expect(response).to eq([201,
+                                {"Content-Type"=>"application/json"},
+                                ["[{\"id\":1,\"title\":\"some result\"}]"]])
         expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/seed.rb', ['my_options'])
       end
     end
 
     it 'command file does not exists' do
+      object = BasicObject.new
+      allow(command_executor).to receive(:load).and_return(object)
       env['rack.input'] = rack_input(name: 'seed')
-      allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(false)
+      allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
 
       aggregate_failures do
-        expect(response).to eq([404, {}, ['could not find command file: spec/cypress/app_commands/seed.rb']])
-        expect(command_executor).to_not have_received(:load)
+        expect(response).to eq([201,
+                                {"Content-Type"=>"application/json"},
+                                ["{\"message\":\"Cannot convert to json\"}"]])
+        expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/seed.rb', nil)
+      end
+    end
+
+    it 'command result does not respond to to_json' do
+      env['rack.input'] = rack_input(name: 'seed')
+      allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
+
+      aggregate_failures do
+        expect(response).to eq([201,
+                                {"Content-Type"=>"application/json"},
+                                ["[{\"id\":1,\"title\":\"some result\"}]"]])
+        expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/seed.rb', nil)
       end
     end
 
@@ -70,7 +79,9 @@ RSpec.describe CypressOnRails::Middleware do
       allow(file).to receive(:exists?).with('spec/cypress/app_commands/load_sample.rb').and_return(true)
 
       aggregate_failures do
-        expect(response).to eq([201, {}, ["[{\"id\":1,\"title\":\"some result\"},{\"id\":1,\"title\":\"some result\"}]"]])
+        expect(response).to eq([201,
+                                {"Content-Type"=>"application/json"},
+                                ["[{\"id\":1,\"title\":\"some result\"},{\"id\":1,\"title\":\"some result\"}]"]])
         expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/load_user.rb', nil)
         expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/load_sample.rb', {'all' => 'true'})
       end
