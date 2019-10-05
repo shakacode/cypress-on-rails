@@ -58,7 +58,13 @@ module CypressOnRails
       if missing_command.nil?
         results = commands.map { |command| @command_executor.load(command.file_path, command.options) }
 
-        [201, {}, [results.flatten.to_json]]
+        begin
+          output = results.to_json
+        rescue NoMethodError
+          output = {"message" => "Cannot convert to json"}.to_json
+        end
+
+        [201, {'Content-Type' => 'application/json'}, [output]]
       else
         [404, {}, ["could not find command file: #{missing_command.file_path}"]]
       end
