@@ -1,3 +1,8 @@
+## [Unreleased]
+
+### Added
+* Serialize and return responses to be used in tests [PR 34](https://github.com/shakacode/cypress-on-rails/pull/34).
+
 ## [1.4.2]
 
 ### Fixed
