@@ -6,7 +6,7 @@ test/yarn.lock
 test/cypress/
 config/initializers/cypress_on_rails.rb
 vendor/bundle
-tmp/pids
 db/*.sqlite3
 db/schema.rb
-tmp/cache
+tmp/*
+log/*
