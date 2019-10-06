@@ -31,7 +31,10 @@ module CypressOnRails
     end
 
     def add_initial_files
-      generate "cypress_on_rails:update", "--cypress_folder=#{options.cypress_folder}"
+      template "config/initializers/cypress_on_rails.rb.erb", "config/initializers/cypress_on_rails.rb"
+      copy_file "spec/cypress/cypress_helper.rb", "#{options.cypress_folder}/cypress_helper.rb"
+      copy_file "spec/cypress/support/on-rails.js", "#{options.cypress_folder}/support/on-rails.js"
+      directory 'spec/cypress/app_commands', "#{options.cypress_folder}/app_commands"
       directory 'spec/cypress/integration/rails_examples', "#{options.cypress_folder}/integration/rails_examples"
     end
 
