@@ -1,4 +1,5 @@
-## [Unreleased]
+## [1.5.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.2...v1.5.0
 
 ### Added
 * Serialize and return responses to be used in tests [PR 34](https://github.com/shakacode/cypress-on-rails/pull/34).
@@ -8,11 +9,13 @@
 * Update integration tests [PR 36](https://github.com/shakacode/cypress-on-rails/pull/36).
 
 ## [1.4.2]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.1...v1.4.2
 
 ### Fixed
 * update generator to use full paths for Factory files [PR 33](https://github.com/shakacode/cypress-on-rails/pull/33).
 
 ## [1.4.1]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.0...v1.4.1
 
 ### Fixed
 * fix install generator when using npm [PR 22](https://github.com/shakacode/cypress-on-rails/pull/22) by [josephan](https://github.com/josephan).
@@ -24,6 +27,8 @@
 * Fix CI by Installing cypress dependencies on Travis CI [PR 31](https://github.com/shakacode/cypress-on-rails/pull/31)
 
 ## [1.4.0] 
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.3.0...v1.4.0
+
 * Accept an options argument for scenarios. [PR 18](https://github.com/shakacode/cypress-on-rails/pull/18) by [ericraio](https://github.com/ericraio).
 
 ### Changed
@@ -87,10 +92,6 @@
 ## 0.1.2 (2017-10-31)
 * First release.
 
-[Unreleased]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.2...master
-[1.4.2]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.1...v1.4.2
-[1.4.1]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.0...v1.4.1
-[1.4.0]: https://github.com/shakacode/cypress-on-rails/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/shakacode/cypress-on-rails/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/shakacode/cypress-on-rails/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/shakacode/cypress-on-rails/compare/v1.1.1...v1.2.0
