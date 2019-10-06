@@ -31,7 +31,7 @@ group :test, :development do
 end
 ```
 
-The generate the boilerplate code using:
+Generate the boilerplate code using:
 ```
 bin/rails g cypress_on_rails:install
 
@@ -40,6 +40,9 @@ bin/rails g cypress_on_rails:install --cypress_folder=test/cypress
 
 # if you want to install cypress with npm
 bin/rails g cypress_on_rails:install --install_cypress_with=npm
+
+# to update the generated files run
+bin/rails g cypress_on_rails:update
 ```
 
 The generator adds the following files/directory to your application:
