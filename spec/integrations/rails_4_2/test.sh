@@ -15,6 +15,7 @@ bundle install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- cypress install'
 bundle exec ./bin/rails g cypress_on_rails:install --no-install-cypress-examples
+rm -vf spec/cypress/integration/rails_examples/advance_factory_bot_spec.js
 
 echo '-- start rails server'
 # make sure the server is not running
@@ -32,7 +33,6 @@ then
 else
     yarn run cypress run --record
 fi
-
 
 echo '-- stop rails server'
 kill -9 `cat ../tmp/pids/server.pid`

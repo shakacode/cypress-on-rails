@@ -25,6 +25,6 @@ before_install:
 
 script:
   - bundle exec rake
-  - ./spec/integrations/rails_3_2/test.sh
-  - ./spec/integrations/rails_4_2/test.sh
   - ./spec/integrations/rails_5_2/test.sh
+  - ./spec/integrations/rails_4_2/test.sh
+  - ./spec/integrations/rails_3_2/test.sh
