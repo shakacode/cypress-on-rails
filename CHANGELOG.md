@@ -4,6 +4,9 @@
 * Serialize and return responses to be used in tests [PR 34](https://github.com/shakacode/cypress-on-rails/pull/34).
 * Update generator to make it easier to update core generated files [PR 35](https://github.com/shakacode/cypress-on-rails/pull/35).
 
+### Tasks
+* Update integration tests [PR 36](https://github.com/shakacode/cypress-on-rails/pull/36).
+
 ## [1.4.2]
 
 ### Fixed
