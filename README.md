@@ -2,6 +2,12 @@
 
 [![Build Status](https://travis-ci.com/shakacode/cypress-on-rails.svg?branch=master)](https://travis-ci.org/shakacode/cypress-on-rails) [![Gem Version](https://badge.fury.io/rb/cypress-on-rails.svg)](https://badge.fury.io/rb/cypress-on-rails)
 
+----
+
+This project is sponsored by the software consulting firm [ShakaCode](https://www.shakacode.com), creator of the [React on Rails Gem](https://github.com/shakacode/react_on_rails). We focus on React front-ends, often with Ruby on Rails or Gatsby. The best way to see what we do is to see the details of [our recent work](https://www.shakacode.com/recent-work). Feel free to engage in discussions around this gem at our [forum category for Cypress](https://forum.shakacode.com/c/cypress-on-rails/55).
+
+----
+
 Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and ruby rack applications 
 with the goal of controlling State as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
 
