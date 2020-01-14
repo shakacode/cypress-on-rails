@@ -1,3 +1,9 @@
+## [unreleased]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.5.0...v1.5.1
+
+### Fixed
+* fix FactoryBot Trait not registered error [PR 43](https://github.com/shakacode/cypress-on-rails/pull/43)
+
 ## [1.5.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.4.2...v1.5.0
 
