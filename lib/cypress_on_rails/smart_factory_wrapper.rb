@@ -45,9 +45,15 @@ module CypressOnRails
       @dir_system = dir_system
     end
 
-    def create(*args)
+    def create(*options)
       load_files
-      factory.create(*args)
+      factory_name = options.shift
+      if options.last.is_a?(Hash)
+        args = options.pop
+      else
+        args = {}
+      end
+      factory.create(factory_name,*options.map(&:to_sym),args.symbolize_keys)
     end
 
     def create_list(*args)

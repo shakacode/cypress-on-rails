@@ -43,7 +43,22 @@ RSpec.describe CypressOnRails::SmartFactoryWrapper do
 
   it 'it sends delegates create to the factory' do
     subject.create(:user)
-    expect(factory_double).to have_received(:create).with(:user)
+    expect(factory_double).to have_received(:create).with(:user, {})
+  end
+
+  it 'it sends delegates create to the factory and symbolize keys' do
+    subject.create(:user, {'name' => "name"})
+    expect(factory_double).to have_received(:create).with(:user, {name: 'name'})
+  end
+
+  it 'it sends delegates create to the factory and symbolize keys with trait' do
+    subject.create(:user, 'trait1', {'name' => "name"})
+    expect(factory_double).to have_received(:create).with(:user, :trait1, {name: 'name'})
+  end
+
+  it 'it sends delegates create to the factory and symbolize keys with only trait' do
+    subject.create(:user, 'trait2')
+    expect(factory_double).to have_received(:create).with(:user, :trait2, {})
   end
 
   it 'it sends delegates create_list to the factory' do
