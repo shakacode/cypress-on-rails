@@ -1,4 +1,4 @@
-## [unreleased]
+## [1.5.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.5.0...v1.5.1
 
 ### Fixed
