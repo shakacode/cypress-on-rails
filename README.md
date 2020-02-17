@@ -51,7 +51,8 @@ bin/rails g cypress_on_rails:install --install_cypress_with=npm
 bin/rails g cypress_on_rails:update
 ```
 
-The generator adds the following files/directory to your application:
+The generator modifies/adds the following files/directory in your application:
+* `config/environments/test.rb`
 * `config/initializers/cypress_on_rails` used to configure CypressDev
 * `spec/cypress/integrations/` contains your cypress tests
 * `spec/cypress/support/on-rails.js` contains CypressDev support code
