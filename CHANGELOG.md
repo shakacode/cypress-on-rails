@@ -1,3 +1,6 @@
+### Changed
+*  Improve eval() in command executor [PR 46](https://github.com/shakacode/cypress-on-rails/pull/46) by [Systho](https://github.com/Systho)
+
 ## [1.5.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.5.0...v1.5.1
 
