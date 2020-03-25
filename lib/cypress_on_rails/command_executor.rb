@@ -6,7 +6,7 @@ module CypressOnRails
     def self.load(file,command_options = nil)
       load_cypress_helper
       file_data = File.read(file)
-      eval file_data
+      eval file_data, binding, file
     rescue => e
       logger.error("fail to execute #{file}: #{e.message}")
       logger.error(e.backtrace.join("\n"))
