@@ -24,21 +24,21 @@ Has examples of setting up state with:
 * scenarios
 * custom commands
 
-This gem is based off https://github.com/konvenit/cypress-on-rails
-
 Video of getting started with this gem https://grant-ps.blog/2018/08/10/getting-started-with-cypress-io-and-ruby-on-rails/
 
 ## Getting started
 
 Add this to your Gemfile:
-```
+
+```ruby
 group :test, :development do
   gem 'cypress-on-rails', '~> 1.0'
 end
 ```
 
 Generate the boilerplate code using:
-```
+
+```shell
 bin/rails g cypress_on_rails:install
 
 # if you have/want a different cypress folder (default is spec/cypress)
@@ -62,7 +62,7 @@ The generator modifies/adds the following files/directory in your application:
 if you are not using database_cleaner look at `spec/cypress/app_commands/clean_db.rb`.
 if you are not using factory_bot look at `spec/cypress/app_commands/factory_bot.rb`.
 
-Now you can create scenarios and commands that are plan ruby files that get loaded through middleware, the ruby sky is your limit.
+Now you can create scenarios and commands that are plain ruby files that get loaded through middleware, the ruby sky is your limit.
 
 ### WARNING
 *WARNING!!:* cypress-on-rails can execute arbitrary ruby code
@@ -72,7 +72,7 @@ Please use with extra caution if starting your local server on 0.0.0.0 or runnin
 
 Start the rails server in test mode and start cypress
 
-```
+```shell
 # start rails
 RAILS_ENV=test bin/rake db:create db:schema:load
 bin/rails server -e test -p 5002
@@ -89,9 +89,9 @@ You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) direct
 require 'cypress_on_rails/smart_factory_wrapper'
 
 CypressOnRails::SmartFactoryWrapper.configure(
-    always_reload: !Rails.configuration.cache_classes,
-    factory: FactoryBot,
-    files: Dir['./spec/factories/**/*.rb']
+  always_reload: !Rails.configuration.cache_classes,
+  factory: FactoryBot,
+  files: Dir['./spec/factories/**/*.rb']
 ) 
 ```
 
