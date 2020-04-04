@@ -8,7 +8,7 @@ This project is sponsored by the software consulting firm [ShakaCode](https://ww
 
 ----
 
-Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and ruby rack applications 
+Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and ruby rack applications
 with the goal of controlling State as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
 
 It allows to run code in the application context when executing cypress tests.
@@ -75,7 +75,7 @@ Start the rails server in test mode and start cypress
 ```shell
 # start rails
 RAILS_ENV=test bin/rake db:create db:schema:load
-bin/rails server -e test -p 5002
+bin/rails server -e test -p 5017
 
 # in separate window start cypress
 yarn cypress open --project ./spec
@@ -92,7 +92,7 @@ CypressOnRails::SmartFactoryWrapper.configure(
   always_reload: !Rails.configuration.cache_classes,
   factory: FactoryBot,
   files: Dir['./spec/factories/**/*.rb']
-) 
+)
 ```
 
 ```js
@@ -109,9 +109,9 @@ describe('My First Test', function() {
     cy.visit('/')
 
     cy.contains("Hello World")
-    
+
     // Accessing result
-    cy.appFactories([['create', 'invoice', { paid: false }]]).then((records) => {  
+    cy.appFactories([['create', 'invoice', { paid: false }]]).then((records) => {
      cy.visit(`/invoices/${records[0].id}`);
     });
   })
@@ -156,7 +156,7 @@ You define a scenario in the `spec/cypress/app_commands/scenarios` directory:
 Profile.create name: "Cypress Hill"
 
 # or if you have factory_bot enabled in your cypress_helper
-CypressOnRails::SmartFactoryWrapper.create(:profile, name: "Cypress Hill") 
+CypressOnRails::SmartFactoryWrapper.create(:profile, name: "Cypress Hill")
 ```
 
 Then reference the scenario in your test:
@@ -178,8 +178,8 @@ describe('My First Test', function() {
 
 create a ruby file in `spec/cypress/app_commands` directory:
 ```ruby
-# spec/cypress/app_commands/load_seed.rb 
-load "#{Rails.root}/db/seeds.rb" 
+# spec/cypress/app_commands/load_seed.rb
+load "#{Rails.root}/db/seeds.rb"
 ```
 
 Then reference the command in your test with `cy.app('load_seed')`:
@@ -187,7 +187,7 @@ Then reference the command in your test with `cy.app('load_seed')`:
 // spec/cypress/integrations/simple_spec.js
 describe('My First Test', function() {
   beforeEach(() => { cy.app('load_seed') })
-  
+
   it('visit root', function() {
     cy.visit('/')
 
@@ -210,7 +210,7 @@ CypressOnRails.configure do |c|
 end
 use CypressOnRails::Middleware
 
-run MyApp 
+run MyApp
 ```
 
 add the following file to cypress
