@@ -1,3 +1,6 @@
+### Changed
+* Change default port to 5017 [PR 49](https://github.com/shakacode/cypress-on-rails/pull/49)
+
 ## [1.5.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.5.0...v1.5.1
 
@@ -32,7 +35,7 @@
 * Update Travis CI badge in README [PR 31](https://github.com/shakacode/cypress-on-rails/pull/31)
 * Fix CI by Installing cypress dependencies on Travis CI [PR 31](https://github.com/shakacode/cypress-on-rails/pull/31)
 
-## [1.4.0] 
+## [1.4.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.3.0...v1.4.0
 
 * Accept an options argument for scenarios. [PR 18](https://github.com/shakacode/cypress-on-rails/pull/18) by [ericraio](https://github.com/ericraio).
