@@ -29,6 +29,8 @@ before_install:
 
 script:
   - bundle exec rake
+  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+  - gem install bundler -v '< 2'
   - ./spec/integrations/rails_5_2/test.sh
   - ./spec/integrations/rails_4_2/test.sh
   - ./spec/integrations/rails_3_2/test.sh
