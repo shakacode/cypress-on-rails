@@ -75,7 +75,7 @@ Start the rails server in test mode and start cypress
 ```shell
 # start rails
 RAILS_ENV=test bin/rake db:create db:schema:load
-bin/rails server -e test -p 5017
+bin/rails server -e test -p 5002
 
 # in separate window start cypress
 yarn cypress open --project ./spec
