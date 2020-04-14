@@ -2,7 +2,7 @@
 * Change default port to 5017 [PR 49](https://github.com/shakacode/cypress-on-rails/pull/49) by [vfonic](https://github/vfonic)
 
 ### Fixed
-* fix file location warning message in clean.rb [PR 54](https://github.com/shakacode/cypress-on-rails/pull/43) by [ootoovak](https://github.com/ootoovak)
+* fix file location warning message in clean.rb [PR 54](https://github.com/shakacode/cypress-on-rails/pull/54) by [ootoovak](https://github.com/ootoovak)
 
 ## [1.5.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.5.0...v1.5.1
