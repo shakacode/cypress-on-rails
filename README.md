@@ -59,7 +59,7 @@ The generator modifies/adds the following files/directory in your application:
 * `spec/cypress/app_commands/scenarios/` contains your CypressDev scenario definitions
 * `spec/cypress/cypress_helper.rb` contains helper code for CypressDev app commands
 
-if you are not using database_cleaner look at `spec/cypress/app_commands/clean_db.rb`.
+if you are not using database_cleaner look at `spec/cypress/app_commands/clean.rb`.
 if you are not using factory_bot look at `spec/cypress/app_commands/factory_bot.rb`.
 
 Now you can create scenarios and commands that are plain ruby files that get loaded through middleware, the ruby sky is your limit.
