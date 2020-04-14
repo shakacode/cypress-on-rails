@@ -1,3 +1,6 @@
+## [1.6.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.5.1...v1.6.0
+
 ### Changed
 * Change default port to 5017 [PR 49](https://github.com/shakacode/cypress-on-rails/pull/49) by [vfonic](https://github/vfonic)
 
