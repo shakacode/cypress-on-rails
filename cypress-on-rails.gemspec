@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = CypressOnRails::VERSION
   s.author      = ["miceportal team", 'Grant Petersen-Speelman']
   s.email       = ["info@miceportal.de", 'grantspeelman@gmail.com']
-  s.homepage    = "http://github.com/grantspeelman/cypress-on-rails"
+  s.homepage    = "http://github.com/shakacode/cypress-on-rails"
   s.summary     = "Integrates cypress with rails or rack applications"
   s.description = "Integrates cypress with rails or rack applications"
   s.post_install_message = 'The CypressDev constant is being deprecated and will be completely removed and replaced with CypressOnRails.'
