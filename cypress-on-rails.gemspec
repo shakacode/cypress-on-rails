@@ -19,4 +19,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'railties', '>= 3.2'
+  s.metadata = {
+    "bug_tracker_uri"   => "https://github.com/shakacode/cypress-on-rails/issues",
+    "changelog_uri"     => "https://github.com/shakacode/cypress-on-rails/blob/master/CHANGELOG.md",
+    "documentation_uri" => "https://github.com/shakacode/cypress-on-rails/blob/master/README.md",
+    "homepage_uri"      => "http://github.com/shakacode/cypress-on-rails",
+    "source_code_uri"   => "http://github.com/shakacode/cypress-on-rails"
+}
 end
