@@ -4,10 +4,10 @@ require 'cypress_on_rails/middleware'
 
 module CypressOnRails
   class Railtie < Rails::Railtie
-    initializer :setup_cypress_middleware do |app|
-      if CypressOnRails.configuration.use_middleware?
-        app.middleware.use Middleware
-      end
-    end
+   config.after_initialize do |app|
+     if CypressOnRails.configuration.use_middleware?
+         app.middleware.use Middleware
+     end
+   end
   end
 end
