@@ -1,3 +1,9 @@
+## [Unreleased]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.6.0...master
+
+### Fixed
+* Add middleware after load_config_initializers [PR 62](https://github.com/shakacode/cypress-on-rails/pull/62) by [duytd](https://github.com/duytd)
+
 ## [1.6.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.5.1...v1.6.0
 
