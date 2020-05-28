@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:5002",
+  "baseUrl": "http://localhost:5017",
   "defaultCommandTimeout": 10000,
   "projectId": "qvzwep"
 }

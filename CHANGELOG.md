@@ -1,5 +1,20 @@
+## [Unreleased]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.6.0...master
+
 ### Changed
 *  Improve eval() in command executor [PR 46](https://github.com/shakacode/cypress-on-rails/pull/46) by [Systho](https://github.com/Systho)
+
+### Fixed
+* Add middleware after load_config_initializers [PR 62](https://github.com/shakacode/cypress-on-rails/pull/62) by [duytd](https://github.com/duytd)
+
+## [1.6.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.5.1...v1.6.0
+
+### Changed
+* Change default port to 5017 [PR 49](https://github.com/shakacode/cypress-on-rails/pull/49) by [vfonic](https://github/vfonic)
+
+### Fixed
+* fix file location warning message in clean.rb [PR 54](https://github.com/shakacode/cypress-on-rails/pull/54) by [ootoovak](https://github.com/ootoovak)
 
 ## [1.5.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.5.0...v1.5.1
@@ -35,7 +50,7 @@
 * Update Travis CI badge in README [PR 31](https://github.com/shakacode/cypress-on-rails/pull/31)
 * Fix CI by Installing cypress dependencies on Travis CI [PR 31](https://github.com/shakacode/cypress-on-rails/pull/31)
 
-## [1.4.0] 
+## [1.4.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.3.0...v1.4.0
 
 * Accept an options argument for scenarios. [PR 18](https://github.com/shakacode/cypress-on-rails/pull/18) by [ericraio](https://github.com/ericraio).
