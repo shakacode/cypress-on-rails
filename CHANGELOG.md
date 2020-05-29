@@ -1,6 +1,9 @@
 ## [Unreleased]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.6.0...master
 
+### Changed
+*  Improve eval() in command executor [PR 46](https://github.com/shakacode/cypress-on-rails/pull/46) by [Systho](https://github.com/Systho)
+
 ### Fixed
 * Add middleware after load_config_initializers [PR 62](https://github.com/shakacode/cypress-on-rails/pull/62) by [duytd](https://github.com/duytd)
 
