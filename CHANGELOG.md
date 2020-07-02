@@ -1,5 +1,5 @@
-## [Unreleased]
-[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.6.0...master
+## [1.7.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.6.0...v1.7.0
 
 ### Changed
 *  Improve eval() in command executor [PR 46](https://github.com/shakacode/cypress-on-rails/pull/46) by [Systho](https://github.com/Systho)
