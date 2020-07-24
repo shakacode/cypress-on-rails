@@ -3,15 +3,6 @@ require 'cypress_on_rails/simple_rails_factory'
 
 module CypressOnRails
   class SmartFactoryWrapper
-    module FactoryCleaner
-      def self.clean(f = FactoryBot)
-        f.factories.clear if f.respond_to?(:factories)
-        f.traits.clear if f.respond_to?(:traits)
-        f.callbacks.clear if f.respond_to?(:callbacks)
-        f.sequences.clear if f.respond_to?(:sequences)
-      end
-    end
-
     def self.instance
       @instance ||= new(files: [], factory: SimpleRailsFactory)
     end
@@ -33,14 +24,13 @@ module CypressOnRails
     attr_accessor :always_reload
 
     def initialize(files:, factory:, always_reload: false,
-                   factory_cleaner: FactoryCleaner, kernel: Kernel, file_system: File,
-                   dir_system: Dir)
+                   kernel: Kernel, file_system: File, dir_system: Dir)
       self.files = files
       self.factory = factory
+      factory.definition_file_paths = []
       self.always_reload = always_reload
       @kernel = kernel
       @file_system = file_system
-      @factory_cleaner = factory_cleaner
       @latest_mtime = nil
       @dir_system = dir_system
     end
@@ -83,7 +73,7 @@ module CypressOnRails
       return unless should_reload?(current_latest_mtime)
       logger.info 'Loading Factories'
       @latest_mtime = current_latest_mtime
-      @factory_cleaner.clean(factory)
+      factory.reload
       files.each do |file|
         logger.debug "-- Loading: #{file}"
         @kernel.load(file)

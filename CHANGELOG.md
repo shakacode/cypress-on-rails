@@ -1,3 +1,6 @@
+### Changed
+* Use `FactoryBo#reload` to reset factory bot
+
 ## [1.7.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.6.0...v1.7.0
 

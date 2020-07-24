@@ -12,5 +12,9 @@ module CypressOnRails
         create(type,*params)
       end
     end
+
+    # to be API compatible with factorybot
+    def self.definition_file_paths=(*); end
+    def self.reload; end
   end
 end

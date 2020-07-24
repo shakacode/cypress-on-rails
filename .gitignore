@@ -5,3 +5,4 @@ spec/examples.txt
 .idea
 spec/test.log
 pkg/*.gem
+vendor/bundle

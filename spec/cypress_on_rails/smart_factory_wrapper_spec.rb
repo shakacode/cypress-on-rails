@@ -1,4 +1,5 @@
 require 'cypress_on_rails/smart_factory_wrapper'
+require 'factory_bot'
 
 RSpec.describe CypressOnRails::SmartFactoryWrapper do
   FileSystemDummy = Struct.new(:file_hash) do
@@ -10,8 +11,9 @@ RSpec.describe CypressOnRails::SmartFactoryWrapper do
   let(:time_now) { Time.now }
   let(:mtime_hash) { {'file1.rb' => time_now, 'file2.rb' => time_now } }
   let(:files) { %w(file1.rb file2.rb) }
-  let(:factory_double) { double('FactoryBot', create: true, create_list: true) }
-  let(:factory_cleaner) { class_double(CypressOnRails::SmartFactoryWrapper::FactoryCleaner, clean: true) }
+  let(:factory_double) do
+    class_double(FactoryBot, create: nil, create_list: nil, "definition_file_paths=": nil, reload: nil)
+  end
   let(:kernel_double) { class_double(Kernel, load: true) }
   let(:file_double) { FileSystemDummy.new(mtime_hash) }
   let(:dir_double) { class_double(Dir) }
@@ -25,8 +27,7 @@ RSpec.describe CypressOnRails::SmartFactoryWrapper do
                         factory: factory_double,
                         kernel: kernel_double,
                         file_system: file_double,
-                        dir_system: dir_double,
-                        factory_cleaner: factory_cleaner)
+                        dir_system: dir_double)
   end
 
   it 'loads all the files on first create it' do
@@ -68,7 +69,7 @@ RSpec.describe CypressOnRails::SmartFactoryWrapper do
 
   it 'wont load the files if they have not changed' do
     subject.create(:user)
-    subject.create_list(:user)
+    subject.create_list(:user, 2)
     expect(kernel_double).to have_received(:load).with('file1.rb').once
     expect(kernel_double).to have_received(:load).with('file2.rb').once
   end
@@ -79,7 +80,7 @@ RSpec.describe CypressOnRails::SmartFactoryWrapper do
     expect(kernel_double).to have_received(:load).with('file2.rb').once
 
     mtime_hash['file1.rb'] = Time.now
-    subject.create_list(:user)
+    subject.create_list(:user, 2)
     expect(kernel_double).to have_received(:load).with('file1.rb').twice
     expect(kernel_double).to have_received(:load).with('file2.rb').twice
   end
@@ -91,24 +92,24 @@ RSpec.describe CypressOnRails::SmartFactoryWrapper do
     expect(kernel_double).to have_received(:load).with('file2.rb').once
 
     mtime_hash.delete('file1.rb')
-    subject.create_list(:user)
+    subject.create_list(:user, 2)
     expect(kernel_double).to have_received(:load).with('file1.rb').once
     expect(kernel_double).to have_received(:load).with('file2.rb').twice
   end
 
-  it 'will reset factory if a has changed' do
+  it 'will reset factory if a file has changed' do
     subject.create(:user)
-    expect(factory_cleaner).to have_received(:clean).with(factory_double)
+    expect(factory_double).to have_received(:reload)
 
     mtime_hash['file1.rb'] = Time.now
-    subject.create_list(:user)
+    subject.create_list(:user, 2)
 
-    expect(factory_cleaner).to have_received(:clean).with(factory_double).twice
+    expect(factory_double).to have_received(:reload).twice
   end
 
   it 'will always reload the files enabled' do
     subject.always_reload = true
-    subject.create_list(:user)
+    subject.create_list(:user, 2)
     subject.create(:user)
     expect(kernel_double).to have_received(:load).with('file1.rb').twice
     expect(kernel_double).to have_received(:load).with('file2.rb').twice
