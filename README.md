@@ -24,7 +24,9 @@ Has examples of setting up state with:
 * scenarios
 * custom commands
 
-Video of getting started with this gem https://grant-ps.blog/2018/08/10/getting-started-with-cypress-io-and-ruby-on-rails/
+## Resources
+* [Video of getting started with this gem](https://grant-ps.blog/2018/08/10/getting-started-with-cypress-io-and-ruby-on-rails/)
+* [Article: Introduction to Cypress on Rails](https://www.shakacode.com/blog/introduction-to-cypress-on-rails/)
 
 ## Getting started
 
