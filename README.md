@@ -104,7 +104,8 @@ describe('My First Test', function() {
     // This calls to the backend to prepare the application state
     cy.appFactories([
       ['create_list', 'post', 10],
-      ['create', 'post', {title: 'Hello World'} ]
+      ['create', 'post', {title: 'Hello World'} ],
+      ['create', 'post', 'with_comments', {title: 'Factory_bot Traits here'} ] // use traits
     ])
 
     // Visit the application under test
