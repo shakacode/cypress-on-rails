@@ -6,8 +6,8 @@ rvm:
   - 2.6
 #  - 2.7
 
-node_js:
-  - node
+before_install:
+  - nvm install 14
 
 #addons:
 #  artifacts:
