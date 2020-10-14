@@ -6,6 +6,9 @@ rvm:
   - 2.6
 #  - 2.7
 
+node_js:
+  - node
+
 #addons:
 #  artifacts:
 #    s3_region: "ap-southeast-2"
