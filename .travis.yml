@@ -7,7 +7,9 @@ rvm:
 #  - 2.7
 
 before_install:
-  - nvm install 14
+  - travis_retry nvm install 14.13.1
+  - node -v
+  - nvm use 14.13.1
 
 #addons:
 #  artifacts:
