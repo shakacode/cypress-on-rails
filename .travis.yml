@@ -1,4 +1,6 @@
 language: ruby
+node_js:
+  - 10
 rvm:
   - 2.3
   - 2.4
