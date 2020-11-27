@@ -49,6 +49,9 @@ bin/rails g cypress_on_rails:install --cypress_folder=test/cypress
 # if you want to install cypress with npm
 bin/rails g cypress_on_rails:install --install_cypress_with=npm
 
+# if you already have cypress installed globally
+bin/rails g cypress_on_rails:install --install_cypress_with=skip
+
 # to update the generated files run
 bin/rails g cypress_on_rails:update
 ```
