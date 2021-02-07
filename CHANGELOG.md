@@ -1,9 +1,9 @@
-## [Unreleased]
+## [1.8.1]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.8.0...v1.8.1
 
 ### Fixed
 * remove "--silent" option when adding cypress [PR 76](https://github.com/shakacode/cypress-on-rails/pull/76)
 * update cypress examples to use "preserve" instead of "whitelist" [PR 75](https://github.com/shakacode/cypress-on-rails/pull/75) by [alvincrespo](https://github.com/alvincrespo)
-
 
 ## [1.8.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.7.0...v1.8.0
