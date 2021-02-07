@@ -12,9 +12,9 @@ module CypressOnRails
         install_dir = "#{Dir.pwd}/#{directories.join('/')}"
         command = nil
         if options.install_cypress_with == 'yarn'
-          command = "yarn --cwd=#{install_dir} add cypress --dev --silent"
+          command = "yarn --cwd=#{install_dir} add cypress --dev"
         elsif options.install_cypress_with == 'npm'
-          command = "cd #{install_dir}; npm install cypress --save-dev --silent"
+          command = "cd #{install_dir}; npm install cypress --save-dev"
         end
         if command
           say command
