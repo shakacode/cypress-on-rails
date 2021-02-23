@@ -14,7 +14,8 @@ bundle --version
 bundle install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- migration'
-bin/rails db:migrate
+bundle exec ./bin/rails db:drop || true
+bundle exec ./bin/rails db:create db:migrate
 
 echo '-- cypress install'
 bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=test/cypress --no-install-cypress-examples

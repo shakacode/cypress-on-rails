@@ -8,6 +8,13 @@ This project is sponsored by the software consulting firm [ShakaCode](https://ww
 
 ----
 
+# Totally new to Cypress?
+Suggest you first learn the basics of Cypress before attempting to integrate with Ruby on Rails
+
+* [Good start Here](https://docs.cypress.io/examples/examples/tutorials.html#Best-Practices)
+
+## Overview
+
 Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and ruby rack applications
 with the goal of controlling State as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
 
@@ -28,7 +35,7 @@ Has examples of setting up state with:
 * [Video of getting started with this gem](https://grant-ps.blog/2018/08/10/getting-started-with-cypress-io-and-ruby-on-rails/)
 * [Article: Introduction to Cypress on Rails](https://www.shakacode.com/blog/introduction-to-cypress-on-rails/)
 
-## Getting started
+## Installation
 
 Add this to your Gemfile:
 
@@ -43,14 +50,14 @@ Generate the boilerplate code using:
 ```shell
 bin/rails g cypress_on_rails:install
 
-# if you have/want a different cypress folder (default is spec/cypress)
-bin/rails g cypress_on_rails:install --cypress_folder=test/cypress
+# if you have/want a different cypress folder (default is cypress)
+bin/rails g cypress_on_rails:install --cypress_folder=spec/cypress
 
 # if you want to install cypress with npm
 bin/rails g cypress_on_rails:install --install_cypress_with=npm
 
 # if you already have cypress installed globally
-bin/rails g cypress_on_rails:install --install_cypress_with=skip
+bin/rails g cypress_on_rails:install --no-install-cypress
 
 # to update the generated files run
 bin/rails g cypress_on_rails:update
@@ -69,22 +76,53 @@ if you are not using factory_bot look at `spec/cypress/app_commands/factory_bot.
 
 Now you can create scenarios and commands that are plain ruby files that get loaded through middleware, the ruby sky is your limit.
 
+### Update your database.yml
+
+When writing cypress test on your local it's recommended to start your server in development mode so that changes you
+make are picked up without having to restart the server. 
+It's recommend you update your database.yml to check if the CYPRESS environment variable is set and switch it to the test database
+otherwise cypress will keep clearing your development database.
+
+for example:
+
+```yaml
+development:
+  <<: *default
+  database: <%= ENV['CYPRESS'] ? 'my_db_test' : 'my_db_development' %>
+test:
+  <<: *default
+  database: my_db_test
+```
+
 ### WARNING
 *WARNING!!:* cypress-on-rails can execute arbitrary ruby code
 Please use with extra caution if starting your local server on 0.0.0.0 or running the gem on a hosted server
 
 ## Usage
 
-Start the rails server in test mode and start cypress
+Getting started on your local environment
 
 ```shell
 # start rails
-RAILS_ENV=test bin/rake db:create db:schema:load
-bin/rails server -e test -p 5017
+CYPRESS=1 bin/rails server -p 5017
 
 # in separate window start cypress
+yarn cypress open 
+# or for npm
+node_modules/.bin/cypress run 
+# or if you changed the cypress folder to spec/cypress
 yarn cypress open --project ./spec
 ```
+
+How to run cypress on CI
+
+```shell
+# setup rails and start server in background
+# ...
+
+yarn run cypress run
+``
+
 
 ### Example of using factory bot
 You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) directly as well

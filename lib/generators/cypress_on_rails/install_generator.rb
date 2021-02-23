@@ -1,8 +1,9 @@
 module CypressOnRails
   class InstallGenerator < Rails::Generators::Base
-    class_option :cypress_folder, type: :string, default: 'spec/cypress'
+    class_option :cypress_folder, type: :string, default: 'cypress'
+    class_option :install_cypress, type: :boolean, default: true
     class_option :install_cypress_with, type: :string, default: 'yarn'
-    class_option :install_cypress_examples, type: :boolean, default: true
+    class_option :install_cypress_examples, type: :boolean, default: false
     source_root File.expand_path('../templates', __FILE__)
 
     def install_cypress
@@ -11,14 +12,16 @@ module CypressOnRails
         directories.pop
         install_dir = "#{Dir.pwd}/#{directories.join('/')}"
         command = nil
-        if options.install_cypress_with == 'yarn'
-          command = "yarn --cwd=#{install_dir} add cypress --dev"
-        elsif options.install_cypress_with == 'npm'
-          command = "cd #{install_dir}; npm install cypress --save-dev"
-        end
-        if command
-          say command
-          fail 'failed to install cypress' unless system(command)
+        if options.install_cypress
+          if options.install_cypress_with == 'yarn'
+            command = "yarn --cwd=#{install_dir} add cypress --dev"
+          elsif options.install_cypress_with == 'npm'
+            command = "cd #{install_dir}; npm install cypress --save-dev"
+          end
+          if command
+            say command
+            fail 'failed to install cypress' unless system(command)
+          end
         end
         if options.install_cypress_examples
           directory 'spec/cypress/integration/examples', "#{options.cypress_folder}/integration/examples"
@@ -42,20 +45,6 @@ module CypressOnRails
       append_to_file "#{options.cypress_folder}/support/index.js",
                      "\nimport './on-rails'",
                      after: 'import \'./commands\''
-    end
-
-
-    def update_test_rb
-      if File.exist?('config/environments/test.rb')
-        gsub_file 'config/environments/test.rb',
-                  'config.cache_classes = true',
-                  'config.cache_classes = ENV[\'CI\'].present?'
-      end
-      if File.exist?('spec/dummy/config/environments/test.rb')
-        gsub_file 'spec/dummy/config/environments/test.rb',
-                  'config.cache_classes = true',
-                  'config.cache_classes = ENV[\'CI\'].present?'
-      end
     end
   end
 end
