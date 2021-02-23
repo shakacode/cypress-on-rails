@@ -109,7 +109,7 @@ CYPRESS=1 bin/rails server -p 5017
 # in separate window start cypress
 yarn cypress open 
 # or for npm
-node_modules/.bin/cypress run 
+node_modules/.bin/cypress open 
 # or if you changed the cypress folder to spec/cypress
 yarn cypress open --project ./spec
 ```
@@ -121,10 +121,12 @@ How to run cypress on CI
 # ...
 
 yarn run cypress run
-``
-
+# or for npm
+node_modules/.bin/cypress run 
+```
 
 ### Example of using factory bot
+
 You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) directly as well
 
 ```ruby
