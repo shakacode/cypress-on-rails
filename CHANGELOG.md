@@ -1,4 +1,5 @@
-## [Unreleased]
+## [1.9.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.8.1...v1.9.0
 
 ### Changed
 * Update default generated folder to cypress instead of spec/cypress
