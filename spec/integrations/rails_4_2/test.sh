@@ -14,7 +14,7 @@ bundle --version
 bundle install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- cypress install'
-bundle exec ./bin/rails g cypress_on_rails:install --no-install-cypress-examples
+bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=spec/cypress
 rm -vf spec/cypress/integration/rails_examples/advance_factory_bot_spec.js
 
 echo '-- start rails server'

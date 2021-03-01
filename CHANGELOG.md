@@ -1,3 +1,11 @@
+## [Unreleased]
+
+### Changed
+* Update default generated folder to cypress instead of spec/cypress
+* Add a generator option to not install cypress
+* generator by default does not include examples
+* default on local to run cypress in development mode
+
 ## [1.8.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.8.0...v1.8.1
 
