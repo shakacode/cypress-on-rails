@@ -1,4 +1,5 @@
-## [Unreleased]
+## [1.9.1]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.9.0...v1.9.1
 
 ### Fixed
 * fix using `load` in command files
