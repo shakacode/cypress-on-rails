@@ -16,13 +16,13 @@ RSpec.describe CypressOnRails::Middleware do
 
   context '/__cypress__/command' do
     before do
-      allow(command_executor).to receive(:load).and_return({ id: 1, title: 'some result' })
+      allow(command_executor).to receive(:perform).and_return({ id: 1, title: 'some result' })
       allow(file).to receive(:exists?)
       env['PATH_INFO'] = '/__cypress__/command'
     end
 
     it 'command file exists' do
-      allow(command_executor).to receive(:load).and_return({ id: 1, title: 'some result' })
+      allow(command_executor).to receive(:perform).and_return({ id: 1, title: 'some result' })
       env['rack.input'] = rack_input(name: 'seed')
       allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
 
@@ -30,7 +30,7 @@ RSpec.describe CypressOnRails::Middleware do
         expect(response).to eq([201,
                                 {"Content-Type"=>"application/json"},
                                 ["[{\"id\":1,\"title\":\"some result\"}]"]])
-        expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/seed.rb', nil)
+        expect(command_executor).to have_received(:perform).with('spec/cypress/app_commands/seed.rb', nil)
       end
     end
 
@@ -42,13 +42,13 @@ RSpec.describe CypressOnRails::Middleware do
         expect(response).to eq([201,
                                 {"Content-Type"=>"application/json"},
                                 ["[{\"id\":1,\"title\":\"some result\"}]"]])
-        expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/seed.rb', ['my_options'])
+        expect(command_executor).to have_received(:perform).with('spec/cypress/app_commands/seed.rb', ['my_options'])
       end
     end
 
     it 'command file does not exists' do
       object = BasicObject.new
-      allow(command_executor).to receive(:load).and_return(object)
+      allow(command_executor).to receive(:perform).and_return(object)
       env['rack.input'] = rack_input(name: 'seed')
       allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
 
@@ -56,7 +56,7 @@ RSpec.describe CypressOnRails::Middleware do
         expect(response).to eq([201,
                                 {"Content-Type"=>"application/json"},
                                 ["{\"message\":\"Cannot convert to json\"}"]])
-        expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/seed.rb', nil)
+        expect(command_executor).to have_received(:perform).with('spec/cypress/app_commands/seed.rb', nil)
       end
     end
 
@@ -68,7 +68,7 @@ RSpec.describe CypressOnRails::Middleware do
         expect(response).to eq([201,
                                 {"Content-Type"=>"application/json"},
                                 ["[{\"id\":1,\"title\":\"some result\"}]"]])
-        expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/seed.rb', nil)
+        expect(command_executor).to have_received(:perform).with('spec/cypress/app_commands/seed.rb', nil)
       end
     end
 
@@ -82,8 +82,8 @@ RSpec.describe CypressOnRails::Middleware do
         expect(response).to eq([201,
                                 {"Content-Type"=>"application/json"},
                                 ["[{\"id\":1,\"title\":\"some result\"},{\"id\":1,\"title\":\"some result\"}]"]])
-        expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/load_user.rb', nil)
-        expect(command_executor).to have_received(:load).with('spec/cypress/app_commands/load_sample.rb', {'all' => 'true'})
+        expect(command_executor).to have_received(:perform).with('spec/cypress/app_commands/load_user.rb', nil)
+        expect(command_executor).to have_received(:perform).with('spec/cypress/app_commands/load_sample.rb', {'all' => 'true'})
       end
     end
 
@@ -94,7 +94,7 @@ RSpec.describe CypressOnRails::Middleware do
 
       aggregate_failures do
         expect(response).to eq([404, {}, ['could not find command file: spec/cypress/app_commands/load_sample.rb']])
-        expect(command_executor).to_not have_received(:load)
+        expect(command_executor).to_not have_received(:perform)
       end
     end
   end

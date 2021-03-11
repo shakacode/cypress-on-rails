@@ -3,7 +3,7 @@ require 'cypress_on_rails/configuration'
 module CypressOnRails
   # loads and evals the command files
   class CommandExecutor
-    def self.load(file,command_options = nil)
+    def self.perform(file,command_options = nil)
       load_cypress_helper
       file_data = File.read(file)
       eval file_data, binding, file

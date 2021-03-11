@@ -56,7 +56,7 @@ module CypressOnRails
       missing_command = commands.find {|command| !@file.exists?(command.file_path) }
 
       if missing_command.nil?
-        results = commands.map { |command| @command_executor.load(command.file_path, command.options) }
+        results = commands.map { |command| @command_executor.perform(command.file_path, command.options) }
 
         begin
           output = results.to_json

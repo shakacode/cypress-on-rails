@@ -1,3 +1,8 @@
+## [Unreleased]
+
+### Fixed
+* fix using `load` in command files
+
 ## [1.9.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.8.1...v1.9.0
 
