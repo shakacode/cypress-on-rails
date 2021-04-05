@@ -1,5 +1,4 @@
 ### Changed
-* Update default generated folder to cypress instead of spec/cypress
 * improve error message received from failed command
 
 ## [1.9.1]
