@@ -1,3 +1,7 @@
+### Changed
+* Update default generated folder to cypress instead of spec/cypress
+* improve error message received from failed command
+
 ## [1.9.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.9.0...v1.9.1
 
