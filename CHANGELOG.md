@@ -1,3 +1,6 @@
+## [1.10.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.9.1...v1.10.0
+
 ### Changed
 * improve error message received from failed command
 
