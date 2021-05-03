@@ -1,3 +1,6 @@
+### Changed
+* improve app command logging on cypress 
+
 ## [1.10.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.9.1...v1.10.1
 
