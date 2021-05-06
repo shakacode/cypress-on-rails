@@ -4,7 +4,9 @@
 
 ----
 
-This project is sponsored by the software consulting firm [ShakaCode](https://www.shakacode.com), creator of the [React on Rails Gem](https://github.com/shakacode/react_on_rails). We focus on React front-ends, often with Ruby on Rails or Gatsby. The best way to see what we do is to see the details of [our recent work](https://www.shakacode.com/recent-work). Feel free to engage in discussions around this gem at our [forum category for Cypress](https://forum.shakacode.com/c/cypress-on-rails/55).
+This project is sponsored by the software consulting firm [ShakaCode](https://www.shakacode.com), creator of the [React on Rails Gem](https://github.com/shakacode/react_on_rails). We focus on React (with TS or ReScript) front-ends, often with Ruby on Rails or Gatsby. See [our recent work](https://www.shakacode.com/recent-work) and [client engagement model](https://www.shakacode.com/blog/client-engagement-model/). Feel free to engage in discussions around this gem at our [Slack Channel](https://join.slack.com/t/reactrails/shared_invite/enQtNjY3NTczMjczNzYxLTlmYjdiZmY3MTVlMzU2YWE0OWM0MzNiZDI0MzdkZGFiZTFkYTFkOGVjODBmOWEyYWQ3MzA2NGE1YWJjNmVlMGE) or our [forum category for Cypress](https://forum.shakacode.com/c/cypress-on-rails/55). 
+
+Interested in joining a small team that loves open source? Check our [careers page](https://www.shakacode.com/career/).
 
 ----
 
