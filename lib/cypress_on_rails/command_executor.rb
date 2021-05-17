@@ -11,6 +11,8 @@ module CypressOnRails
       logger.error("fail to execute #{file}: #{e.message}")
       logger.error(e.backtrace.join("\n"))
       raise e
+    ensure
+      Dir.chdir(Rails.root)
     end
 
     def self.load_cypress_helper
