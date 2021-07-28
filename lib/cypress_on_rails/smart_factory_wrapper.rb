@@ -19,6 +19,14 @@ module CypressOnRails
       instance.create_list(*args)
     end
 
+    def self.build(*args)
+      instance.build(*args)
+    end
+
+    def self.build_list(*args)
+      instance.build_list(*args)
+    end
+
     # @return [Array]
     attr_accessor :factory
     attr_accessor :always_reload
@@ -49,6 +57,22 @@ module CypressOnRails
     def create_list(*args)
       load_files
       factory.create_list(*args)
+    end
+
+    def build(*options)
+      load_files
+      factory_name = options.shift
+      if options.last.is_a?(Hash)
+        args = options.pop
+      else
+        args = {}
+      end
+      factory.build(factory_name, *options.map(&:to_sym), args.symbolize_keys)
+    end
+
+    def build_list(*args)
+      load_files
+      factory.build_list(*args)
     end
 
     private
