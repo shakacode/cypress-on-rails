@@ -166,6 +166,42 @@ describe('My First Test', function() {
 })
 ```
 
+In some cases, using static Cypress fixtures may not provide sufficient flexibility when mocking HTTP response bodies - it's possible to use `FactoryBot.build` to generate Ruby hashes that can then be used as mock JSON responses:
+```ruby
+FactoryBot.define do
+  factory :some_web_response, class: Hash do
+    initialize_with { attributes.deep_stringify_keys }
+
+    id { 123 }
+    name { 'Mr Blobby' }
+    occupation { 'Evil pink clown' }
+  end
+end
+
+FactoryBot.build(:some_web_response) => { 'id' => 123, 'name' => 'Mr Blobby', 'occupation' => 'Evil pink clown' }
+```
+
+This can then be combined with Cypress mocks:
+```js
+describe('My First Test', function() {
+  it('visit root', function() {
+    // This calls to the backend to generate the mocked response
+    cy.appFactories([
+      ['build', 'some_web_response', { name: 'Baby Blobby' }]
+    ]).then(([responseBody]) => {
+      cy.intercept('http://some-external-url.com/endpoint', {
+        body: responseBody
+      });
+
+      // Visit the application under test
+      cy.visit('/')
+    })
+
+    cy.contains("Hello World")
+  })
+})
+```
+
 ### Example of loading rails test fixtures
 ```ruby
 # spec/cypress/app_commands/activerecord_fixtures.rb

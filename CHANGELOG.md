@@ -1,5 +1,6 @@
 ### Changed
 * improve app command logging on cypress 
+* Allow build and build_list commands to be executed against factory bot [PR 87](https://github.com/shakacode/cypress-on-rails/pull/87) by [Alexander-Blair]
 
 ## [1.10.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.9.1...v1.10.1
