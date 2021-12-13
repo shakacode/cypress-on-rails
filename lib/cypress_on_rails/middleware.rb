@@ -17,7 +17,13 @@ module CypressOnRails
       if request.path.start_with?('/__cypress__/command')
         configuration.tagged_logged { handle_command(request) }
       else
-        @app.call(env)
+        if defined?(VCR)
+          VCR.use_cassette('foobar', { :record => :new_episodes }) do
+            @app.call(env)
+          end
+        else
+          @app.call(env)
+        end
       end
     end
 
