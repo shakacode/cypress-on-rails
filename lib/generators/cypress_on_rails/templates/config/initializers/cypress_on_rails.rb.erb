@@ -5,6 +5,20 @@ if defined?(CypressOnRails)
     # please use with extra caution if enabling on hosted servers or starting your local server on 0.0.0.0
     c.use_middleware = !Rails.env.production?
     c.logger = Rails.logger
+    c.use_vcr = ENV['WITH_VCR'].present?
+
+    # # Setup VCR to mock external HTTP requests
+    # if ENV['WITH_VCR'].present?
+    #   # c.vcr_record_mode = :once # Use to choose VCR record mode (:new_episodes by default)
+    #
+    #   require 'vcr'
+    #   VCR.configure do |config|
+    #     config.cassette_library_dir = Rails.root.join('spec', 'cypress', 'fixtures', 'cassettes') # Update cassettes path as nedded
+    #     config.hook_into :webmock
+    #     config.ignore_localhost = true
+    #     config.ignore_hosts('localhost', '127.0.0.1', '0.0.0.0')
+    #   end
+    # end
   end
 
   # # if you compile your asssets on CI
