@@ -16,8 +16,10 @@ module CypressOnRails
       request = Rack::Request.new(env)
       if request.path.start_with?('/__cypress__/command')
         configuration.tagged_logged { handle_command(request) }
+      elsif defined?(VCR) && configuration.use_vcr
+        VCRWrapper.new(app: @app, env: env).run_with_cassette 
       else
-        VCRWrapper.new(app: @app, env: @env).run_with_cassette
+        @app.call(env)
       end
     end
 
