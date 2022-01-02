@@ -6,3 +6,4 @@ spec/examples.txt
 spec/test.log
 pkg/*.gem
 vendor/bundle
+.vscode

@@ -140,6 +140,13 @@ RSpec.describe CypressOnRails::SmartFactoryWrapper do
     expect(kernel_double).to have_received(:load).with('file2.rb').twice
   end
 
+  it 'can manually reload' do
+    subject.reload
+    expect(factory_double).to have_received(:reload)
+    expect(kernel_double).to have_received(:load).with('file1.rb')
+    expect(kernel_double).to have_received(:load).with('file2.rb')
+  end
+
   context 'files is a string' do
     let(:files) { 'file*.rb' }
 
