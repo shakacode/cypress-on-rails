@@ -1,0 +1,29 @@
+name: Ruby
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ruby2-3:
+    runs-on: ubuntu-latest
+    container: ruby:2.3
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/cache@v2
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
+    - name: Bundle config
+      run: bundle config path vendor/bundle
+
+    - run: bundle install
+    - run: bundle exec rspec
+    - run: ./spec/integrations/rails_3_2/test.sh
