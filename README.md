@@ -1,6 +1,7 @@
 # CypressOnRails
 
-[![Build Status](https://travis-ci.com/shakacode/cypress-on-rails.svg?branch=master)](https://travis-ci.org/shakacode/cypress-on-rails) [![Gem Version](https://badge.fury.io/rb/cypress-on-rails.svg)](https://badge.fury.io/rb/cypress-on-rails)
+![Build Status](https://github.com/shakacode/cypress-on-rails/actions/workflows/ruby.yml/badge.svg)
+[![Gem Version](https://badge.fury.io/rb/cypress-on-rails.svg)](https://badge.fury.io/rb/cypress-on-rails)
 
 ----
 
