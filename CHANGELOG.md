@@ -1,3 +1,9 @@
+## Unreleased
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.10.1...main
+
+### Tasks
+* switch from travis to github actions [PR 96]
+
 ## [1.11.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.10.1...v1.11.0
 
