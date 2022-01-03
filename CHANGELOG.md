@@ -1,3 +1,6 @@
+### Changed
+* alternative command added for get tail of logs [PR 89](https://github.com/shakacode/cypress-on-rails/pull/89) by [ccrockett]
+
 ## [1.11.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.10.1...v1.11.0
 
