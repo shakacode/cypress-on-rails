@@ -15,11 +15,7 @@ on:
 
 jobs:
   rails_3_2:
-
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ruby-version: ['2.3']
 
     steps:
     - uses: actions/checkout@v2
@@ -28,9 +24,45 @@ jobs:
     # change this to (see https://github.com/ruby/setup-ruby#versioning):
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ matrix.ruby-version }}
+        ruby-version: 2.3
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Run tests
+      run: bundle exec rake
+    - run: gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+    - run: gem install bundler -v '< 2'
+    - name: Run interaction tests
+      run: ./spec/integrations/rails_3_2/test.sh
+
+  rails_4_2:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+    # change this to (see https://github.com/ruby/setup-ruby#versioning):
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.5
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run tests
       run: bundle exec rake
     - name: Run interaction tests
-      run: ./spec/integrations/rails_3_2/test.sh
+      run: ./spec/integrations/rails_4_2/test.sh
+
+  rails_5_2:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+    # change this to (see https://github.com/ruby/setup-ruby#versioning):
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Run tests
+      run: bundle exec rake
+    - name: Run interaction tests
+      run: ./spec/integrations/rails_5_2/test.sh
