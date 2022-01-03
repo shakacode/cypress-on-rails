@@ -2,6 +2,7 @@
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.10.1...main
 
 ### Changed
+* only reload factories on clean instead of every factory create request [PR 95](https://github.com/shakacode/cypress-on-rails/pull/95)
 * alternative command added for get tail of logs [PR 89](https://github.com/shakacode/cypress-on-rails/pull/89) by [ccrockett]
 
 ### Tasks

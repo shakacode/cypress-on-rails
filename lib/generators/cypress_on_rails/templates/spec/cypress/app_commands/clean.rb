@@ -7,4 +7,6 @@ else
   Post.delete_all if defined?(Post)
 end
 
+CypressOnRails::SmartFactoryWrapper.reload
+
 Rails.logger.info "APPCLEANED" # used by log_fail.rb
