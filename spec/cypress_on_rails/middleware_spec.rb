@@ -17,14 +17,14 @@ RSpec.describe CypressOnRails::Middleware do
   context '/__cypress__/command' do
     before do
       allow(command_executor).to receive(:perform).and_return({ id: 1, title: 'some result' })
-      allow(file).to receive(:exists?)
+      allow(file).to receive(:exist?)
       env['PATH_INFO'] = '/__cypress__/command'
     end
 
-    it 'command file exists' do
+    it 'command file exist' do
       allow(command_executor).to receive(:perform).and_return({ id: 1, title: 'some result' })
       env['rack.input'] = rack_input(name: 'seed')
-      allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
+      allow(file).to receive(:exist?).with('spec/cypress/app_commands/seed.rb').and_return(true)
 
       aggregate_failures do
         expect(response).to eq([201,
@@ -34,9 +34,9 @@ RSpec.describe CypressOnRails::Middleware do
       end
     end
 
-    it 'command file exists with options' do
+    it 'command file exist with options' do
       env['rack.input'] = rack_input(name: 'seed', options: ['my_options'])
-      allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
+      allow(file).to receive(:exist?).with('spec/cypress/app_commands/seed.rb').and_return(true)
 
       aggregate_failures do
         expect(response).to eq([201,
@@ -46,11 +46,11 @@ RSpec.describe CypressOnRails::Middleware do
       end
     end
 
-    it 'command file does not exists' do
+    it 'command file does not exist' do
       object = BasicObject.new
       allow(command_executor).to receive(:perform).and_return(object)
       env['rack.input'] = rack_input(name: 'seed')
-      allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
+      allow(file).to receive(:exist?).with('spec/cypress/app_commands/seed.rb').and_return(true)
 
       aggregate_failures do
         expect(response).to eq([201,
@@ -62,7 +62,7 @@ RSpec.describe CypressOnRails::Middleware do
 
     it 'command result does not respond to to_json' do
       env['rack.input'] = rack_input(name: 'seed')
-      allow(file).to receive(:exists?).with('spec/cypress/app_commands/seed.rb').and_return(true)
+      allow(file).to receive(:exist?).with('spec/cypress/app_commands/seed.rb').and_return(true)
 
       aggregate_failures do
         expect(response).to eq([201,
@@ -75,8 +75,8 @@ RSpec.describe CypressOnRails::Middleware do
     it 'running multiple commands' do
       env['rack.input'] = rack_input([{name: 'load_user'},
                                       {name: 'load_sample', options: {'all' => 'true'}}])
-      allow(file).to receive(:exists?).with('spec/cypress/app_commands/load_user.rb').and_return(true)
-      allow(file).to receive(:exists?).with('spec/cypress/app_commands/load_sample.rb').and_return(true)
+      allow(file).to receive(:exist?).with('spec/cypress/app_commands/load_user.rb').and_return(true)
+      allow(file).to receive(:exist?).with('spec/cypress/app_commands/load_sample.rb').and_return(true)
 
       aggregate_failures do
         expect(response).to eq([201,
@@ -89,8 +89,8 @@ RSpec.describe CypressOnRails::Middleware do
 
     it 'running multiple commands but one missing' do
       env['rack.input'] = rack_input([{name: 'load_user'}, {name: 'load_sample'}])
-      allow(file).to receive(:exists?).with('spec/cypress/app_commands/load_user.rb').and_return(true)
-      allow(file).to receive(:exists?).with('spec/cypress/app_commands/load_sample.rb').and_return(false)
+      allow(file).to receive(:exist?).with('spec/cypress/app_commands/load_user.rb').and_return(true)
+      allow(file).to receive(:exist?).with('spec/cypress/app_commands/load_sample.rb').and_return(false)
 
       aggregate_failures do
         expect(response).to eq([404, {}, ['could not find command file: spec/cypress/app_commands/load_sample.rb']])
