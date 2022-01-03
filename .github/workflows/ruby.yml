@@ -47,6 +47,8 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run tests
       run: bundle exec rake
+    - run: gem uninstall -v '>= 2' -ax bundler || true
+    - run: gem install bundler -v '< 2'
     - name: Run interaction tests
       run: ./spec/integrations/rails_4_2/test.sh
 

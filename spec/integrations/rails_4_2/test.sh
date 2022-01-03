@@ -4,9 +4,9 @@ set -eo pipefail
 echo '--- testing rails 4.2'
 
 echo '-- setting environment'
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-RAILS_ENV=test
-BUNDLE_GEMFILE="$DIR/Gemfile"
+export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+export RAILS_ENV=test
+export BUNDLE_GEMFILE="$DIR/Gemfile"
 cd $DIR
 
 echo '-- bundle install'
