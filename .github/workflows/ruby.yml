@@ -2,28 +2,56 @@ name: Ruby
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
-  ruby23:
+  rails_3_2:
     runs-on: ubuntu-latest
-    container: ruby:2.3
 
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.3
+        bundler-cache: true 
+    - name: Run tests
+      run: bundle exec rake
+    - run: gem uninstall -v '>= 2' -ax bundler || true
+    - run: gem install bundler -v '< 2'
+    - name: Run interaction tests
+      run: ./spec/integrations/rails_3_2/test.sh
 
-      - uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
+  rails_4_2:
+    runs-on: ubuntu-latest
 
-      - name: Bundle config
-        run: bundle config path vendor/bundle
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.5
+        bundler-cache: true
+    - name: Run tests
+      run: bundle exec rake
+    - run: gem uninstall -v '>= 2' -ax bundler || true
+    - run: gem install bundler -v '< 2'
+    - name: Run interaction tests
+      run: ./spec/integrations/rails_4_2/test.sh
 
-      - run: bundle install
-      - run: bundle exec rspec
-      - run: ./spec/integrations/rails_3_2/test.sh
+  rails_5_2:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6
+        bundler-cache: true 
+    - name: Run tests
+      run: bundle exec rake
+    - name: Run interaction tests
+      run: ./spec/integrations/rails_5_2/test.sh
