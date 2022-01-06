@@ -80,6 +80,7 @@ module CypressOnRails
     end
 
     def reload
+      @latest_mtime = current_latest_mtime
       logger.info 'Loading Factories'
       factory.reload
       files.each do |file|
@@ -105,14 +106,16 @@ module CypressOnRails
       CypressOnRails.configuration.logger
     end
 
+    def current_latest_mtime
+      files.map{|file| @file_system.mtime(file) }.max
+    end
+
     def auto_reload
-      current_latest_mtime = files.map{|file| @file_system.mtime(file) }.max
-      return unless should_reload?(current_latest_mtime)
-      @latest_mtime = current_latest_mtime
+      return unless should_reload?
       reload
     end
 
-    def should_reload?(current_latest_mtime)
+    def should_reload?
       @always_reload || @latest_mtime.nil? || @latest_mtime < current_latest_mtime
     end
   end
