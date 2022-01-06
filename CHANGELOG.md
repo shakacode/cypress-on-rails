@@ -1,7 +1,7 @@
 ## Unreleased
 
 ### Fixed
-* keep track of factory manual reloads to prevent auto_reload from reloading again
+* keep track of factory manual reloads to prevent auto_reload from reloading again [PR 98](https://github.com/shakacode/cypress-on-rails/pull/98)
 
 ## [1.12.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.11.0...v1.12.0
