@@ -81,7 +81,7 @@ cy.appFactories([['create', 'post', { title: 'Cypress is cool', author_name: 'Ja
 cy.appFactories([['create', 'post']]
 ```
 
-## 2. Using Nested Attributes
+## 3. Using Nested Attributes
 
 ```rb
 FactoryBot.define do
