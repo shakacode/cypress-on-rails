@@ -132,17 +132,6 @@ node_modules/.bin/cypress run
 
 You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) directly as well
 
-```ruby
-# spec/cypress/app_commands/factory_bot.rb
-require 'cypress_on_rails/smart_factory_wrapper'
-
-CypressOnRails::SmartFactoryWrapper.configure(
-  always_reload: !Rails.configuration.cache_classes,
-  factory: FactoryBot,
-  files: Dir['./spec/factories/**/*.rb']
-)
-```
-
 ```js
 // spec/cypress/integrations/simple_spec.js
 describe('My First Test', function() {
