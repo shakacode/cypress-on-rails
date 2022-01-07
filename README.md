@@ -166,6 +166,7 @@ describe('My First Test', function() {
   })
 })
 ```
+You can check the [association Docs](https://github.com/shakacode/cypress-on-rails/blob/master/docs/factory_bot_associations.md) on more ways to setup association with the correct data.
 
 In some cases, using static Cypress fixtures may not provide sufficient flexibility when mocking HTTP response bodies - it's possible to use `FactoryBot.build` to generate Ruby hashes that can then be used as mock JSON responses:
 ```ruby
