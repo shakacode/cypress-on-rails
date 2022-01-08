@@ -1,5 +1,8 @@
 ## Unreleased
 
+### Tasks
+* Documenting how to setup Factory Associations [PR 100](https://github.com/shakacode/cypress-on-rails/pull/100)
+
 ### Fixed
 * keep track of factory manual reloads to prevent auto_reload from reloading again [PR 98](https://github.com/shakacode/cypress-on-rails/pull/98)
 

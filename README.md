@@ -132,17 +132,6 @@ node_modules/.bin/cypress run
 
 You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) directly as well
 
-```ruby
-# spec/cypress/app_commands/factory_bot.rb
-require 'cypress_on_rails/smart_factory_wrapper'
-
-CypressOnRails::SmartFactoryWrapper.configure(
-  always_reload: !Rails.configuration.cache_classes,
-  factory: FactoryBot,
-  files: Dir['./spec/factories/**/*.rb']
-)
-```
-
 ```js
 // spec/cypress/integrations/simple_spec.js
 describe('My First Test', function() {
@@ -166,6 +155,7 @@ describe('My First Test', function() {
   })
 })
 ```
+You can check the [association Docs](https://github.com/shakacode/cypress-on-rails/blob/master/docs/factory_bot_associations.md) on more ways to setup association with the correct data.
 
 In some cases, using static Cypress fixtures may not provide sufficient flexibility when mocking HTTP response bodies - it's possible to use `FactoryBot.build` to generate Ruby hashes that can then be used as mock JSON responses:
 ```ruby
