@@ -1,4 +1,5 @@
-## Unreleased
+## [1.12.1]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.12.0...v1.12.1
 
 ### Tasks
 * Documenting how to setup Factory Associations [PR 100](https://github.com/shakacode/cypress-on-rails/pull/100)
