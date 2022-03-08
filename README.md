@@ -271,6 +271,68 @@ describe('My First Test', function() {
 })
 ```
 
+## Expermintal Features (matching npm package)
+
+Please test and give feedback
+
+add the npm package:
+
+```
+yarn add cypress-on-rails --dev
+```
+
+### for VCR
+
+#### setup
+
+Add you VCR configuration to your `cypress_helper.rb`
+
+```ruby
+require 'vcr'
+VCR.configure do |config|
+  config.hook_into :webmock
+end
+```
+
+Add to you `cypress/support/index.js`
+
+```js
+import 'cypress-on-rails/support/index'
+```
+
+Add to you `clean.rb`
+
+```ruby
+VCR.eject_cassette # make sure we no cassettes inserted before the next test starts
+```
+
+#### usage
+
+You have `vcr_insert_cassette` and `vcr_eject_cassette` available. https://www.rubydoc.info/github/vcr/vcr/VCR:insert_cassette
+
+
+```js
+describe('My First Test', function() {
+  beforeEach(() => { cy.app('load_seed') })
+
+  it('visit root', function() {
+    cy.app('clean') // have a look at cypress/app_commands/clean.rb
+
+    cy.vcr_insert_cassette('cats', { record: "new_episodes" })
+    cy.visit('/using_vcr/index')
+
+    cy.get('a').contains('Cats').click()
+    cy.contains('Wikipedia has a recording of a cat meowing, because why not?')
+
+    cy.vcr_eject_cassette();
+
+    cy.vcr_insert_cassette('cats')
+    cy.visit('/using_vcr/record_cats')
+    cy.contains('Wikipedia has a recording of a cat meowing, because why not?')
+  })
+})
+```
+
 ## Usage with other rack applications
 
 Add CypressOnRails to your config.ru
