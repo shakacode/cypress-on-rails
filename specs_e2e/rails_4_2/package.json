@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {
-    "cypress-on-rails": "file:../../plugin"
-  },
   "devDependencies": {
-    "cypress": "*"
+    "cypress-on-rails": "file:../../plugin"
   }
 }
