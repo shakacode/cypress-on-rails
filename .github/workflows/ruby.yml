@@ -22,7 +22,7 @@ jobs:
     - run: gem uninstall -v '>= 2' -ax bundler || true
     - run: gem install bundler -v '< 2'
     - name: Run interaction tests
-      run: ./spec/integrations/rails_3_2/test.sh
+      run: ./specs_e2e/rails_3_2/test.sh
 
   rails_4_2:
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
     - run: gem uninstall -v '>= 2' -ax bundler || true
     - run: gem install bundler -v '< 2'
     - name: Run interaction tests
-      run: ./spec/integrations/rails_4_2/test.sh
+      run: ./specs_e2e/rails_4_2/test.sh
 
   rails_5_2:
     runs-on: ubuntu-latest
@@ -54,4 +54,4 @@ jobs:
     - name: Run tests
       run: bundle exec rake
     - name: Run interaction tests
-      run: ./spec/integrations/rails_5_2/test.sh
+      run: ./specs_e2e/rails_5_2/test.sh

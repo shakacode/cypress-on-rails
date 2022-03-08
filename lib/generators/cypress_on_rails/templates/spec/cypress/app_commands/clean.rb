@@ -9,4 +9,8 @@ end
 
 CypressOnRails::SmartFactoryWrapper.reload
 
+<% if options.vcr %>
+VCR.eject_cassette # make sure we any cassettes inserted before the next test starts
+<% end %>
+
 Rails.logger.info "APPCLEANED" # used by log_fail.rb

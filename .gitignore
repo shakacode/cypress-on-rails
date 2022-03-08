@@ -7,3 +7,6 @@ spec/test.log
 pkg/*.gem
 vendor/bundle
 .vscode
+node_modules
+package-lock.json
+yarn.lock
