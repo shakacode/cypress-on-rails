@@ -4,7 +4,7 @@ module CypressOnRails
     class_option :install_cypress, type: :boolean, default: true
     class_option :install_cypress_with, type: :string, default: 'yarn'
     class_option :install_cypress_examples, type: :boolean, default: false
-    class_option :vcr, type: :boolean, default: false
+    class_option :experimental, type: :boolean, default: false
     source_root File.expand_path('../templates', __FILE__)
 
     def install_cypress
@@ -27,14 +27,14 @@ module CypressOnRails
         directory 'spec/cypress/integration/examples', "#{options.cypress_folder}/integration/examples"
         directory 'spec/cypress/fixtures', "#{options.cypress_folder}/fixtures"
       end
-      copy_file "spec/cypress/support/index.js", "#{options.cypress_folder}/support/index.js"
+      template "spec/cypress/support/index.js.erb", "#{options.cypress_folder}/support/index.js"
       copy_file "spec/cypress/support/commands.js", "#{options.cypress_folder}/support/commands.js"
       copy_file "spec/cypress.json", "#{options.cypress_folder}/../cypress.json"
     end
 
     def add_initial_files
       template "config/initializers/cypress_on_rails.rb.erb", "config/initializers/cypress_on_rails.rb"
-      copy_file "spec/cypress/cypress_helper.rb", "#{options.cypress_folder}/cypress_helper.rb"
+      template "spec/cypress/cypress_helper.rb.erb", "#{options.cypress_folder}/cypress_helper.rb"
       copy_file "spec/cypress/support/on-rails.js", "#{options.cypress_folder}/support/on-rails.js"
       directory 'spec/cypress/app_commands', "#{options.cypress_folder}/app_commands"
       directory 'spec/cypress/integration/rails_examples', "#{options.cypress_folder}/integration/rails_examples"

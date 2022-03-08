@@ -37,9 +37,7 @@ CypressOnRails::SmartFactoryWrapper.configure(
     ]
 )
 
-<% if options.vcr %>
-require 'vcr'
-VCR.configure do |config|
-  config.hook_into :webmock
-end
-<% end %>
+<% unless options.experimental %># <% end %>require 'vcr'
+<% unless options.experimental %># <% end %>VCR.configure do |config|
+<% unless options.experimental %># <% end %>  config.hook_into :webmock
+<% unless options.experimental %># <% end %>end
