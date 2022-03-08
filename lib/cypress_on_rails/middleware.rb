@@ -65,7 +65,8 @@ module CypressOnRails
           [500, {'Content-Type' => 'application/json'}, [output]]
         end
       else
-        [404, {}, ["could not find command file: #{missing_command.file_path}"]]
+        output = {"message" => "could not find command file: #{missing_command.file_path}"}.to_json
+        [404, {'Content-Type' => 'application/json'}, [output]]
       end
     end
   end

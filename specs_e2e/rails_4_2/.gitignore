@@ -8,4 +8,4 @@ config/initializers/cypress_on_rails.rb
 vendor/bundle
 tmp/pids
 tmp/cache
-log/*.log
+log/*.*

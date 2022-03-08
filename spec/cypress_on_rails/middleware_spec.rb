@@ -93,7 +93,9 @@ RSpec.describe CypressOnRails::Middleware do
       allow(file).to receive(:exist?).with('spec/cypress/app_commands/load_sample.rb').and_return(false)
 
       aggregate_failures do
-        expect(response).to eq([404, {}, ['could not find command file: spec/cypress/app_commands/load_sample.rb']])
+        expect(response).to eq([404, 
+                                {"Content-Type"=>"application/json"}, 
+                                ["{\"message\":\"could not find command file: spec/cypress/app_commands/load_sample.rb\"}"]])
         expect(command_executor).to_not have_received(:perform)
       end
     end
