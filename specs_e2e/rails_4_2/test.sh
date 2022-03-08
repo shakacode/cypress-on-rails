@@ -10,11 +10,13 @@ export BUNDLE_GEMFILE="$DIR/Gemfile"
 cd $DIR
 
 echo '-- bundle install'
+gem install bundler -v "~> 1.0" --conservative
 bundle --version
 bundle install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- cypress install'
-bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=spec/cypress
+yarn install
+bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=spec/cypress --experimental --skip
 rm -vf spec/cypress/integration/rails_examples/advance_factory_bot_spec.js
 
 echo '-- start rails server'
@@ -22,17 +24,16 @@ echo '-- start rails server'
 (kill -9 `cat tmp/pids/server.pid` || true )
 
 bundle exec ./bin/rails server -p 5017 -e test &
-sleep 2 # give rails a chance to start up correctly
+sleep 5 # give rails a chance to start up correctly
 
 echo '-- cypress run'
 cp -fv ../cypress.json spec/
-cd spec
 if [ -z $CYPRESS_RECORD_KEY ]
 then
-    yarn run cypress run
+    yarn run cypress run -P ./spec
 else
-    yarn run cypress run --record
+    yarn run cypress run -P ./spec --record
 fi
 
 echo '-- stop rails server'
-kill -9 `cat ../tmp/pids/server.pid`
+kill -9 `cat tmp/pids/server.pid`

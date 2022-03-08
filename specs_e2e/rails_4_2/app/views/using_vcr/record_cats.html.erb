@@ -1,0 +1,7 @@
+<h1>Record from Cats API</h1>
+
+<ul>
+  <% @cat_facts.each do |fact| %>
+    <li><%= fact['text'] %></li>
+  <% end %>
+<ul>

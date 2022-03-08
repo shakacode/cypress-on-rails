@@ -5,5 +5,7 @@ gem 'rails', '~> 4.2.10'
 gem 'sprockets', '~> 3.7.2'
 
 group :development, :test do
-  gem 'cypress-on-rails', path: '../../../'
+  gem 'vcr'
+  gem 'webmock'
+  gem 'cypress-on-rails', path: '../../'
 end

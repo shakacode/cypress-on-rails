@@ -1,11 +1,13 @@
 require 'json'
 require 'rack'
-require 'cypress_on_rails/configuration'
+require 'cypress_on_rails/middleware_config'
 require 'cypress_on_rails/command_executor'
 
 module CypressOnRails
   # Middleware to handle cypress commands and eval
   class Middleware
+    include MiddlewareConfig
+
     def initialize(app, command_executor = CommandExecutor, file = ::File)
       @app = app
       @command_executor = command_executor
@@ -22,14 +24,6 @@ module CypressOnRails
     end
 
     private
-
-    def configuration
-      CypressOnRails.configuration
-    end
-
-    def logger
-      configuration.logger
-    end
 
     Command = Struct.new(:name, :options, :cypress_folder) do
       # @return [Array<Cypress::Middleware::Command>]
@@ -71,7 +65,8 @@ module CypressOnRails
           [500, {'Content-Type' => 'application/json'}, [output]]
         end
       else
-        [404, {}, ["could not find command file: #{missing_command.file_path}"]]
+        output = {"message" => "could not find command file: #{missing_command.file_path}"}.to_json
+        [404, {'Content-Type' => 'application/json'}, [output]]
       end
     end
   end

@@ -1,3 +1,8 @@
+## []
+
+### Changed
+* Add support for matching npm package and VCR
+
 ## [1.12.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.12.0...v1.12.1
 

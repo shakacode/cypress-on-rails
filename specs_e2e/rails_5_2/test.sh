@@ -19,7 +19,8 @@ bundle exec ./bin/rails db:drop || true
 bundle exec ./bin/rails db:create db:migrate
 
 echo '-- cypress install'
-bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=test/cypress --no-install-cypress-examples
+bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=test/cypress --no-install-cypress-examples --skip
+rm -vf test/cypress/integration/rails_examples/using_vcr_spec.js
 
 echo '-- start rails server'
 # make sure the server is not running
