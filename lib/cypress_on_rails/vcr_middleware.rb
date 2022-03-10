@@ -66,6 +66,8 @@ module CypressOnRails
       @first_call = true
       vcr.turn_off!
       WebMock.disable! if defined?(WebMock)
+    rescue LoadError
+      # nop
     end
   end
 end
