@@ -283,9 +283,11 @@ yarn add cypress-on-rails --dev
 
 ### for VCR
 
+This only works when you start the rails server with a single worker and single thread
+
 #### setup
 
-Add you VCR configuration to your `cypress_helper.rb`
+Add your VCR configuration to your `cypress_helper.rb`
 
 ```ruby
 require 'vcr'
@@ -304,6 +306,8 @@ Add to you `clean.rb`
 
 ```ruby
 VCR.eject_cassette # make sure we no cassettes inserted before the next test starts
+VCR.turn_off!
+WebMock.disable! if defined?(WebMock)
 ```
 
 #### usage

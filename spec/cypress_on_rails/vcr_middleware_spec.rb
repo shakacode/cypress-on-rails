@@ -5,7 +5,7 @@ require 'active_support/core_ext/hash' unless Hash.new.respond_to?(:symbolize_ke
 module CypressOnRails
   RSpec.describe VCRMiddleware do
     let(:app) { ->(env) { [200, {}, ["app did #{env['PATH_INFO']}"]] } }
-    let(:vcr) { class_double(VCR, insert_cassette: true, eject_cassette: true) }
+    let(:vcr) { class_double(VCR, turn_on!: true, turn_off!: true, insert_cassette: true, eject_cassette: true) }
     subject { described_class.new(app, vcr) }
 
     let(:env) { {} }
@@ -28,6 +28,7 @@ module CypressOnRails
           expect(response).to eq([201,
                                   {"Content-Type"=>"application/json"},
                                   ["{\"message\":\"OK\"}"]])
+          expect(vcr).to have_received(:turn_on!)
           expect(vcr).to have_received(:insert_cassette).with('cas1', {})
         end
       end
@@ -87,12 +88,20 @@ module CypressOnRails
           expect(response).to eq([201,
                                   {"Content-Type"=>"application/json"},
                                   ["{\"message\":\"OK\"}"]])
+          expect(vcr).to have_received(:turn_off!)
           expect(vcr).to have_received(:eject_cassette)
         end
       end
     end
 
     describe '"Other paths"' do
+      it 'calls vcr turn off the first time' do
+        env['PATH_INFO'] = '/test'
+
+        expect(response).to eq([200, {}, ["app did /test"]])
+        expect(vcr).to have_received(:turn_off!)
+      end
+
       it 'runs app' do
         aggregate_failures do
           %w(/ /__cypress__/login command /cypress_command /).each do |path|
@@ -101,6 +110,7 @@ module CypressOnRails
             response = subject.call(env)
 
             expect(response).to eq([200, {}, ["app did #{path}"]])
+            expect(vcr).to have_received(:turn_off!)
           end
         end
       end
