@@ -10,6 +10,7 @@ module CypressOnRails
     def initialize(app, vcr = nil)
       @app = app
       @vcr = vcr
+      @first_call = false
     end
 
     def call(env)
@@ -19,6 +20,7 @@ module CypressOnRails
       elsif request.path.start_with?('/__cypress__/vcr/eject')
         configuration.tagged_logged { handle_eject }
       else
+        do_first_call unless @first_call
         @app.call(env)
       end
     end
@@ -26,6 +28,8 @@ module CypressOnRails
     private
 
     def handle_insert(req)
+      WebMock.enable! if defined?(WebMock)
+      vcr.turn_on!
       body = JSON.parse(req.body.read)
       logger.info "vcr insert cassette: #{body}"
       cassette_name = body[0]
@@ -43,6 +47,7 @@ module CypressOnRails
     def handle_eject
       logger.info "vcr eject cassette"
       vcr.eject_cassette
+      do_first_call
       [201, {'Content-Type' => 'application/json'}, [{'message': 'OK'}.to_json]]
     rescue LoadError, ArgumentError => e
       [501, {'Content-Type' => 'application/json'}, [{'message': e.message}.to_json]]
@@ -55,6 +60,12 @@ module CypressOnRails
         config.cassette_library_dir = "#{configuration.cypress_folder}/fixtures/vcr_cassettes"
       end
       @vcr = VCR
+    end
+
+    def do_first_call
+      @first_call = true
+      vcr.turn_off!
+      WebMock.disable! if defined?(WebMock)
     end
   end
 end
