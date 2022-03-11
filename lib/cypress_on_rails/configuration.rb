@@ -4,6 +4,7 @@ module CypressOnRails
   class Configuration
     attr_accessor :cypress_folder
     attr_accessor :use_middleware
+    attr_accessor :use_vcr_middleware
     attr_accessor :logger
 
     def initialize
@@ -11,6 +12,7 @@ module CypressOnRails
     end
 
     alias :use_middleware? :use_middleware
+    alias :use_vcr_middleware? :use_vcr_middleware
 
     def reset
       self.cypress_folder = 'spec/cypress'
