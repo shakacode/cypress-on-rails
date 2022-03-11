@@ -7,6 +7,8 @@ module CypressOnRails
       if CypressOnRails.configuration.use_middleware?
         require 'cypress_on_rails/middleware'
         app.middleware.use Middleware
+      end
+      if CypressOnRails.configuration.use_vcr_middleware?
         require 'cypress_on_rails/vcr_middleware'
         app.middleware.use VCRMiddleware
       end

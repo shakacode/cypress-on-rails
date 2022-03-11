@@ -310,6 +310,12 @@ VCR.turn_off!
 WebMock.disable! if defined?(WebMock)
 ```
 
+Add to you `config/cypress_on_rails.rb`
+
+```ruby
+  c.use_vcr_middleware = !Rails.env.production? && ENV['CYPRESS'].present?
+```
+
 #### usage
 
 You have `vcr_insert_cassette` and `vcr_eject_cassette` available. https://www.rubydoc.info/github/vcr/vcr/VCR:insert_cassette
