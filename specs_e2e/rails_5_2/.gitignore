@@ -1,6 +1,6 @@
 .bundle
 test/node_modules
-test/cypress.json
+test/cypress.config.js
 test/package.json
 test/yarn.lock
 test/cypress/

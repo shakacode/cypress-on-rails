@@ -1,6 +1,6 @@
 .bundle
 node_modules
-cypress.json
+cypress.config.js
 package-lock.json
 cypress/
 config/initializers/cypress_on_rails.rb

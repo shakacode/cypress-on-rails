@@ -27,7 +27,7 @@ bundle exec ./bin/rails server -p 5017 -e test &
 sleep 5 # give rails a chance to start up correctly
 
 echo '-- cypress run'
-cp -fv ../cypress.json spec/
+cp -fv ../cypress.config.js spec/
 if [ -z $CYPRESS_RECORD_KEY ]
 then
     yarn run cypress run -P ./spec

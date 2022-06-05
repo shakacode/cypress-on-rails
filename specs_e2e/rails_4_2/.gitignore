@@ -1,6 +1,6 @@
 .bundle
 spec/node_modules
-spec/cypress.json
+spec/cypress.config.js
 spec/package.json
 spec/yarn.lock
 spec/cypress
