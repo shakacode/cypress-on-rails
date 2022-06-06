@@ -59,6 +59,7 @@ module CypressOnRails
             output = {"message" => "Cannot convert to json"}.to_json
           end
 
+          logger.debug "output: #{output}"
           [201, {'Content-Type' => 'application/json'}, [output]]
         rescue => e
           output = {"message" => e.message, "class" => e.class.to_s}.to_json

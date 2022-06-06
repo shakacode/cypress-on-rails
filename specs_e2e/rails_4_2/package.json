@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "cypress": "^10.0.2",
     "cypress-on-rails": "file:../../plugin"
   }
 }
