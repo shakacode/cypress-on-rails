@@ -5,6 +5,6 @@ module.exports = defineConfig({
     baseUrl: "http://localhost:5017",
     defaultCommandTimeout: 10000,
     supportFile: "cypress/support/index.js",
-    projectId: "qvzwep"
+    projectId: "2b6cjr"
   }
 })

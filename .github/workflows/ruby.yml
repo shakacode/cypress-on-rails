@@ -23,6 +23,12 @@ jobs:
     - run: gem install bundler -v '< 2'
     - name: Run interaction tests
       run: ./specs_e2e/rails_3_2/test.sh
+    - name: Save screenshots
+      uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: Rails 3 Screenshots
+        path: cypress/screenshots
 
   rails_4_2:
     runs-on: ubuntu-latest
@@ -40,6 +46,12 @@ jobs:
     - run: gem install bundler -v '< 2'
     - name: Run interaction tests
       run: ./specs_e2e/rails_4_2/test.sh
+    - name: Save screenshots
+      uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: Rails 4 Screenshots
+        path: spec/cypress/screenshots
 
   rails_5_2:
     runs-on: ubuntu-latest
@@ -55,3 +67,9 @@ jobs:
       run: bundle exec rake
     - name: Run interaction tests
       run: ./specs_e2e/rails_5_2/test.sh
+    - name: Save screenshots
+      uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: Rails 5 Screenshots
+        path: test/cypress/screenshots

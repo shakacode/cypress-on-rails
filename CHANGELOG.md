@@ -2,6 +2,7 @@
 
 ### Changed
 * Add support for matching npm package and VCR
+* generate for cypress 10 [PR 108](https://github.com/shakacode/cypress-on-rails/pull/108)
 
 ## [1.12.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.12.0...v1.12.1
