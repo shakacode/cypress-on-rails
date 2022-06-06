@@ -28,12 +28,12 @@ sleep 5 # give rails a chance to start up correctly
 
 echo '-- cypress run'
 cp -fv ../cypress.config.js spec/
-if [ -z $CYPRESS_RECORD_KEY ]
-then
-    yarn run cypress run -P ./spec
-else
+# if [ -z $CYPRESS_RECORD_KEY ]
+# then
+#     yarn run cypress run -P ./spec
+# else
     yarn run cypress run -P ./spec --record
-fi
+# fi
 
 echo '-- stop rails server'
 kill -9 `cat tmp/pids/server.pid`
