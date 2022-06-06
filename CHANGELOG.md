@@ -1,4 +1,5 @@
-## []
+## [1.13.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.12.1...v1.13.0
 
 ### Changed
 * Add support for matching npm package and VCR
