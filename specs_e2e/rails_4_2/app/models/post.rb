@@ -7,7 +7,9 @@ class Post < OpenStruct
     @all ||= []
     post = new(attributes)
     @all << post
-    attributes['all'] = @all.index(post)
+    post.id = @all.index(post)
+    attributes['id'] = @all.index(post)
+    attributes
   end
 
   def self.all

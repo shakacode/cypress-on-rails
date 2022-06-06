@@ -19,8 +19,8 @@ bundle exec ./bin/rails db:drop || true
 bundle exec ./bin/rails db:create db:migrate
 
 echo '-- cypress install'
-bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=test/cypress --no-install-cypress-examples --skip
-rm -vf test/cypress/integration/rails_examples/using_vcr_spec.js
+bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=test/cypress --skip
+rm -vf test/cypress/e2e/rails_examples/using_vcr.cy.js
 
 echo '-- start rails server'
 # make sure the server is not running
@@ -30,14 +30,14 @@ bundle exec ./bin/rails server -p 5017 -e test &
 sleep 2 # give rails a chance to start up correctly
 
 echo '-- cypress run'
-cp -fv ../cypress.json test/
+cp -fv ../cypress.config.js test/
 cd test
-if [ -z $CYPRESS_RECORD_KEY ]
-then
-    yarn run cypress run
-else
+# if [ -z $CYPRESS_RECORD_KEY ]
+# then
+#     yarn run cypress run
+# else
     yarn run cypress run --record
-fi
+# fi
 
 echo '-- stop rails server'
 kill -9 `cat ../tmp/pids/server.pid` || true

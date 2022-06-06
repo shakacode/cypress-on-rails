@@ -71,7 +71,7 @@ bin/rails g cypress_on_rails:update
 The generator modifies/adds the following files/directory in your application:
 * `config/environments/test.rb`
 * `config/initializers/cypress_on_rails` used to configure CypressDev
-* `spec/cypress/integrations/` contains your cypress tests
+* `spec/cypress/e2e/` contains your cypress tests
 * `spec/cypress/support/on-rails.js` contains CypressDev support code
 * `spec/cypress/app_commands/scenarios/` contains your CypressDev scenario definitions
 * `spec/cypress/cypress_helper.rb` contains helper code for CypressDev app commands
@@ -135,7 +135,7 @@ node_modules/.bin/cypress run
 You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) directly as well
 
 ```js
-// spec/cypress/integrations/simple_spec.js
+// spec/cypress/e2e/simple.cy.js
 describe('My First Test', function() {
   it('visit root', function() {
     // This calls to the backend to prepare the application state
@@ -209,7 +209,7 @@ ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, fixture_files)
 ```
 
 ```js
-// spec/cypress/integrations/simple_spec.js
+// spec/cypress/e2e/simple.cy.js
 describe('My First Test', function() {
   it('visit root', function() {
     // This calls to the backend to prepare the application state
@@ -238,7 +238,7 @@ CypressOnRails::SmartFactoryWrapper.create(:profile, name: "Cypress Hill")
 
 Then reference the scenario in your test:
 ```js
-// spec/cypress/integrations/scenario_example_spec.js
+// spec/cypress/e2e/scenario_example.cy.js
 describe('My First Test', function() {
   it('visit root', function() {
     // This calls to the backend to prepare the application state
@@ -261,7 +261,7 @@ load "#{Rails.root}/db/seeds.rb"
 
 Then reference the command in your test with `cy.app('load_seed')`:
 ```js
-// spec/cypress/integrations/simple_spec.js
+// spec/cypress/e2e/simple.cy.js
 describe('My First Test', function() {
   beforeEach(() => { cy.app('load_seed') })
 

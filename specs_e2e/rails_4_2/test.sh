@@ -17,7 +17,7 @@ bundle install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 echo '-- cypress install'
 yarn install
 bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=spec/cypress --experimental --skip
-rm -vf spec/cypress/integration/rails_examples/advance_factory_bot_spec.js
+rm -vf spec/cypress/e2e/rails_examples/advance_factory_bot.cy.js
 
 echo '-- start rails server'
 # make sure the server is not running
@@ -27,13 +27,13 @@ bundle exec ./bin/rails server -p 5017 -e test &
 sleep 5 # give rails a chance to start up correctly
 
 echo '-- cypress run'
-cp -fv ../cypress.json spec/
-if [ -z $CYPRESS_RECORD_KEY ]
-then
-    yarn run cypress run -P ./spec
-else
+cp -fv ../cypress.config.js spec/
+# if [ -z $CYPRESS_RECORD_KEY ]
+# then
+#     yarn run cypress run -P ./spec
+# else
     yarn run cypress run -P ./spec --record
-fi
+# fi
 
 echo '-- stop rails server'
 kill -9 `cat tmp/pids/server.pid`
