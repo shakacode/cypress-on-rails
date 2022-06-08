@@ -23,6 +23,8 @@ jobs:
     - run: gem install bundler -v '< 2'
     - name: Run interaction tests
       run: ./specs_e2e/rails_3_2/test.sh
+      env:
+        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   rails_4_2:
     runs-on: ubuntu-latest
@@ -40,6 +42,8 @@ jobs:
     - run: gem install bundler -v '< 2'
     - name: Run interaction tests
       run: ./specs_e2e/rails_4_2/test.sh
+      env:
+        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   rails_5_2:
     runs-on: ubuntu-latest
@@ -55,3 +59,5 @@ jobs:
       run: bundle exec rake
     - name: Run interaction tests
       run: ./specs_e2e/rails_5_2/test.sh
+      env:
+        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

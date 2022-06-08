@@ -1,3 +1,6 @@
+### Tasks
+* pass cypress record key to github action [PR 110](https://github.com/shakacode/cypress-on-rails/pull/110)
+
 ## [1.13.1]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.13.0...v1.13.1
 
