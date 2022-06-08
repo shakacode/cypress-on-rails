@@ -1,6 +1,7 @@
 # CypressOnRails
 
 ![Build Status](https://github.com/shakacode/cypress-on-rails/actions/workflows/ruby.yml/badge.svg)
+[![cypress-on-rails](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/2b6cjr/master&style=plastic&logo=cypress)](https://dashboard.cypress.io/projects/2b6cjr/runs)
 [![Gem Version](https://badge.fury.io/rb/cypress-on-rails.svg)](https://badge.fury.io/rb/cypress-on-rails)
 
 ----
