@@ -1,5 +1,5 @@
-## []
-[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.13.0...master
+## [1.13.1]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.13.0...v1.13.1
 
 ### Fixed
 * use_vcr_middleware disabled by default [PR 109](https://github.com/shakacode/cypress-on-rails/pull/109)
