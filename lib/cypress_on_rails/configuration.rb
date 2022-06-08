@@ -17,7 +17,7 @@ module CypressOnRails
     def reset
       self.cypress_folder = 'spec/cypress'
       self.use_middleware = true
-      self.use_vcr_middleware = true
+      self.use_vcr_middleware = false
       self.logger = Logger.new(STDOUT)
     end
 
