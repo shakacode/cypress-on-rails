@@ -21,10 +21,10 @@ Suggest you first learn the basics of Cypress before attempting to integrate wit
 
 ## Overview
 
-Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and ruby rack applications
-with the goal of controlling State as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
+Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and Ruby Rack applications
+with the goal of controlling state as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
 
-It allows to run code in the application context when executing cypress tests.
+It allows you to run code in the application context when executing cypress tests.
 Do things like:
 * use database_cleaner before each test
 * seed the database with default data for each test
@@ -43,7 +43,7 @@ Has examples of setting up state with:
 
 ## Installation
 
-Add this to your Gemfile:
+Add this to your `Gemfile`:
 
 ```ruby
 group :test, :development do
@@ -71,26 +71,25 @@ bin/rails g cypress_on_rails:update
 
 The generator modifies/adds the following files/directory in your application:
 * `config/environments/test.rb`
-* `config/initializers/cypress_on_rails` used to configure CypressDev
+* `config/initializers/cypress_on_rails.rb` used to configure Cypress on Rails
 * `spec/cypress/e2e/` contains your cypress tests
-* `spec/cypress/support/on-rails.js` contains CypressDev support code
-* `spec/cypress/app_commands/scenarios/` contains your CypressDev scenario definitions
-* `spec/cypress/cypress_helper.rb` contains helper code for CypressDev app commands
+* `spec/cypress/support/on-rails.js` contains Cypress on Rails support code
+* `spec/cypress/app_commands/scenarios/` contains your Cypress on Rails scenario definitions
+* `spec/cypress/cypress_helper.rb` contains helper code for Cypress on Rails app commands
 
-if you are not using database_cleaner look at `spec/cypress/app_commands/clean.rb`.
-if you are not using factory_bot look at `spec/cypress/app_commands/factory_bot.rb`.
+If you are not using `database_cleaner` look at `spec/cypress/app_commands/clean.rb`.
+If you are not using `factory_bot` look at `spec/cypress/app_commands/factory_bot.rb`.
 
-Now you can create scenarios and commands that are plain ruby files that get loaded through middleware, the ruby sky is your limit.
+Now you can create scenarios and commands that are plain Ruby files that get loaded through middleware, the ruby sky is your limit.
 
 ### Update your database.yml
 
-When writing cypress test on your local it's recommended to start your server in development mode so that changes you
+When running `cypress test` on your local computer it's recommended to start your server in development mode so that changes you
 make are picked up without having to restart the server. 
-It's recommend you update your database.yml to check if the CYPRESS environment variable is set and switch it to the test database
+It's recommended you update your `database.yml` to check if the `CYPRESS` environment variable is set and switch it to the test database
 otherwise cypress will keep clearing your development database.
 
-for example:
-
+For example:
 ```yaml
 development:
   <<: *default
@@ -137,8 +136,8 @@ You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) direct
 
 ```js
 // spec/cypress/e2e/simple.cy.js
-describe('My First Test', function() {
-  it('visit root', function() {
+describe('My First Test', () => {
+  it('visit root', () => {
     // This calls to the backend to prepare the application state
     cy.appFactories([
       ['create_list', 'post', 10],
@@ -149,7 +148,7 @@ describe('My First Test', function() {
     // Visit the application under test
     cy.visit('/')
 
-    cy.contains("Hello World")
+    cy.contains('Hello World')
 
     // Accessing result
     cy.appFactories([['create', 'invoice', { paid: false }]]).then((records) => {
@@ -158,9 +157,9 @@ describe('My First Test', function() {
   })
 })
 ```
-You can check the [association Docs](https://github.com/shakacode/cypress-on-rails/blob/master/docs/factory_bot_associations.md) on more ways to setup association with the correct data.
+You can check the [association docs](docs/factory_bot_associations.md) on more ways to setup association with the correct data.
 
-In some cases, using static Cypress fixtures may not provide sufficient flexibility when mocking HTTP response bodies - it's possible to use `FactoryBot.build` to generate Ruby hashes that can then be used as mock JSON responses:
+In some cases, using static Cypress fixtures may not provide sufficient flexibility when mocking HTTP response bodies. It's possible to use `FactoryBot.build` to generate Ruby hashes that can then be used as mock JSON responses:
 ```ruby
 FactoryBot.define do
   factory :some_web_response, class: Hash do
@@ -172,13 +171,13 @@ FactoryBot.define do
   end
 end
 
-FactoryBot.build(:some_web_response) => { 'id' => 123, 'name' => 'Mr Blobby', 'occupation' => 'Evil pink clown' }
+FactoryBot.build(:some_web_response => { 'id' => 123, 'name' => 'Mr Blobby', 'occupation' => 'Evil pink clown' })
 ```
 
 This can then be combined with Cypress mocks:
 ```js
-describe('My First Test', function() {
-  it('visit root', function() {
+describe('My First Test', () => {
+  it('visit root', () => {
     // This calls to the backend to generate the mocked response
     cy.appFactories([
       ['build', 'some_web_response', { name: 'Baby Blobby' }]
@@ -191,12 +190,12 @@ describe('My First Test', function() {
       cy.visit('/')
     })
 
-    cy.contains("Hello World")
+    cy.contains('Hello World')
   })
 })
 ```
 
-### Example of loading rails test fixtures
+### Example of loading Rails test fixtures
 ```ruby
 # spec/cypress/app_commands/activerecord_fixtures.rb
 require "active_record/fixtures"
@@ -211,15 +210,15 @@ ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, fixture_files)
 
 ```js
 // spec/cypress/e2e/simple.cy.js
-describe('My First Test', function() {
-  it('visit root', function() {
+describe('My First Test', () => {
+  it('visit root', () => {
     // This calls to the backend to prepare the application state
     cy.appFixtures()
 
     // Visit the application under test
     cy.visit('/')
 
-    cy.contains("Hello World")
+    cy.contains('Hello World')
   })
 })
 ```
@@ -240,21 +239,21 @@ CypressOnRails::SmartFactoryWrapper.create(:profile, name: "Cypress Hill")
 Then reference the scenario in your test:
 ```js
 // spec/cypress/e2e/scenario_example.cy.js
-describe('My First Test', function() {
-  it('visit root', function() {
+describe('My First Test', () => {
+  it('visit root', () => {
     // This calls to the backend to prepare the application state
     cy.appScenario('basic')
 
     cy.visit('/profiles')
 
-    cy.contains("Cypress Hill")
+    cy.contains('Cypress Hill')
   })
 })
 ```
 
 ### Example of using app commands
 
-create a ruby file in `spec/cypress/app_commands` directory:
+Create a Ruby file in the `spec/cypress/app_commands` directory:
 ```ruby
 # spec/cypress/app_commands/load_seed.rb
 load "#{Rails.root}/db/seeds.rb"
@@ -263,10 +262,10 @@ load "#{Rails.root}/db/seeds.rb"
 Then reference the command in your test with `cy.app('load_seed')`:
 ```js
 // spec/cypress/e2e/simple.cy.js
-describe('My First Test', function() {
+describe('My First Test', () => {
   beforeEach(() => { cy.app('load_seed') })
 
-  it('visit root', function() {
+  it('visit root', () => {
     cy.visit('/')
 
     cy.contains("Seeds")
@@ -274,11 +273,11 @@ describe('My First Test', function() {
 })
 ```
 
-## Expermintal Features (matching npm package)
+## Experimental Features (matching npm package)
 
-Please test and give feedback
+Please test and give feedback.
 
-add the npm package:
+Add the npm package:
 
 ```
 yarn add cypress-on-rails --dev
@@ -286,7 +285,7 @@ yarn add cypress-on-rails --dev
 
 ### for VCR
 
-This only works when you start the rails server with a single worker and single thread
+This only works when you start the Rails server with a single worker and single thread
 
 #### setup
 
@@ -299,13 +298,13 @@ VCR.configure do |config|
 end
 ```
 
-Add to you `cypress/support/index.js`
+Add to your `cypress/support/index.js`:
 
 ```js
 import 'cypress-on-rails/support/index'
 ```
 
-Add to you `clean.rb`
+Add to your `cypress/app_commands/clean.rb`:
 
 ```ruby
 VCR.eject_cassette # make sure we no cassettes inserted before the next test starts
@@ -313,7 +312,7 @@ VCR.turn_off!
 WebMock.disable! if defined?(WebMock)
 ```
 
-Add to you `config/cypress_on_rails.rb`
+Add to your `config/cypress_on_rails.rb`:
 
 ```ruby
   c.use_vcr_middleware = !Rails.env.production? && ENV['CYPRESS'].present?
@@ -325,10 +324,10 @@ You have `vcr_insert_cassette` and `vcr_eject_cassette` available. https://www.r
 
 
 ```js
-describe('My First Test', function() {
+describe('My First Test', () => {
   beforeEach(() => { cy.app('load_seed') })
 
-  it('visit root', function() {
+  it('visit root', () => {
     cy.app('clean') // have a look at cypress/app_commands/clean.rb
 
     cy.vcr_insert_cassette('cats', { record: "new_episodes" })
@@ -337,7 +336,7 @@ describe('My First Test', function() {
     cy.get('a').contains('Cats').click()
     cy.contains('Wikipedia has a recording of a cat meowing, because why not?')
 
-    cy.vcr_eject_cassette();
+    cy.vcr_eject_cassette()
 
     cy.vcr_insert_cassette('cats')
     cy.visit('/using_vcr/record_cats')
@@ -363,30 +362,30 @@ use CypressOnRails::Middleware
 run MyApp
 ```
 
-add the following file to cypress
+add the following file to Cypress
 
 ```js
 // test/cypress/support/on-rails.js
-// CypressOnRails: dont remove these command
-Cypress.Commands.add('appCommands', function (body) {
+// CypressOnRails: don't remove these commands
+Cypress.Commands.add('appCommands', (body) => {
   cy.request({
     method: 'POST',
-    url: "/__cypress__/command",
+    url: '/__cypress__/command',
     body: JSON.stringify(body),
     log: true,
     failOnStatusCode: true
   })
 });
 
-Cypress.Commands.add('app', function (name, command_options) {
+Cypress.Commands.add('app', (name, command_options) => {
   cy.appCommands({name: name, options: command_options})
 });
 
-Cypress.Commands.add('appScenario', function (name) {
+Cypress.Commands.add('appScenario', (name) => {
   cy.app('scenarios/' + name)
 });
 
-Cypress.Commands.add('appFactories', function (options) {
+Cypress.Commands.add('appFactories', (options) => {
   cy.app('factory_bot', options)
 });
 // CypressOnRails: end
@@ -415,4 +414,4 @@ The following companies support this open source project, and ShakaCode uses the
 [![BrowserStack](https://cloud.githubusercontent.com/assets/1118459/23203304/1261e468-f886-11e6-819e-93b1a3f17da4.png)](https://www.browserstack.com)
 [![HoneyBadger](https://user-images.githubusercontent.com/1118459/114100696-63962a00-9860-11eb-8ac1-75ca02856d8e.png)](https://www.honeybadger.io/)
 
-ShakaCode's favorite project tracking tool is [Shortcut](https://shortcut.com/). If you want to **try Shortcut and get 2 months free beyond the 14-day trial period**, click [here to use ShakaCode's referral code](http://r.clbh.se/mvfoNeH). We're participating in their awesome triple-sided referral program, which you can read about [here](https://shortcut.com/referral/). By using our [referral code](http://r.clbh.se/mvfoNeH) you'll be supporting ShakaCode and, thus, React on Rails!
+ShakaCode's favorite project tracking tool is [Shortcut](https://shortcut.com/). If you want to **try Shortcut and get 2 months free beyond the 14-day trial period**, click [here to use ShakaCode's referral code](http://r.clbh.se/mvfoNeH). We're participating in their awesome triple-sided referral program, which you can read about [here](https://shortcut.com/referral/). By using our [referral code](http://r.clbh.se/mvfoNeH) you'll be supporting ShakaCode and, thus, Cypress on Rails and React on Rails!
