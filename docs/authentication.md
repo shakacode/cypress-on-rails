@@ -1,6 +1,6 @@
 # Example for Authenticating a User
 
-in routes.rb
+In `config/routes.rb`:
 ```rb
 Rails.application.routes.draw do
   # ...... your other routes
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 end
 ```
 
-app/controllers/cypress_controller.rb
+`app/controllers/cypress_controller.rb`:
 ```rb
 class CypressController < ApplicationController
   skip_before_action :verify_authenticity_token
@@ -29,21 +29,23 @@ class CypressController < ApplicationController
 end
 ```
 
-in cypress/support/on-rails.js
+In `cypress/support/on-rails.js`:
 ```js
-Cypress.Commands.add("forceLogin", (details) => {
-  if(!details)
+Cypress.Commands.add('forceLogin', (details) => {
+  if (!details) {
     details = {}
+  }
 
-  if(!details.redirect_to)
+  if (!details.redirect_to) {
     details.redirect_to = '/'
+  }
 
-  cy.visit("__cypress__/forceLogin",
-    { method: "POST", body: { email: details.email, redirect_to: details.redirect_to }  })
-});
+  cy.visit('__cypress__/forceLogin',
+    { method: 'POST', body: { email: details.email, redirect_to: details.redirect_to } })
+})
 ```
 
-examples of usage in cypress specs
+Examples of usage in Cypress specs:
 ```js
 cy.forceLogin()
 cy.forceLogin({redirect_to: '/profile'})

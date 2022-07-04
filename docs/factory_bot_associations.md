@@ -1,6 +1,6 @@
 # Setting up associations with the correct data
 
-You cannot access associations directly from Cypress like you can do with ruby tests.
+You cannot access associations directly from Cypress like you can do with Ruby tests.
 So setting up associations has to be done differently from within Cypress.
 
 There are a few ways you can setup associations with the correct data using Cypress and FactoryBot.
@@ -27,7 +27,7 @@ You can do the following:
 
 ## 1. Setting the foreign keys
 
-factories.rb
+`factories.rb`:
 ```rb
 FactoryBot.define do
   factory :author do
@@ -45,13 +45,13 @@ then in Cypress
 ```js
 // example with overriding the defaults
 cy.appFactories([['create', 'author', { name: 'James' }]]).then((records) => {
-  cy.appFactories([['create', 'post', { title: 'Cypress is cool', author_id: records[0].id }]]
-});
+  cy.appFactories([['create', 'post', { title: 'Cypress is cool', author_id: records[0].id }]])
+})
 
 // example without overriding anything
 cy.appFactories([['create', 'author']]).then((records) => {
-  cy.appFactories([['create', 'post', { author_id: records[0].id }]]
-});
+  cy.appFactories([['create', 'post', { author_id: records[0].id }]])
+})
 ```
 
 ## 2. Using transient attributes
@@ -75,10 +75,10 @@ end
 then in Cypress
 ```js
 // example with overriding the defaults
-cy.appFactories([['create', 'post', { title: 'Cypress is cool', author_name: 'James' }]]
+cy.appFactories([['create', 'post', { title: 'Cypress is cool', author_name: 'James' }]])
 
 // example without overriding
-cy.appFactories([['create', 'post']]
+cy.appFactories([['create', 'post']])
 ```
 
 ## 3. Using Nested Attributes
@@ -99,11 +99,11 @@ end
 then in Cypress
 ```js
 // example with overriding the defaults
-cy.appFactories([['create', 'post', { title: 'Cypress is cool', author_attributes: { name: 'James' } }]]
+cy.appFactories([['create', 'post', { title: 'Cypress is cool', author_attributes: { name: 'James' } }]])
 
 // example without overriding
-cy.appFactories([['create', 'post']]
+cy.appFactories([['create', 'post']])
 
 // example of creating author with multiple posts
-cy.appFactories([['create', 'author', { name: 'James', posts_attributes: [{ name: 'Cypress is cool' }, {name: 'Rails is awesome' }] ]]
+cy.appFactories([['create', 'author', { name: 'James', posts_attributes: [{ name: 'Cypress is cool' }, {name: 'Rails is awesome' }] }]])
 ```
