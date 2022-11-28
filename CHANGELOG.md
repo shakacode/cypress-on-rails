@@ -1,3 +1,6 @@
+### Fixed
+* Properly copies the cypress_helper file when running the update generator [PR 117](https://github.com/shakacode/cypress-on-rails/pull/117) by [alvincrespo]
+
 ### Tasks
 * pass cypress record key to github action [PR 110](https://github.com/shakacode/cypress-on-rails/pull/110)
 
