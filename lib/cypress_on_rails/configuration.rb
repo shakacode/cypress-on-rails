@@ -6,6 +6,8 @@ module CypressOnRails
     attr_accessor :use_middleware
     attr_accessor :use_vcr_middleware
     attr_accessor :logger
+    attr_accessor :use_vcr
+    attr_accessor :vcr_record_mode
 
     def initialize
       reset
@@ -19,6 +21,8 @@ module CypressOnRails
       self.use_middleware = true
       self.use_vcr_middleware = false
       self.logger = Logger.new(STDOUT)
+      self.use_vcr = false
+      self.vcr_record_mode = :new_episodes
     end
 
     def tagged_logged

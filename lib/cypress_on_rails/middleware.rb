@@ -2,6 +2,7 @@ require 'json'
 require 'rack'
 require 'cypress_on_rails/middleware_config'
 require 'cypress_on_rails/command_executor'
+require 'cypress_on_rails/vcr_wrapper'
 
 module CypressOnRails
   # Middleware to handle cypress commands and eval
@@ -18,6 +19,8 @@ module CypressOnRails
       request = Rack::Request.new(env)
       if request.path.start_with?('/__cypress__/command')
         configuration.tagged_logged { handle_command(request) }
+      elsif defined?(VCR) && configuration.use_vcr
+        VCRWrapper.new(app: @app, env: env).run_with_cassette 
       else
         @app.call(env)
       end
