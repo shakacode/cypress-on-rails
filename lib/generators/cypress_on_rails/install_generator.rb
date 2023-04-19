@@ -7,7 +7,7 @@ module CypressOnRails
     source_root File.expand_path('../templates', __FILE__)
 
     def install_cypress
-      if !Dir.exists?(options.cypress_folder) || Dir["#{options.cypress_folder}/*"].empty?
+      if !Dir.exist?(options.cypress_folder) || Dir["#{options.cypress_folder}/*"].empty?
         directories = options.cypress_folder.split('/')
         directories.pop
         install_dir = "#{Dir.pwd}/#{directories.join('/')}"

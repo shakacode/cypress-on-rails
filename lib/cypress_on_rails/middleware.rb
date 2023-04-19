@@ -56,7 +56,7 @@ module CypressOnRails
       body = JSON.parse(req.body.read)
       logger.info "handle_command: #{body}"
       commands = Command.from_body(body, configuration)
-      missing_command = commands.find {|command| !@file.exists?(command.file_path) }
+      missing_command = commands.find {|command| !@file.exist?(command.file_path) }
 
       if missing_command.nil?
         begin
