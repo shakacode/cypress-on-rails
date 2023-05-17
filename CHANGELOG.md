@@ -1,3 +1,9 @@
+### Changed
+* Add support for api_prefix [PR 130](https://github.com/shakacode/cypress-on-rails/pull/130)
+
+## [1.14.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.13.1...v1.14.0
+
 ### Fixed
 * Properly copies the cypress_helper file when running the update generator [PR 117](https://github.com/shakacode/cypress-on-rails/pull/117) by [alvincrespo]
 

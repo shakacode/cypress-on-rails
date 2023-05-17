@@ -3,6 +3,7 @@ require 'logger'
 module CypressOnRails
   class Configuration
     attr_accessor :cypress_folder
+    attr_accessor :api_prefix
     attr_accessor :use_middleware
     attr_accessor :use_vcr_middleware
     attr_accessor :logger
@@ -16,6 +17,7 @@ module CypressOnRails
 
     def reset
       self.cypress_folder = 'spec/cypress'
+      self.api_prefix = ''
       self.use_middleware = true
       self.use_vcr_middleware = false
       self.logger = Logger.new(STDOUT)

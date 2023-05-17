@@ -59,6 +59,9 @@ bin/rails g cypress_on_rails:install
 # if you have/want a different cypress folder (default is cypress)
 bin/rails g cypress_on_rails:install --cypress_folder=spec/cypress
 
+# if you target the Rails server with a path prefix to your URL
+bin/rails g cypress_on_rails:install --api_prefix=/api
+
 # if you want to install cypress with npm
 bin/rails g cypress_on_rails:install --install_cypress_with=npm
 

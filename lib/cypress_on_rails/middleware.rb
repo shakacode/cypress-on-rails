@@ -16,7 +16,7 @@ module CypressOnRails
 
     def call(env)
       request = Rack::Request.new(env)
-      if request.path.start_with?('/__cypress__/command')
+      if request.path.start_with?("#{configuration.api_prefix}/__cypress__/command")
         configuration.tagged_logged { handle_command(request) }
       else
         @app.call(env)

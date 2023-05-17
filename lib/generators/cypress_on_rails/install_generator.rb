@@ -1,6 +1,7 @@
 module CypressOnRails
   class InstallGenerator < Rails::Generators::Base
     class_option :cypress_folder, type: :string, default: 'cypress'
+    class_option :api_prefix, type: :string, default: ''
     class_option :install_cypress, type: :boolean, default: true
     class_option :install_cypress_with, type: :string, default: 'yarn'
     class_option :experimental, type: :boolean, default: false
