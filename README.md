@@ -14,6 +14,9 @@ Need help with cypress-on-rails? Contact [ShakaCode](mailto:justin@shakacode.com
 
 ----
 
+# Playwright.dev support
+We're working on full support for [Playwright.dev](https://playwright.dev/). See [issue #116](https://github.com/shakacode/cypress-on-rails/issues/116#issuecomment-1523946478) for details.
+
 # Totally new to Cypress?
 Suggest you first learn the basics of Cypress before attempting to integrate with Ruby on Rails
 
