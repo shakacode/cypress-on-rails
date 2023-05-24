@@ -1,5 +1,5 @@
 ### Changed
-* Add support for api_prefix [PR 130](https://github.com/shakacode/cypress-on-rails/pull/130)
+* Add support for proxy routes through `api_prefix` [PR 130](https://github.com/shakacode/cypress-on-rails/pull/130)
 
 ## [1.14.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.13.1...v1.14.0
@@ -46,7 +46,7 @@
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.10.1...v1.11.0
 
 ### Changed
-* improve app command logging on cypress 
+* improve app command logging on cypress
 * Allow build and build_list commands to be executed against factory bot [PR 87](https://github.com/shakacode/cypress-on-rails/pull/87) by [Alexander-Blair]
 
 ## [1.10.1]
