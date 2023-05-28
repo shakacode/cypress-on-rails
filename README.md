@@ -6,7 +6,7 @@
 
 ----
 
-This project is sponsored by the software consulting firm [ShakaCode](https://www.shakacode.com), creator of the [React on Rails Gem](https://github.com/shakacode/react_on_rails). We focus on React (with TS or ReScript) front-ends, often with Ruby on Rails or Gatsby. See [our recent work](https://www.shakacode.com/recent-work) and [client engagement model](https://www.shakacode.com/blog/client-engagement-model/). Feel free to engage in discussions around this gem at our [Slack Channel](https://join.slack.com/t/reactrails/shared_invite/enQtNjY3NTczMjczNzYxLTlmYjdiZmY3MTVlMzU2YWE0OWM0MzNiZDI0MzdkZGFiZTFkYTFkOGVjODBmOWEyYWQ3MzA2NGE1YWJjNmVlMGE) or our [forum category for Cypress](https://forum.shakacode.com/c/cypress-on-rails/55). 
+This project is sponsored by the software consulting firm [ShakaCode](https://www.shakacode.com), creator of the [React on Rails Gem](https://github.com/shakacode/react_on_rails). We focus on React (with TS or ReScript) front-ends, often with Ruby on Rails or Gatsby. See [our recent work](https://www.shakacode.com/recent-work) and [client engagement model](https://www.shakacode.com/blog/client-engagement-model/). Feel free to engage in discussions around this gem at our [Slack Channel](https://join.slack.com/t/reactrails/shared_invite/enQtNjY3NTczMjczNzYxLTlmYjdiZmY3MTVlMzU2YWE0OWM0MzNiZDI0MzdkZGFiZTFkYTFkOGVjODBmOWEyYWQ3MzA2NGE1YWJjNmVlMGE) or our [forum category for Cypress](https://forum.shakacode.com/c/cypress-on-rails/55).
 
 Interested in joining a small team that loves open source? Check our [careers page](https://www.shakacode.com/career/).
 
@@ -62,6 +62,9 @@ bin/rails g cypress_on_rails:install
 # if you have/want a different cypress folder (default is cypress)
 bin/rails g cypress_on_rails:install --cypress_folder=spec/cypress
 
+# if you target the Rails server with a path prefix to your URL
+bin/rails g cypress_on_rails:install --api_prefix=/api
+
 # if you want to install cypress with npm
 bin/rails g cypress_on_rails:install --install_cypress_with=npm
 
@@ -88,7 +91,7 @@ Now you can create scenarios and commands that are plain Ruby files that get loa
 ### Update your database.yml
 
 When running `cypress test` on your local computer it's recommended to start your server in development mode so that changes you
-make are picked up without having to restart the server. 
+make are picked up without having to restart the server.
 It's recommended you update your `database.yml` to check if the `CYPRESS` environment variable is set and switch it to the test database
 otherwise cypress will keep clearing your development database.
 
@@ -115,9 +118,9 @@ Getting started on your local environment
 CYPRESS=1 bin/rails server -p 5017
 
 # in separate window start cypress
-yarn cypress open 
+yarn cypress open
 # or for npm
-node_modules/.bin/cypress open 
+node_modules/.bin/cypress open
 # or if you changed the cypress folder to spec/cypress
 yarn cypress open --project ./spec
 ```
@@ -130,7 +133,7 @@ How to run cypress on CI
 
 yarn run cypress run
 # or for npm
-node_modules/.bin/cypress run 
+node_modules/.bin/cypress run
 ```
 
 ### Example of using factory bot
@@ -397,6 +400,17 @@ Cypress.Commands.add('appFactories', (options) => {
 beforeEach(() => {
   cy.app('clean') // have a look at cypress/app_commands/clean.rb
 });
+```
+
+## API Prefix
+
+If your Rails server is exposed under a proxy, typically https://my-local.dev/api, you can use the `api_prefix` option.
+In `config/initializers/cypress_on_rails.rb`, add this line:
+```ruby
+  CypressOnRails.configure do |c|
+    # ...
+    c.api_prefix = '/api'
+  end
 ```
 
 ## Contributing
