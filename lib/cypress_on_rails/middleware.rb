@@ -4,7 +4,7 @@ require 'cypress_on_rails/middleware_config'
 require 'cypress_on_rails/command_executor'
 
 module CypressOnRails
-  # Middleware to handle cypress commands and eval
+  # Middleware to handle testing framework commands and eval
   class Middleware
     include MiddlewareConfig
 
@@ -16,7 +16,7 @@ module CypressOnRails
 
     def call(env)
       request = Rack::Request.new(env)
-      if request.path.start_with?("#{configuration.api_prefix}/__cypress__/command")
+      if request.path.start_with?("#{configuration.api_prefix}/__e2e__/command")
         configuration.tagged_logged { handle_command(request) }
       else
         @app.call(env)
@@ -34,12 +34,12 @@ module CypressOnRails
           command_params = [body]
         end
         command_params.map do |params|
-          new(params.fetch('name'), params['options'], configuration.cypress_folder)
+          new(params.fetch('name'), params['options'], configuration.install_folder)
         end
       end
 
       def file_path
-        "#{cypress_folder}/app_commands/#{name}.rb"
+        "#{install_folder}/app_commands/#{name}.rb"
       end
     end
 

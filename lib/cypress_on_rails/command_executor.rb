@@ -14,7 +14,7 @@ module CypressOnRails
     end
 
     def self.load_cypress_helper
-      cypress_helper_file = "#{configuration.cypress_folder}/cypress_helper"
+      cypress_helper_file = "#{configuration.install_folder}/cypress_helper"
       if File.exist?("#{cypress_helper_file}.rb")
         Kernel.require cypress_helper_file
       else
