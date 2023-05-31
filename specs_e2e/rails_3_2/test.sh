@@ -14,7 +14,7 @@ bundle --version
 bundle install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- cypress install'
-bundle exec ./bin/rails g cypress_on_rails:install --install_folder=test/e2e --cypress_folder=test/cypress --playwright_folder=test/playwright --install_cypress --install_playwright --install_with=npm --skip
+bundle exec ./bin/rails g cypress_on_rails:install --install_cypress --install_playwright --install_with=npm
 rm -vf cypress/e2e/rails_examples/advance_factory_bot.cy.js
 rm -vf cypress/e2e/rails_examples/using_vcr.cy.js
 
@@ -34,9 +34,10 @@ cp -fv ../cypress.config.js .
     node_modules/.bin/cypress run --record
 # fi
 
-echo '-- cypress run'
-cp -fv ../cypress.config.js .
-npx playwright test
+echo '-- playwright run'
+cp -fv ../playwright.config.js .
+npx playwright install-deps
+npx playwright test playwright/e2e/
 
 echo '-- stop rails server'
 kill -9 `cat tmp/pids/server.pid`
