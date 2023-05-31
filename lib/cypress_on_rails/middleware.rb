@@ -18,6 +18,9 @@ module CypressOnRails
       request = Rack::Request.new(env)
       if request.path.start_with?("#{configuration.api_prefix}/__e2e__/command")
         configuration.tagged_logged { handle_command(request) }
+      elsif request.path.start_with?("#{configuration.api_prefix}/__cypress__/command")
+        configuration.tagged_logged { handle_command(request) }
+        warn "/__cypress__/command is deprecated. Please use the install generator to use /__e2e__/command instead."
       else
         @app.call(env)
       end
@@ -25,7 +28,7 @@ module CypressOnRails
 
     private
 
-    Command = Struct.new(:name, :options, :cypress_folder) do
+    Command = Struct.new(:name, :options, :install_folder) do
       # @return [Array<Cypress::Middleware::Command>]
       def self.from_body(body, configuration)
         if body.is_a?(Array)
@@ -34,7 +37,12 @@ module CypressOnRails
           command_params = [body]
         end
         command_params.map do |params|
-          new(params.fetch('name'), params['options'], configuration.install_folder)
+          if defined?(configuration.install_folder)
+            new(params.fetch('name'), params['options'], configuration.install_folder)
+          else
+            new(params.fetch('name'), params['options'], configuration.cypress_folder)
+            warn "cypress_folder is deprecated. Please use the install generator to use install_folder instead."
+          end
         end
       end
 

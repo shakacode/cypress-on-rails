@@ -10,7 +10,7 @@ module CypressOnRails
 
     def update_generated_files
       template "config/initializers/cypress_on_rails.rb.erb", "config/initializers/cypress_on_rails.rb"
-      template "spec/e2e/cypress_helper.rb.erb", "#{options.install_folder}/cypress_helper.rb"
+      template "spec/e2e/e2e_helper.rb.erb", "#{options.install_folder}/e2e_helper.rb"
       directory 'spec/e2e/app_commands', "#{options.install_folder}/app_commands"
 
       if options.install_cypress

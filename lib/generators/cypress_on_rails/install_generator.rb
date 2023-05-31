@@ -14,32 +14,29 @@ module CypressOnRails
       directories = options.install_folder.split('/')
       directories.pop
       install_dir = "#{Dir.pwd}/#{directories.join('/')}"
+
       command = nil
+      packages = []
+
+      packages << 'cypress' if options.install_cypress
+      packages << 'playwright' if options.install_playwright
+
+      if options.install_with == 'yarn'
+        command = "yarn --cwd=#{install_dir} add #{packages.join(' ')} --dev"
+      elsif options.install_with == 'npm'
+        command = "cd #{install_dir}; npm install #{packages.join(' ')} --save-dev"
+      end
+      if command
+        say command
+        fail 'failed to install cypress' unless system(command)
+      end
+
       if options.install_cypress
-        if options.install_with == 'yarn'
-          command = "yarn --cwd=#{install_dir} add cypress --dev"
-        elsif options.install_with == 'npm'
-          command = "cd #{install_dir}; npm install cypress --save-dev"
-        end
-        if command
-          say command
-          fail 'failed to install cypress' unless system(command)
-        end
         template "spec/cypress/support/index.js.erb", "#{options.cypress_folder}/support/index.js"
         copy_file "spec/cypress/support/commands.js", "#{options.cypress_folder}/support/commands.js"
         copy_file "spec/cypress.config.js", "#{options.cypress_folder}/../cypress.config.js"
       end
-      command = nil
       if options.install_playwright
-        if options.install_with == 'yarn'
-          command = "yarn --cwd=#{install_dir} add playwright --dev"
-        elsif options.install_with == 'npm'
-          command = "cd #{install_dir}; npm install playwright --save-dev"
-        end
-        if command
-          say command
-          fail 'failed to install playwright' unless system(command)
-        end
         template "spec/playwright/support/index.js.erb", "#{options.playwright_folder}/support/index.js"
         copy_file "spec/playwright.config.js", "#{options.playwright_folder}/../playwright.config.js"
       end
@@ -47,7 +44,7 @@ module CypressOnRails
 
     def add_initial_files
       template "config/initializers/cypress_on_rails.rb.erb", "config/initializers/cypress_on_rails.rb"
-      template "spec/e2e/cypress_helper.rb.erb", "#{options.install_folder}/cypress_helper.rb"
+      template "spec/e2e/e2e_helper.rb.erb", "#{options.install_folder}/e2e_helper.rb"
       directory 'spec/e2e/app_commands', "#{options.install_folder}/app_commands"
       if options.install_cypress
         copy_file "spec/cypress/support/on-rails.js", "#{options.cypress_folder}/support/on-rails.js"
