@@ -18,8 +18,8 @@ echo '-- migration'
 bundle exec ./bin/rails db:drop || true
 bundle exec ./bin/rails db:create db:migrate
 
-echo '-- cypress install'
-bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=test/cypress --skip
+echo '-- cypress and playwright install'
+bundle exec ./bin/rails g cypress_on_rails:install --install_folder=test/e2e --cypress_folder=test/cypress --playwright_folder=test/playwright --install_cypress --install_playwright --skip
 rm -vf test/cypress/e2e/rails_examples/using_vcr.cy.js
 
 echo '-- start rails server'
@@ -38,6 +38,11 @@ cd test
 # else
     yarn run cypress run --record
 # fi
+
+echo '-- playwright run'
+cp -fv ../playwright.config.js test/
+cd test
+yarn run playwright test
 
 echo '-- stop rails server'
 kill -9 `cat ../tmp/pids/server.pid` || true

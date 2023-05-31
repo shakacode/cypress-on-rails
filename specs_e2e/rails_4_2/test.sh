@@ -14,9 +14,8 @@ gem install bundler -v "~> 1.0" --conservative
 bundle --version
 bundle install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
-echo '-- cypress install'
-yarn install
-bundle exec ./bin/rails g cypress_on_rails:install --cypress_folder=spec/cypress --experimental --skip
+echo '-- cypress and playwright install'
+bundle exec ./bin/rails g cypress_on_rails:install --install_folder=spec/e2e --cypress_folder=spec/cypress --playwright_folder=spec/playwright --install_cypress --install_playwright --experimental --skip
 rm -vf spec/cypress/e2e/rails_examples/advance_factory_bot.cy.js
 
 echo '-- start rails server'
@@ -34,6 +33,11 @@ cp -fv ../cypress.config.js spec/
 # else
     yarn run cypress run -P ./spec --record
 # fi
+
+echo '-- playwright run'
+cp -fv ../playwright.config.js spec/
+cd spec
+yarn run playwright test
 
 echo '-- stop rails server'
 kill -9 `cat tmp/pids/server.pid`

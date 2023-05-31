@@ -5,7 +5,7 @@ Cypress.Commands.add("vcr_insert_cassette", (cassette_name, options) => {
   const log = Cypress.log({ name: "VCR Insert", message: cassette_name, autoEnd: false })
   return cy.request({
     method: 'POST',
-    url: "/__cypress__/vcr/insert",
+    url: "/__e2e__/vcr/insert",
     body: JSON.stringify([cassette_name,options]),
     log: false,
     failOnStatusCode: false
@@ -23,7 +23,7 @@ Cypress.Commands.add("vcr_eject_cassette", () => {
   const log = Cypress.log({ name: "VCR Eject", autoEnd: false })
   return cy.request({
     method: 'POST',
-    url: "/__cypress__/vcr/eject",
+    url: "/__e2e__/vcr/eject",
     log: false,
     failOnStatusCode: false
   }).then((response) => {
