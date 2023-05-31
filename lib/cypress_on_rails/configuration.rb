@@ -18,9 +18,8 @@ module CypressOnRails
 
     def reset
       self.api_prefix = ''
-      self.install_folder = nil
-      self.cypress_folder = 'spec/cypress'
-      warn "cypress_folder is deprecated, please use the install generator to use the new folder structure"
+      self.install_folder = 'spec/e2e'
+      self.cypress_folder = nil
       self.use_middleware = true
       self.use_vcr_middleware = false
       self.logger = Logger.new(STDOUT)

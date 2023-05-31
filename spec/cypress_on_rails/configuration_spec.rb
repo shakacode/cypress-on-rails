@@ -6,7 +6,7 @@ RSpec.describe CypressOnRails::Configuration do
 
     expect(CypressOnRails.configuration.api_prefix).to eq('')
     expect(CypressOnRails.configuration.install_folder).to eq('spec/e2e')
-    expect(CypressOnRails.configuration.cypress_folder).to eq('spec/cypress')
+    expect(CypressOnRails.configuration.cypress_folder).to eq(nil)
     expect(CypressOnRails.configuration.use_middleware?).to eq(true)
     expect(CypressOnRails.configuration.logger).to_not be_nil
   end

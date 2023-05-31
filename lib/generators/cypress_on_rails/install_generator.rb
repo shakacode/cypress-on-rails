@@ -19,7 +19,7 @@ module CypressOnRails
       packages = []
 
       packages << 'cypress' if options.install_cypress
-      packages << 'playwright' if options.install_playwright
+      packages.push('playwright', '@playwright/test') if options.install_playwright
 
       if options.install_with == 'yarn'
         command = "yarn --cwd=#{install_dir} add #{packages.join(' ')} --dev"
@@ -28,7 +28,7 @@ module CypressOnRails
       end
       if command
         say command
-        fail 'failed to install cypress' unless system(command)
+        fail "failed to install #{packages.join(' ')}" unless system(command)
       end
 
       if options.install_cypress

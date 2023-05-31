@@ -57,7 +57,7 @@ module CypressOnRails
       return @vcr if @vcr
       require 'vcr'
       VCR.configure do |config|
-        config.cassette_library_dir = "#{configuration.install_folder}/fixtures/vcr_cassettes"
+        config.cassette_library_dir = "#{configuration.cypress_folder.nil? ? configuration.install_folder : configuration.cypress_folder}/fixtures/vcr_cassettes"
       end
       @vcr = VCR
     end

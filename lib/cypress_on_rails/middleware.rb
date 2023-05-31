@@ -37,7 +37,7 @@ module CypressOnRails
           command_params = [body]
         end
         command_params.map do |params|
-          if defined?(configuration.install_folder)
+          if configuration.cypress_folder.nil?
             new(params.fetch('name'), params['options'], configuration.install_folder)
           else
             new(params.fetch('name'), params['options'], configuration.cypress_folder)

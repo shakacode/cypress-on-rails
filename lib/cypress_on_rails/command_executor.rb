@@ -15,13 +15,14 @@ module CypressOnRails
 
     def self.load_e2e_helper
       e2e_helper_file = "#{configuration.install_folder}/e2e_helper.rb"
+      cypress_helper_file = "#{configuration.cypress_folder}/cypress_helper.rb"
       if File.exist?(e2e_helper_file)
         Kernel.require e2e_helper_file
-      elsif File.exist?("#{configuration.cypress_folder}/cypress_helper.rb")
-        Kernel.require e2e_helper_file
+      elsif File.exist?(cypress_helper_file)
+        Kernel.require cypress_helper_file
         warn "cypress_helper.rb and cypress_folder are deprecated, please use the install generator to create e2e_helper.rb using install_folder"
       else
-        logger.warn "could not find #{e2e_helper_file}"
+      logger.warn "could not find #{e2e_helper_file} nor #{cypress_helper_file}"
       end
     end
 
