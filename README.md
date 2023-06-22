@@ -14,20 +14,21 @@ Need help with cypress-on-rails? Contact [ShakaCode](mailto:justin@shakacode.com
 
 ----
 
-# Playwright.dev support
-We're working on full support for [Playwright.dev](https://playwright.dev/). See [issue #116](https://github.com/shakacode/cypress-on-rails/issues/116#issuecomment-1523946478) for details.
-
 # Totally new to Cypress?
 Suggest you first learn the basics of Cypress before attempting to integrate with Ruby on Rails
 
 * [Good start Here](https://docs.cypress.io/examples/examples/tutorials.html#Best-Practices)
 
+# Totally new to Playwright?
+Suggest you first learn the basics of Playwright before attempting to integrate with Ruby on Rails
+
+* [Good start Here](https://playwright.dev/docs/writing-tests)
+
 ## Overview
 
-Gem for using [cypress.io](http://github.com/cypress-io/) in Rails and Ruby Rack applications
-with the goal of controlling state as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
+Gem for using [cypress.io](http://github.com/cypress-io/) or [playwright.dev](https://playwright.dev/) in Rails and Ruby Rack applications with the goal of controlling state as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
 
-It allows you to run code in the application context when executing cypress tests.
+It allows you to run code in the application context when executing cypress or playwright tests.
 Do things like:
 * use database_cleaner before each test
 * seed the database with default data for each test
@@ -57,10 +58,17 @@ end
 Generate the boilerplate code using:
 
 ```shell
+# by default installs only cypress
 bin/rails g cypress_on_rails:install
 
 # if you have/want a different cypress folder (default is cypress)
 bin/rails g cypress_on_rails:install --cypress_folder=spec/cypress
+
+# to install both cypress and playwright
+bin/rails g cypress_on_rails:install --install_cypress --install_playwright --playwright_folder=playwright
+
+# to change where the Ruby files reside (default is e2e)
+bin/rails g cypress_on_rails:install --install_folder=test/e2e
 
 # if you target the Rails server with a path prefix to your URL
 bin/rails g cypress_on_rails:install --api_prefix=/api
@@ -76,21 +84,22 @@ bin/rails g cypress_on_rails:update
 ```
 
 The generator modifies/adds the following files/directory in your application:
-* `config/environments/test.rb`
 * `config/initializers/cypress_on_rails.rb` used to configure Cypress on Rails
 * `spec/cypress/e2e/` contains your cypress tests
+* `spec/playwright/e2e/` contains your playwright tests
 * `spec/cypress/support/on-rails.js` contains Cypress on Rails support code
-* `spec/cypress/app_commands/scenarios/` contains your Cypress on Rails scenario definitions
-* `spec/cypress/cypress_helper.rb` contains helper code for Cypress on Rails app commands
+* `spec/playwright/support/on-rails.js` contains Playwright on Rails support code
+* `spec/e2e/app_commands/scenarios/` contains your Cypress on Rails scenario definitions
+* `spec/e2e/cypress_helper.rb` contains helper code for Cypress on Rails app commands
 
-If you are not using `database_cleaner` look at `spec/cypress/app_commands/clean.rb`.
-If you are not using `factory_bot` look at `spec/cypress/app_commands/factory_bot.rb`.
+If you are not using `database_cleaner` look at `spec/e2e/app_commands/clean.rb`.
+If you are not using `factory_bot` look at `spec/e2e/app_commands/factory_bot.rb`.
 
 Now you can create scenarios and commands that are plain Ruby files that get loaded through middleware, the ruby sky is your limit.
 
 ### Update your database.yml
 
-When running `cypress test` on your local computer it's recommended to start your server in development mode so that changes you
+When running `cypress test` or `playwright test` on your local computer it's recommended to start your server in development mode so that changes you
 make are picked up without having to restart the server.
 It's recommended you update your `database.yml` to check if the `CYPRESS` environment variable is set and switch it to the test database
 otherwise cypress will keep clearing your development database.
@@ -123,6 +132,10 @@ yarn cypress open
 node_modules/.bin/cypress open
 # or if you changed the cypress folder to spec/cypress
 yarn cypress open --project ./spec
+# or for playwright
+yarn playwright test --ui
+# or using npm
+npx playwright test --ui
 ```
 
 How to run cypress on CI
@@ -133,7 +146,7 @@ How to run cypress on CI
 
 yarn run cypress run
 # or for npm
-node_modules/.bin/cypress run
+npx cypress run
 ```
 
 ### Example of using factory bot
@@ -203,7 +216,7 @@ describe('My First Test', () => {
 
 ### Example of loading Rails test fixtures
 ```ruby
-# spec/cypress/app_commands/activerecord_fixtures.rb
+# spec/e2e/app_commands/activerecord_fixtures.rb
 require "active_record/fixtures"
 
 fixtures_dir = ActiveRecord::Tasks::DatabaseTasks.fixtures_path
@@ -233,7 +246,7 @@ describe('My First Test', () => {
 
 Scenarios are named `before` blocks that you can reference in your test.
 
-You define a scenario in the `spec/cypress/app_commands/scenarios` directory:
+You define a scenario in the `spec/e2e/app_commands/scenarios` directory:
 ```ruby
 # spec/cypress/app_commands/scenarios/basic.rb
 Profile.create name: "Cypress Hill"
@@ -259,9 +272,9 @@ describe('My First Test', () => {
 
 ### Example of using app commands
 
-Create a Ruby file in the `spec/cypress/app_commands` directory:
+Create a Ruby file in the `spec/e2e/app_commands` directory:
 ```ruby
-# spec/cypress/app_commands/load_seed.rb
+# spec/e2e/app_commands/load_seed.rb
 load "#{Rails.root}/db/seeds.rb"
 ```
 
@@ -277,6 +290,37 @@ describe('My First Test', () => {
     cy.contains("Seeds")
   })
 })
+```
+
+### Example of using scenario with Playwright
+
+Scenarios are named `before` blocks that you can reference in your test.
+
+You define a scenario in the `spec/e2e/app_commands/scenarios` directory:
+```ruby
+# spec/e2e/app_commands/scenarios/basic.rb
+Profile.create name: "Cypress Hill"
+
+# or if you have factory_bot enabled in your cypress_helper
+CypressOnRails::SmartFactoryWrapper.create(:profile, name: "Cypress Hill")
+```
+
+Then reference the scenario in your test:
+```js
+// spec/playwright/e2e/scenario_example.spec.js
+import { test, expect } from "@playwright/test";
+import { app, appScenario } from '../../support/on-rails';
+
+test.describe("Rails using scenarios examples", () => {
+  test.beforeEach(async ({ page }) => {
+    await app('clean');
+  });
+
+  test("setup basic scenario", async ({ page }) => {
+    await appScenario('basic');
+    await page.goto("/");
+  });
+});
 ```
 
 ## Experimental Features (matching npm package)
@@ -334,7 +378,7 @@ describe('My First Test', () => {
   beforeEach(() => { cy.app('load_seed') })
 
   it('visit root', () => {
-    cy.app('clean') // have a look at cypress/app_commands/clean.rb
+    cy.app('clean') // have a look at e2e/app_commands/clean.rb
 
     cy.vcr_insert_cassette('cats', { record: "new_episodes" })
     cy.visit('/using_vcr/index')

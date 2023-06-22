@@ -10,7 +10,7 @@ RSpec.describe CypressOnRails::CommandExecutor do
     end
 
     before do
-      CypressOnRails.configuration.cypress_folder = folder
+      CypressOnRails.configuration.install_folder = folder
       DummyTest.values.clear if defined?(DummyTest)
     end
 

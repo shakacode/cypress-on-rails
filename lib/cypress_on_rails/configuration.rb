@@ -2,11 +2,21 @@ require 'logger'
 
 module CypressOnRails
   class Configuration
-    attr_accessor :cypress_folder
     attr_accessor :api_prefix
+    attr_accessor :install_folder
     attr_accessor :use_middleware
     attr_accessor :use_vcr_middleware
     attr_accessor :logger
+
+    # Attributes for backwards compatibility
+    def cypress_folder
+      warn "cypress_folder is deprecated, please use install_folder"
+      install_folder
+    end
+    def cypress_folder=(v)
+      warn "cypress_folder= is deprecated, please use install_folder"
+      self.install_folder = v
+    end
 
     def initialize
       reset
@@ -16,8 +26,8 @@ module CypressOnRails
     alias :use_vcr_middleware? :use_vcr_middleware
 
     def reset
-      self.cypress_folder = 'spec/cypress'
       self.api_prefix = ''
+      self.install_folder = 'spec/e2e'
       self.use_middleware = true
       self.use_vcr_middleware = false
       self.logger = Logger.new(STDOUT)

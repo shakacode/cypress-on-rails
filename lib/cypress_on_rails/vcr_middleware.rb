@@ -15,9 +15,9 @@ module CypressOnRails
 
     def call(env)
       request = Rack::Request.new(env)
-      if request.path.start_with?('/__cypress__/vcr/insert')
+      if request.path.start_with?('/__e2e__/vcr/insert')
         configuration.tagged_logged { handle_insert(request) }
-      elsif request.path.start_with?('/__cypress__/vcr/eject')
+      elsif request.path.start_with?('/__e2e__/vcr/eject')
         configuration.tagged_logged { handle_eject }
       else
         do_first_call unless @first_call
@@ -57,7 +57,7 @@ module CypressOnRails
       return @vcr if @vcr
       require 'vcr'
       VCR.configure do |config|
-        config.cassette_library_dir = "#{configuration.cypress_folder}/fixtures/vcr_cassettes"
+        config.cassette_library_dir = "#{configuration.install_folder}/fixtures/vcr_cassettes"
       end
       @vcr = VCR
     end

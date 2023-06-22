@@ -16,9 +16,9 @@ module CypressOnRails
       StringIO.new(JSON.generate(json_value))
     end
 
-    describe '/__cypress__/vcr/insert' do
+    describe '/__e2e__/vcr/insert' do
       before do
-        env['PATH_INFO'] = '/__cypress__/vcr/insert'
+        env['PATH_INFO'] = '/__e2e__/vcr/insert'
       end
 
       it do
@@ -78,9 +78,9 @@ module CypressOnRails
       end
     end
 
-    describe '/__cypress__/vcr/eject' do
+    describe '/__e2e__/vcr/eject' do
       before do
-        env['PATH_INFO'] = '/__cypress__/vcr/eject'
+        env['PATH_INFO'] = '/__e2e__/vcr/eject'
       end
 
       it do
@@ -104,7 +104,7 @@ module CypressOnRails
 
       it 'runs app' do
         aggregate_failures do
-          %w(/ /__cypress__/login command /cypress_command /).each do |path|
+          %w(/ /__e2e__/login command /e2e_command /).each do |path|
             env['PATH_INFO'] = path
 
             response = subject.call(env)
