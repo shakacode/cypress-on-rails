@@ -41,4 +41,4 @@ npx playwright install-deps
 npx playwright test spec/playwright/e2e/
 
 echo '-- stop rails server'
-kill -9 `cat tmp/pids/server.pid`
+kill -9 `cat tmp/pids/server.pid` || true
