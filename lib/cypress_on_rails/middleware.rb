@@ -37,12 +37,7 @@ module CypressOnRails
           command_params = [body]
         end
         command_params.map do |params|
-          if configuration.cypress_folder.nil?
-            new(params.fetch('name'), params['options'], configuration.install_folder)
-          else
-            new(params.fetch('name'), params['options'], configuration.cypress_folder)
-            warn "cypress_folder is deprecated. Please use the install generator to use install_folder instead."
-          end
+          new(params.fetch('name'), params['options'], configuration.install_folder)
         end
       end
 
