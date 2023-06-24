@@ -19,8 +19,8 @@ module CypressOnRails
       if request.path.start_with?("#{configuration.api_prefix}/__e2e__/command")
         configuration.tagged_logged { handle_command(request) }
       elsif request.path.start_with?("#{configuration.api_prefix}/__cypress__/command")
-        configuration.tagged_logged { handle_command(request) }
         warn "/__cypress__/command is deprecated. Please use the install generator to use /__e2e__/command instead."
+        configuration.tagged_logged { handle_command(request) }
       else
         @app.call(env)
       end
