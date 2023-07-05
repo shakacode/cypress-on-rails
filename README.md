@@ -17,7 +17,7 @@ Need help with cypress-on-rails? Contact [ShakaCode](mailto:justin@shakacode.com
 # Totally new to Cypress?
 Suggest you first learn the basics of Cypress before attempting to integrate with Ruby on Rails
 
-* [Good start Here](https://docs.cypress.io/examples/examples/tutorials.html#Best-Practices)
+* [Good start Here](https://docs.cypress.io/examples/tutorials.html#Best-Practices)
 
 # Totally new to Playwright?
 Suggest you first learn the basics of Playwright before attempting to integrate with Ruby on Rails
