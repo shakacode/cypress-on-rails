@@ -1,3 +1,6 @@
+## [1.15.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.14.0...v1.15.0
+
 ### Changed
 * Add support for any e2e testing framewrok starting with Playwright [PR 131](https://github.com/shakacode/cypress-on-rails/pull/131) by [KhaledEmaraDev]
 
