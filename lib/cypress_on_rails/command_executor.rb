@@ -20,7 +20,7 @@ module CypressOnRails
         Kernel.require e2e_helper_file
       elsif File.exist?(cypress_helper_file)
         Kernel.require cypress_helper_file
-        warn "cypress_helper.rb is deprecated, please rename the file e2e_helper.rb"
+        warn "cypress_helper.rb is deprecated, please rename the file to e2e_helper.rb"
       else
         logger.warn "could not find #{e2e_helper_file} nor #{cypress_helper_file}"
       end
