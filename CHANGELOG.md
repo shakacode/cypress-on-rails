@@ -1,3 +1,6 @@
+### Fixed
+* fix cypress_folder deprecation warning by internal code [PR 136](https://github.com/shakacode/cypress-on-rails/pull/136)
+
 ## [1.15.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.14.0...v1.15.0
 
