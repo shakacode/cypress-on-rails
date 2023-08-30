@@ -47,6 +47,10 @@ module CypressOnRails
     end
 
     def handle_command(req)
+      maybe_env = configuration.before_request.call(req)
+      # Halt the middleware if an Rack Env was returned by `before_request`
+      return maybe_env unless maybe_env.nil?
+
       body = JSON.parse(req.body.read)
       logger.info "handle_command: #{body}"
       commands = Command.from_body(body, configuration)

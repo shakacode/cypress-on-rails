@@ -395,6 +395,47 @@ describe('My First Test', () => {
 })
 ```
 
+## `before_request` configuration
+
+You may perform any custom action before running a CypressOnRails command, such as authentication, or sending metrics.  Please set `before_request` as part of the CypressOnRails configuration.
+
+You should get familiar with [Rack middlewares](https://www.rubyguides.com/2018/09/rack-middleware/).
+If your function returns a `[status, header, body]` response, CypressOnRails will halt, and your command will not be executed. To execute the command, `before_request` should return `nil`.
+
+### Authenticate CypressOnRails
+
+```ruby
+  CypressOnRails.configure do |c|
+    # ...
+
+    # Refer to https://www.rubydoc.info/gems/rack/Rack/Request for the `request` argument.
+    c.before_request = lambda { |request|
+      body = JSON.parse(request.body.string)
+      if body['cypress_token'] != ENV.fetch('SWEEP_CYPRESS_SECRET_TOKEN')
+        # You may also use warden for authentication:
+        #   if !request.env['warden'].authenticate(:secret_key)
+        return [401, {}, ['unauthorized']]
+      end
+
+    }
+  end
+```
+
+### Send usage metrics
+
+```ruby
+  CypressOnRails.configure do |c|
+    # ...
+
+    # Refer to https://www.rubydoc.info/gems/rack/Rack/Request for the `request` argument.
+    c.before_request = lambda { |request|
+      statsd = Datadog::Statsd.new('localhost', 8125)
+
+      statsd.increment('cypress_on_rails.requests')
+    }
+  end
+```
+
 ## Usage with other rack applications
 
 Add CypressOnRails to your config.ru
