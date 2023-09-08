@@ -1,6 +1,3 @@
-## [1.16.0]
-[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.15.1...v1.16.0
-
 ### Added
 * Add support for `before_request` options on the middleware, for authentication [PR 138](https://github.com/shakacode/cypress-on-rails/pull/138) by [RomainEndelin]
 
