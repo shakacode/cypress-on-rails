@@ -6,6 +6,7 @@ module CypressOnRails
     attr_accessor :install_folder
     attr_accessor :use_middleware
     attr_accessor :use_vcr_middleware
+    attr_accessor :before_request
     attr_accessor :logger
 
     # Attributes for backwards compatibility
@@ -30,6 +31,7 @@ module CypressOnRails
       self.install_folder = 'spec/e2e'
       self.use_middleware = true
       self.use_vcr_middleware = false
+      self.before_request = -> (request) {}
       self.logger = Logger.new(STDOUT)
     end
 
