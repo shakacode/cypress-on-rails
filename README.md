@@ -74,7 +74,7 @@ bin/rails g cypress_on_rails:install --install_folder=test/e2e
 bin/rails g cypress_on_rails:install --api_prefix=/api
 
 # if you want to install cypress with npm
-bin/rails g cypress_on_rails:install --install_cypress_with=npm
+bin/rails g cypress_on_rails:install --install_with=npm
 
 # if you already have cypress installed globally
 bin/rails g cypress_on_rails:install --no-install-cypress
