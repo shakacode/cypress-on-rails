@@ -463,6 +463,9 @@ Cypress.Commands.add('appCommands', (body) => {
     method: 'POST',
     url: '/__cypress__/command',
     body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
     log: true,
     failOnStatusCode: true
   })
