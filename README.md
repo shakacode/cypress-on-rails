@@ -61,46 +61,43 @@ Generate the boilerplate code using:
 # by default installs only cypress
 bin/rails g cypress_on_rails:install
 
-# if you have/want a different cypress folder (default is cypress)
-bin/rails g cypress_on_rails:install --cypress_folder=spec/cypress
+# if you have/want a different cypress folder (default is e2e)
+bin/rails g cypress_on_rails:install --install_folder=spec/cypress
 
-# to install both cypress and playwright
-bin/rails g cypress_on_rails:install --install_cypress --install_playwright --playwright_folder=playwright
-
-# to change where the Ruby files reside (default is e2e)
-bin/rails g cypress_on_rails:install --install_folder=test/e2e
+# to install playwright instead of cypress
+bin/rails g cypress_on_rails:install --framework playwright
 
 # if you target the Rails server with a path prefix to your URL
 bin/rails g cypress_on_rails:install --api_prefix=/api
 
-# if you want to install cypress with npm
+# if you want to install with npm instead
 bin/rails g cypress_on_rails:install --install_with=npm
 
 # if you already have cypress installed globally
-bin/rails g cypress_on_rails:install --no-install-cypress
+bin/rails g cypress_on_rails:install --install_with=echo
 
 # to update the generated files run
-bin/rails g cypress_on_rails:update
+bin/rails g cypress_on_rails:install --install_with=echo
 ```
 
 The generator modifies/adds the following files/directory in your application:
 * `config/initializers/cypress_on_rails.rb` used to configure Cypress on Rails
-* `spec/cypress/e2e/` contains your cypress tests
-* `spec/playwright/e2e/` contains your playwright tests
-* `spec/cypress/support/on-rails.js` contains Cypress on Rails support code
-* `spec/playwright/support/on-rails.js` contains Playwright on Rails support code
-* `spec/e2e/app_commands/scenarios/` contains your Cypress on Rails scenario definitions
-* `spec/e2e/cypress_helper.rb` contains helper code for Cypress on Rails app commands
+* `e2e/cypress/integration/` contains your cypress tests
+* `e2e/cypress/support/on-rails.js` contains Cypress on Rails support code
+* `e2e/cypress/e2e_helper.rb` contains helper code to require libraries like factory_bot
+* `e2e/cypress/app_commands/` contains your scenario definitions
+* `e2e/playwright/e2e/` contains your playwright tests
+* `e2e/playwright/support/on-rails.js` contains Playwright on Rails support code
 
-If you are not using `database_cleaner` look at `spec/e2e/app_commands/clean.rb`.
-If you are not using `factory_bot` look at `spec/e2e/app_commands/factory_bot.rb`.
+If you are not using `database_cleaner` look at `e2e/cypress/app_commands/clean.rb`.
+If you are not using `factory_bot` look at `e2e/cypress/app_commands/factory_bot.rb`.
 
 Now you can create scenarios and commands that are plain Ruby files that get loaded through middleware, the ruby sky is your limit.
 
 ### Update your database.yml
 
-When running `cypress test` or `playwright test` on your local computer it's recommended to start your server in development mode so that changes you
-make are picked up without having to restart the server.
+When writing and running tests on your local computer it's recommended to start your server in development mode so that changes you
+make are picked up without having to restart your local server.
 It's recommended you update your `database.yml` to check if the `CYPRESS` environment variable is set and switch it to the test database
 otherwise cypress will keep clearing your development database.
 
@@ -127,11 +124,9 @@ Getting started on your local environment
 CYPRESS=1 bin/rails server -p 5017
 
 # in separate window start cypress
-yarn cypress open
+yarn cypress open --project ./e2e
 # or for npm
-node_modules/.bin/cypress open
-# or if you changed the cypress folder to spec/cypress
-yarn cypress open --project ./spec
+npx cypress open --project ./e2e
 # or for playwright
 yarn playwright test --ui
 # or using npm
@@ -144,9 +139,9 @@ How to run cypress on CI
 # setup rails and start server in background
 # ...
 
-yarn run cypress run
+yarn run cypress run --project ./e2e
 # or for npm
-npx cypress run
+npx cypress run --project ./e2e
 ```
 
 ### Example of using factory bot
