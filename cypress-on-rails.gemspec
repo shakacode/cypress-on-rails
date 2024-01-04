@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'railties', '>= 3.2'
-  s.add_development_dependency 'factory_bot'
+  s.add_development_dependency 'factory_bot', '!= 6.4.5'
   s.add_development_dependency 'vcr'
   s.metadata = {
     "bug_tracker_uri"   => "https://github.com/shakacode/cypress-on-rails/issues",

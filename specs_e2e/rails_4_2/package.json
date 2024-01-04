@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "cypress": "^10.0.2",
-    "cypress-on-rails": "file:../../plugin"
+    "@playwright/test": "^1.40.1",
+    "cypress": "^10.11.0",
+    "cypress-on-rails": "file:../../plugin",
+    "playwright": "^1.40.1"
   }
 }
