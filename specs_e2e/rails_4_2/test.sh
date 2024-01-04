@@ -10,8 +10,8 @@ export BUNDLE_GEMFILE="$DIR/Gemfile"
 cd $DIR
 
 echo '-- bundle install'
-gem install bundler -v '1.0.22'
-bundle _1.0.22_ --version
+gem install bundler -v "~> 1.0" --conservative
+bundle --version
 bundle _1.0.22_ install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- cypress install'

@@ -46,7 +46,7 @@ module CypressOnRails
       directory 'spec/e2e/app_commands', "#{options.install_folder}/#{options.framework}/app_commands"
       if options.framework == 'cypress'
         copy_file "spec/cypress/support/on-rails.js", "#{options.install_folder}/cypress/support/on-rails.js"
-        directory 'spec/cypress/e2e/rails_examples', "#{options.install_folder}/cypress/integration/rails_examples"
+        directory 'spec/cypress/e2e/rails_examples', "#{options.install_folder}/cypress/e2e/rails_examples"
       end
       if options.framework == 'playwright'
         copy_file "spec/playwright/support/on-rails.js", "#{options.install_folder}/playwright/support/on-rails.js"
