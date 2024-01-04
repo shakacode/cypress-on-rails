@@ -56,14 +56,14 @@ module CypressOnRails
 
     def update_files
       if options.install_cypress
-      append_to_file "#{options.cypress_folder}/support/index.js",
-                     "\nimport './on-rails'",
-                     after: 'import \'./commands\''
+        append_to_file "#{options.install_folder}/cypress/support/index.js",
+                       "\nimport './on-rails'",
+                       after: 'import \'./commands\''
       end
       if options.install_playwright
-      append_to_file "#{options.playwright_folder}/support/index.js",
-                     "\nimport './on-rails'",
-                     after: '// Import commands.js using ES2015 syntax:'
+        append_to_file "#{options.install_folder}/playwright/support/index.js",
+                       "\nimport './on-rails'",
+                       after: '// Import commands.js using ES2015 syntax:'
       end
     end
   end
