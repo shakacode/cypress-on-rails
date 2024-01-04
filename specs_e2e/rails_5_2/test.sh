@@ -49,7 +49,7 @@ echo '-- playwright run'
 cd test
 cp -fv ../../playwright.config.js .
 npx playwright install-deps
-# npx playwright install
+npx playwright install
 npx playwright test test/playwright
 # npx playwright show-report
 

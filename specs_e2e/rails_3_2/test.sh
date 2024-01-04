@@ -35,15 +35,15 @@ cp -fv ../cypress.config.js .
     npx cypress run --record
 # fi
 
-echo '-- playright install'
-bundle exec ./bin/rails g cypress_on_rails:install --framework playright --install_with=npm --install_folder="." --force
-rm -vf playright/e2e/rails_examples/advance_factory_bot.cy.js
-rm -vf playright/e2e/rails_examples/using_vcr.cy.js
+echo '-- playwright install'
+bundle exec ./bin/rails g cypress_on_rails:install --framework playwright --install_with=npm --install_folder="." --force
+rm -vf playwright/e2e/rails_examples/advance_factory_bot.cy.js
+rm -vf playwright/e2e/rails_examples/using_vcr.cy.js
 
 echo '-- playwright run'
 cp -fv ../playwright.config.js .
 npx playwright install-deps
-# npx playwright install
+npx playwright install
 npx playwright test playwright/e2e/
 
 echo '-- stop rails server'
