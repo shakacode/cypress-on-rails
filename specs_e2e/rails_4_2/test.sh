@@ -12,7 +12,7 @@ cd $DIR
 echo '-- bundle install'
 gem install bundler -v "~> 1.0" --conservative
 bundle --version
-bundle _1.0.22_ install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
+bundle install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- cypress install'
 bundle exec ./bin/rails g cypress_on_rails:install --install_folder=spec --framework cypress --experimental --install_with=npm --force

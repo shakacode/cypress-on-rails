@@ -20,7 +20,7 @@ bundle exec ./bin/rails db:create db:migrate
 
 echo '-- cypress install'
 bundle exec ./bin/rails g cypress_on_rails:install --install_folder=test --framework cypress --install_with=npm --force
-rm -vf test/cypress/integration/rails_examples/using_vcr.cy.js
+rm -vf test/cypress/e2e/rails_examples/using_vcr.cy.js
 
 echo '-- start rails server'
 # make sure the server is not running

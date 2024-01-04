@@ -16,8 +16,8 @@ bundle _1.0.22_ install --quiet --gemfile="$DIR/Gemfile" --path vendor/bundle
 
 echo '-- cypress install'
 bundle exec ./bin/rails g cypress_on_rails:install --install_with=npm --install_folder="." --force
-rm -vf e2e/cypress/rails_examples/advance_factory_bot.cy.js
-rm -vf e2e/cypress/rails_examples/using_vcr.cy.js
+rm -vf cypress/e2e/rails_examples/advance_factory_bot.cy.js
+rm -vf cypress/e2e/rails_examples/using_vcr.cy.js
 
 echo '-- start rails server'
 # make sure the server is not running
@@ -36,9 +36,9 @@ cp -fv ../cypress.config.js .
 # fi
 
 echo '-- playright install'
-bundle exec ./bin/rails g cypress_on_rails:install --framework playright --install_with=npm --force
-rm -vf cypress/e2e/rails_examples/advance_factory_bot.cy.js
-rm -vf cypress/e2e/rails_examples/using_vcr.cy.js
+bundle exec ./bin/rails g cypress_on_rails:install --framework playright --install_with=npm --install_folder="." --force
+rm -vf playright/e2e/rails_examples/advance_factory_bot.cy.js
+rm -vf playright/e2e/rails_examples/using_vcr.cy.js
 
 echo '-- playwright run'
 cp -fv ../playwright.config.js .
