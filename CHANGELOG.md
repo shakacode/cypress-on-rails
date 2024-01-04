@@ -5,6 +5,7 @@
 
 ### Fixed
 * fix update index.js in install generatpr [PR 147](https://github.com/shakacode/cypress-on-rails/pull/147) by [Judahmeek]
+* Support rails 7.1 by adding content-type header to generated on-rails.js file [PR 148](https://github.com/shakacode/cypress-on-rails/pull/148) by [anark]
 
 ## [1.16.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.15.1...v1.16.0
