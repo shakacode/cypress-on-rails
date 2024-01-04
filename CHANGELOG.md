@@ -1,3 +1,11 @@
+## [Unreleased]
+
+### Changed
+* Removed the update generator and reduced options for install generator [PR 149](https://github.com/shakacode/cypress-on-rails/pull/149)
+
+### Fixed
+* fix update index.js in install generatpr [PR 147](https://github.com/shakacode/cypress-on-rails/pull/147) by [Judahmeek]
+
 ## [1.16.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.15.1...v1.16.0
 
