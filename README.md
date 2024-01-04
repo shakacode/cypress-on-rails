@@ -74,10 +74,10 @@ bin/rails g cypress_on_rails:install --api_prefix=/api
 bin/rails g cypress_on_rails:install --install_with=npm
 
 # if you already have cypress installed globally
-bin/rails g cypress_on_rails:install --install_with=echo
+bin/rails g cypress_on_rails:install --install_with=skip
 
 # to update the generated files run
-bin/rails g cypress_on_rails:install --install_with=echo
+bin/rails g cypress_on_rails:install --install_with=skip
 ```
 
 The generator modifies/adds the following files/directory in your application:
