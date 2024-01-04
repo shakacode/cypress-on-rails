@@ -43,6 +43,7 @@ rm -vf playright/e2e/rails_examples/using_vcr.cy.js
 echo '-- playwright run'
 cp -fv ../playwright.config.js .
 npx playwright install-deps
+# npx playwright install
 npx playwright test playwright/e2e/
 
 echo '-- stop rails server'

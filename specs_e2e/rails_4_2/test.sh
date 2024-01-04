@@ -42,8 +42,8 @@ rm -vf spec/playwright/e2e/rails_examples/advance_factory_bot.cy.js
 echo '-- playwright run'
 cp -fv ../playwright.config.js spec/
 cd spec
-# npx playwright install-deps
-npx playwright install
+npx playwright install-deps
+# npx playwright install
 npx playwright test spec/playwright/e2e
 
 echo '-- stop rails server'

@@ -48,8 +48,8 @@ rm -vf test/playwright/e2e/rails_examples/using_vcr.cy.js
 echo '-- playwright run'
 cd test
 cp -fv ../../playwright.config.js .
-# npx playwright install-deps
-npx playwright install
+npx playwright install-deps
+# npx playwright install
 npx playwright test test/playwright
 # npx playwright show-report
 
