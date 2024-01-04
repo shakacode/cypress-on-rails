@@ -19,14 +19,14 @@ bundle exec ./bin/rails db:drop || true
 bundle exec ./bin/rails db:create db:migrate
 
 echo '-- cypress install'
-bundle exec ./bin/rails g cypress_on_rails:install --install_folder=test --framework cypress --install_with=npm --skip
-rm -vf test/cypress/rails_examples/using_vcr.cy.js
+bundle exec ./bin/rails g cypress_on_rails:install --install_folder=test --framework cypress --install_with=npm --force
+rm -vf test/cypress/integration/rails_examples/using_vcr.cy.js
 
 echo '-- start rails server'
 # make sure the server is not running
-(kill -9 `cat tmp/pids/server.pid` || true )
+(kill -9 `cat ../server.pid` || true )
 
-bundle exec ./bin/rails server -p 5017 -e test &
+bundle exec ./bin/rails server -p 5017 -e test -P ../server.pid &
 sleep 2 # give rails a chance to start up correctly
 
 echo '-- cypress run'
@@ -42,8 +42,8 @@ npx cypress install
 
 echo '-- playwright install'
 cd ..
-bundle exec ./bin/rails g cypress_on_rails:install --install_folder=test --framework playwright --install_with=npm --skip
-rm -vf test/playwright/rails_examples/using_vcr.cy.js
+bundle exec ./bin/rails g cypress_on_rails:install --install_folder=test --framework playwright --install_with=npm --force
+rm -vf test/playwright/e2e/rails_examples/using_vcr.cy.js
 
 echo '-- playwright run'
 cd test
@@ -54,4 +54,4 @@ npx playwright test test/playwright
 # npx playwright show-report
 
 echo '-- stop rails server'
-kill -9 `cat ../tmp/pids/server.pid` || true
+kill -9 `cat ../../server.pid` || true

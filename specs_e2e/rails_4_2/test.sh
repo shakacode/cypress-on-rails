@@ -10,9 +10,9 @@ export BUNDLE_GEMFILE="$DIR/Gemfile"
 cd $DIR
 
 echo '-- bundle install'
-gem install bundler -v "~> 1.0" --conservative
-bundle --version
-bundle install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
+gem install bundler -v '1.0.22'
+bundle _1.0.22_ --version
+bundle _1.0.22_ install --quiet --gemfile="$DIR/Gemfile" --retry 2 --path vendor/bundle
 
 echo '-- cypress install'
 bundle exec ./bin/rails g cypress_on_rails:install --install_folder=spec --framework cypress --experimental --install_with=npm --force
@@ -20,9 +20,9 @@ rm -vf spec/cypress/e2e/rails_examples/advance_factory_bot.cy.js
 
 echo '-- start rails server'
 # make sure the server is not running
-(kill -9 `cat tmp/pids/server.pid` || true )
+(kill -9 `cat ../server.pid` || true )
 
-bundle exec ./bin/rails server -p 5017 -e test &
+bundle exec ./bin/rails server -p 5017 -e test -P ../server.pid &
 sleep 5 # give rails a chance to start up correctly
 
 echo '-- cypress run'
@@ -36,7 +36,7 @@ cp -fv ../cypress.config.js spec/
 # fi
 
 echo '-- playwright install'
-bundle exec ./bin/rails g cypress_on_rails:install --install_folder=spec --framework playwright --experimental --install_with=npm --skip
+bundle exec ./bin/rails g cypress_on_rails:install --install_folder=spec --framework playwright --experimental --install_with=npm --force
 rm -vf spec/playwright/e2e/rails_examples/advance_factory_bot.cy.js
 
 echo '-- playwright run'
@@ -47,4 +47,4 @@ npx playwright install
 npx playwright test spec/playwright/e2e
 
 echo '-- stop rails server'
-kill -9 `cat tmp/pids/server.pid` || true
+kill -9 `cat ../../server.pid` || true

@@ -10,3 +10,4 @@ vendor/bundle
 node_modules
 package-lock.json
 yarn.lock
+specs_e2e/server.pid
