@@ -1,5 +1,3 @@
-require 'active_support/core_ext/string'
-
 module CypressOnRails
   module SimpleRailsFactory
     def self.create(type, *params)

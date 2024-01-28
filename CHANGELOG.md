@@ -1,4 +1,5 @@
-## [Unreleased]
+## [1.17.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.16.0...v1.17.0
 
 ### Changed
 * Removed the update generator and reduced options for install generator [PR 149](https://github.com/shakacode/cypress-on-rails/pull/149)
