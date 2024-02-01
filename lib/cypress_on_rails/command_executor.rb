@@ -14,8 +14,8 @@ module CypressOnRails
     end
 
     def self.load_e2e_helper
-      e2e_helper_file = "#{configuration.install_folder}/e2e_helper.rb"
-      cypress_helper_file = "#{configuration.install_folder}/cypress_helper.rb"
+      e2e_helper_file = Rails.root.join(configuration.install_folder, "e2e_helper.rb")
+      cypress_helper_file = Rails.root.join(configuration.install_folder, "cypress_helper.rb")
       if File.exist?(e2e_helper_file)
         Kernel.require e2e_helper_file
       elsif File.exist?(cypress_helper_file)
