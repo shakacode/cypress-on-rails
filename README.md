@@ -6,21 +6,44 @@
 
 ----
 
-This project is sponsored by the software consulting firm [ShakaCode](https://www.shakacode.com), creator of the [React on Rails Gem](https://github.com/shakacode/react_on_rails). We focus on React (with TS or ReScript) front-ends, often with Ruby on Rails or Gatsby. See [our recent work](https://www.shakacode.com/recent-work) and [client engagement model](https://www.shakacode.com/blog/client-engagement-model/). Feel free to engage in discussions around this gem at our [Slack Channel](https://join.slack.com/t/reactrails/shared_invite/enQtNjY3NTczMjczNzYxLTlmYjdiZmY3MTVlMzU2YWE0OWM0MzNiZDI0MzdkZGFiZTFkYTFkOGVjODBmOWEyYWQ3MzA2NGE1YWJjNmVlMGE) or our [forum category for Cypress](https://forum.shakacode.com/c/cypress-on-rails/55).
+This project is sponsored by the software consulting firm [ShakaCode](https://www.shakacode.com), creator of the [React on Rails Gem](https://github.com/shakacode/react_on_rails). 
 
-Interested in joining a small team that loves open source? Check our [careers page](https://www.shakacode.com/career/).
+### ShakaCode Support
 
-Need help with cypress-on-rails? Contact [ShakaCode](mailto:justin@shakacode.com).
+[ShakaCode](https://www.shakacode.com) focuses on helping Ruby on Rails teams use React and Webpack better. We can upgrade your project and improve your development and customer experiences, allowing you to focus on building new features or fixing bugs instead. 
+
+For an overview of working with us, see our [Client Engagement Model](https://www.shakacode.com/blog/client-engagement-model/) article and [how we bill for time](https://www.shakacode.com/blog/shortcut-jira-trello-github-toggl-time-and-task-tracking/).
+
+We also specialize in helping development teams lower infrastructure and CI costs. Check out our project [Control Plane Flow](https://github.com/shakacode/control-plane-flow/), which can allow you to get the ease of Heroku with the power of Kubernetes and big cost savings.
+
+If you think ShakaCode can help your project, [click here](https://meetings.hubspot.com/justingordon/30-minute-consultation) to book a call with [Justin Gordon](mailto:justin@shakacode.com), the creator of React on Rails and Shakapacker.
+
+Here's a testimonial of how ShakaCode can help from [Florian Gößler](https://github.com/FGoessler) of [Blinkist](https://www.blinkist.com/), January 2, 2023:
+> Hey Justin 👋
+>
+> I just wanted to let you know that we today shipped the webpacker to shakapacker upgrades and it all seems to be running smoothly! Thanks again for all your support and your teams work! 😍
+>
+> On top of your work, it was now also very easy for me to upgrade Tailwind and include our external node_module based web component library which we were using for our other (more modern) apps already. That work is going to be shipped later this week though as we are polishing the last bits of it. 😉
+>
+> Have a great 2023 and maybe we get to work together again later in the year! 🙌
+
+Read the [full review here](https://clutch.co/profile/shakacode#reviews?sort_by=date_DESC#review-2118154).
+
+---
+
+Feel free to engage in discussions around this gem at our [Slack Channel](https://join.slack.com/t/reactrails/shared_invite/enQtNjY3NTczMjczNzYxLTlmYjdiZmY3MTVlMzU2YWE0OWM0MzNiZDI0MzdkZGFiZTFkYTFkOGVjODBmOWEyYWQ3MzA2NGE1YWJjNmVlMGE) or our [forum category for Cypress](https://forum.shakacode.com/c/cypress-on-rails/55).
+
+Need help with cypress-on-rails? Contact [Justin Gordon](mailto:justin@shakacode.com).
 
 ----
 
-# Totally new to Cypress?
-Suggest you first learn the basics of Cypress before attempting to integrate with Ruby on Rails
+# New to Cypress?
+Suggest you first learn the basics of Cypress before attempting to integrate with Ruby on Rails.
 
 * [Good start Here](https://docs.cypress.io/examples/tutorials.html#Best-Practices)
 
 # Totally new to Playwright?
-Suggest you first learn the basics of Playwright before attempting to integrate with Ruby on Rails
+Suggest you first learn the basics of Playwright before attempting to integrate with Ruby on Rails.
 
 * [Good start Here](https://playwright.dev/docs/writing-tests)
 
@@ -28,11 +51,11 @@ Suggest you first learn the basics of Playwright before attempting to integrate 
 
 Gem for using [cypress.io](http://github.com/cypress-io/) or [playwright.dev](https://playwright.dev/) in Rails and Ruby Rack applications with the goal of controlling state as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
 
-It allows you to run code in the application context when executing cypress or playwright tests.
+It allows you to run code in the context of the application when executing Cypress or Playwright tests.
 Do things like:
 * use database_cleaner before each test
 * seed the database with default data for each test
-* use factory_bot to setup data
+* use factory_bot to set up data
 * create scenario files used for specific tests
 
 Has examples of setting up state with:
@@ -96,10 +119,11 @@ Now you can create scenarios and commands that are plain Ruby files that get loa
 
 ### Update your database.yml
 
-When writing and running tests on your local computer it's recommended to start your server in development mode so that changes you
+When writing and running tests on your local computer, it's recommended to start your server in development mode so that changes you
 make are picked up without having to restart your local server.
+
 It's recommended you update your `database.yml` to check if the `CYPRESS` environment variable is set and switch it to the test database
-otherwise cypress will keep clearing your development database.
+otherwise, cypress will keep clearing your development database.
 
 For example:
 ```yaml
