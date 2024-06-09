@@ -1,8 +1,81 @@
+## [1.17.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.16.0...v1.17.0
+
+### Changed
+* Removed the update generator and reduced options for install generator [PR 149](https://github.com/shakacode/cypress-on-rails/pull/149)
+
+### Fixed
+* fix update index.js in install generator [PR 147](https://github.com/shakacode/cypress-on-rails/pull/147) by [Judahmeek]
+* Support rails 7.1 by adding content-type header to generated on-rails.js file [PR 148](https://github.com/shakacode/cypress-on-rails/pull/148) by [anark]
+* Rewind body before reading it [PR 150](https://github.com/shakacode/cypress-on-rails/pull/150) 
+
+## [1.16.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.15.1...v1.16.0
+
+### Added
+* Add support for `before_request` options on the middleware, for authentication [PR 138](https://github.com/shakacode/cypress-on-rails/pull/138) by [RomainEndelin]
+
+## [1.15.1]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.15.0...v1.15.1
+
+### Fixed
+* fix cypress_folder deprecation warning by internal code [PR 136](https://github.com/shakacode/cypress-on-rails/pull/136)
+
+## [1.15.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.14.0...v1.15.0
+
+### Changed
+* Add support for any e2e testing framewrok starting with Playwright [PR 131](https://github.com/shakacode/cypress-on-rails/pull/131) by [KhaledEmaraDev]
+
+## [1.14.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.13.1...v1.14.0
+
+### Changed
+* Add support for proxy routes through `api_prefix` [PR 130](https://github.com/shakacode/cypress-on-rails/pull/130) by [RomainEndelin]
+
+### Fixed
+* Properly copies the cypress_helper file when running the update generator [PR 117](https://github.com/shakacode/cypress-on-rails/pull/117) by [alvincrespo]
+
+### Tasks
+* pass cypress record key to github action [PR 110](https://github.com/shakacode/cypress-on-rails/pull/110)
+
+## [1.13.1]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.13.0...v1.13.1
+
+### Fixed
+* use_vcr_middleware disabled by default [PR 109](https://github.com/shakacode/cypress-on-rails/pull/109)
+
+## [1.13.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.12.1...v1.13.0
+
+### Changed
+* Add support for matching npm package and VCR
+* generate for cypress 10 [PR 108](https://github.com/shakacode/cypress-on-rails/pull/108)
+
+## [1.12.1]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.12.0...v1.12.1
+
+### Tasks
+* Documenting how to setup Factory Associations [PR 100](https://github.com/shakacode/cypress-on-rails/pull/100)
+
+### Fixed
+* keep track of factory manual reloads to prevent auto_reload from reloading again [PR 98](https://github.com/shakacode/cypress-on-rails/pull/98)
+
+## [1.12.0]
+[Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.11.0...v1.12.0
+
+### Changed
+* only reload factories on clean instead of every factory create request [PR 95](https://github.com/shakacode/cypress-on-rails/pull/95)
+* alternative command added for get tail of logs [PR 89](https://github.com/shakacode/cypress-on-rails/pull/89) by [ccrockett]
+
+### Tasks
+* switch from travis to github actions [PR 96]
+
 ## [1.11.0]
 [Compare]: https://github.com/shakacode/cypress-on-rails/compare/v1.10.1...v1.11.0
 
 ### Changed
-* improve app command logging on cypress 
+* improve app command logging on cypress
 * Allow build and build_list commands to be executed against factory bot [PR 87](https://github.com/shakacode/cypress-on-rails/pull/87) by [Alexander-Blair]
 
 ## [1.10.1]

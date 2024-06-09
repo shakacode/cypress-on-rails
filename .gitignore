@@ -6,3 +6,8 @@ spec/examples.txt
 spec/test.log
 pkg/*.gem
 vendor/bundle
+.vscode
+node_modules
+package-lock.json
+yarn.lock
+specs_e2e/server.pid

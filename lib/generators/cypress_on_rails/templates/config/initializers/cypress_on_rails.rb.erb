@@ -1,9 +1,11 @@
 if defined?(CypressOnRails)
   CypressOnRails.configure do |c|
-    c.cypress_folder = File.expand_path("#{__dir__}/../../<%= options.cypress_folder %>")
+    c.api_prefix = "<%= options.api_prefix %>"
+    c.install_folder = File.expand_path("#{__dir__}/../../<%= options.install_folder %>/<%= options.framework %>")
     # WARNING!! CypressOnRails can execute arbitrary ruby code
     # please use with extra caution if enabling on hosted servers or starting your local server on 0.0.0.0
     c.use_middleware = !Rails.env.production?
+    <% unless options.experimental %># <% end %> c.use_vcr_middleware = !Rails.env.production?
     c.logger = Rails.logger
     c.use_vcr = ENV['WITH_VCR'].present?
 
@@ -19,6 +21,15 @@ if defined?(CypressOnRails)
     #     config.ignore_hosts('localhost', '127.0.0.1', '0.0.0.0')
     #   end
     # end
+
+    # If you want to enable a before_request logic, such as authentication, logging, sending metrics, etc.
+    #   Refer to https://www.rubydoc.info/gems/rack/Rack/Request for the `request` argument.
+    #   Return nil to continue through the Cypress command. Return a response [status, header, body] to halt.
+    # c.before_request = lambda { |request|
+    #   unless request.env['warden'].authenticate(:secret_key)
+    #     return [403, {}, ["forbidden"]]
+    #   end
+    # }
   end
 
   # # if you compile your asssets on CI

@@ -27,6 +27,10 @@ module CypressOnRails
       instance.build_list(*args)
     end
 
+    def self.reload
+      instance.reload
+    end
+
     # @return [Array]
     attr_accessor :factory
     attr_accessor :always_reload
@@ -44,7 +48,7 @@ module CypressOnRails
     end
 
     def create(*options)
-      load_files
+      auto_reload
       factory_name = options.shift
       if options.last.is_a?(Hash)
         args = options.pop
@@ -55,12 +59,12 @@ module CypressOnRails
     end
 
     def create_list(*args)
-      load_files
+      auto_reload
       factory.create_list(*args)
     end
 
     def build(*options)
-      load_files
+      auto_reload
       factory_name = options.shift
       if options.last.is_a?(Hash)
         args = options.pop
@@ -71,8 +75,18 @@ module CypressOnRails
     end
 
     def build_list(*args)
-      load_files
+      auto_reload
       factory.build_list(*args)
+    end
+
+    def reload
+      @latest_mtime = current_latest_mtime
+      logger.info 'Loading Factories'
+      factory.reload
+      files.each do |file|
+        logger.debug "-- Loading: #{file}"
+        @kernel.load(file)
+      end 
     end
 
     private
@@ -92,19 +106,16 @@ module CypressOnRails
       CypressOnRails.configuration.logger
     end
 
-    def load_files
-      current_latest_mtime = files.map{|file| @file_system.mtime(file) }.max
-      return unless should_reload?(current_latest_mtime)
-      logger.info 'Loading Factories'
-      @latest_mtime = current_latest_mtime
-      factory.reload
-      files.each do |file|
-        logger.debug "-- Loading: #{file}"
-        @kernel.load(file)
-      end
+    def current_latest_mtime
+      files.map{|file| @file_system.mtime(file) }.max
     end
 
-    def should_reload?(current_latest_mtime)
+    def auto_reload
+      return unless should_reload?
+      reload
+    end
+
+    def should_reload?
       @always_reload || @latest_mtime.nil? || @latest_mtime < current_latest_mtime
     end
   end
