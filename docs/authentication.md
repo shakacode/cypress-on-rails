@@ -51,3 +51,34 @@ cy.forceLogin()
 cy.forceLogin({redirect_to: '/profile'})
 cy.forceLogin({email: 'someuser@mail.com'})
 ```
+
+In `playwright/support/on-rails.js`:
+```js
+async function forceLogin(page, { email, redirect_to }) {
+    const context = await request.newContext();
+
+    const response = await context.post('/__e2e__/force_login', {
+        data: JSON.stringify({
+            email: email,
+            redirect_to: redirect_to
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.ok()) {
+        const storageState = await context.storageState();
+        await page.context().addCookies(storageState.cookies);
+        await page.goto(redirect_to);
+        return { cookies: storageState.cookies, context };
+    } else {
+        throw new Error(`Failed to login: ${response.status()} at ${response.url()}`);
+    }
+}
+```
+
+Examples of usage in Playwright specs:
+```js
+await forceLogin(page, { email: 'someuser@mail.com', redirect_to: '/profile' });
+```

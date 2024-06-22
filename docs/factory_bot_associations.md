@@ -54,6 +54,13 @@ cy.appFactories([['create', 'author']]).then((records) => {
 })
 ```
 
+then in Playwright
+```js
+const records = await appFactories([['create', 'author', { name: 'James' }]], context);
+await appFactories([['create', 'post', { title: 'Playwright is cool', author_id: records[0].id }]], context);
+```
+
+
 ## 2. Using transient attributes
 
 ```rb
@@ -79,6 +86,11 @@ cy.appFactories([['create', 'post', { title: 'Cypress is cool', author_name: 'Ja
 
 // example without overriding
 cy.appFactories([['create', 'post']])
+```
+
+then in Playwright
+```js
+const records = await appFactories([['create', 'post', { title: 'Playwright is cool', author_name: 'James' }]]);
 ```
 
 ## 3. Using Nested Attributes
