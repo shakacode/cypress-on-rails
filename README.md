@@ -207,7 +207,7 @@ test.describe('My First Test', () => {
         await appFactories([
             ['create_list', 'post', 10],
             ['create', 'post', { title: 'Hello World' }],
-            ['create', 'post', 'with_comments', { title: 'Factory_bot Traits here' }] // использование traits
+            ['create', 'post', 'with_comments', { title: 'Factory_bot Traits here' }]
         ]);
 
         // Visit the application under test
@@ -550,7 +550,6 @@ async function appCommands(body) {
 
     if (response.status() !== 201) {
         const responseBody = await response.text();
-        console.error(`Error body: ${responseBody}`);
         throw new Error(`Expected status 201 but got ${response.status()} - ${responseBody}`);
     }
 
