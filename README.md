@@ -172,6 +172,7 @@ npx cypress run --project ./e2e
 
 You can run your [factory_bot](https://github.com/thoughtbot/factory_bot) directly as well
 
+then in Cypress
 ```js
 // spec/cypress/e2e/simple.cy.js
 describe('My First Test', () => {
@@ -195,6 +196,32 @@ describe('My First Test', () => {
   })
 })
 ```
+
+then in Playwright
+```js
+const { test, expect, request } = require('@playwright/test');
+
+test.describe('My First Test', () => {
+    test('visit root', async ({ page }) => {
+        // This calls to the backend to prepare the application state
+        await appFactories([
+            ['create_list', 'post', 10],
+            ['create', 'post', { title: 'Hello World' }],
+            ['create', 'post', 'with_comments', { title: 'Factory_bot Traits here' }]
+        ]);
+
+        // Visit the application under test
+        await page.goto('/');
+        
+        await expect(page).toHaveText('Hello World');
+
+        // Accessing result
+        const records = await appFactories([['create', 'invoice', { paid: false }]]);
+        await page.goto(`/invoices/${records[0].id}`);
+    });
+});
+```
+
 You can check the [association docs](docs/factory_bot_associations.md) on more ways to setup association with the correct data.
 
 In some cases, using static Cypress fixtures may not provide sufficient flexibility when mocking HTTP response bodies. It's possible to use `FactoryBot.build` to generate Ruby hashes that can then be used as mock JSON responses:
@@ -507,6 +534,46 @@ Cypress.Commands.add('appFactories', (options) => {
 beforeEach(() => {
   cy.app('clean') // have a look at cypress/app_commands/clean.rb
 });
+```
+
+add the following file to Playwright
+```js
+// test/playwright/support/on-rails.js
+async function appCommands(body) {
+    const context = await request.newContext();
+    const response = await context.post('/__e2e__/command', {
+        data: body,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.status() !== 201) {
+        const responseBody = await response.text();
+        throw new Error(`Expected status 201 but got ${response.status()} - ${responseBody}`);
+    }
+
+    return response.json();
+}
+
+async function app(name, commandOptions = {}) {
+    const body = await appCommands({ name, options: commandOptions });
+    return body[0];
+}
+
+async function appScenario(name, options = {}) {
+    const body = { name: `scenarios/${name}`, options };
+    const result = await appCommands(body);
+    return result[0];
+}
+
+async function appFactories(options) {
+    return app('factory_bot', options);
+}
+
+async function clean() {
+    await app('clean');
+}
 ```
 
 ## API Prefix
