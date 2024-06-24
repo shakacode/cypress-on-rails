@@ -55,41 +55,16 @@ cy.forceLogin({email: 'someuser@mail.com'})
 In `playwright/support/on-rails.js`:
 
 ```js
-async function forceLogin(page, { email, redirect_to }) {
-    if (!isValidEmail(email)) {
-        throw new Error(`Invalid email format: ${email}`);
-    }
-    
-    if (!isValidUrl(redirect_to)) {
-        throw new Error(`Invalid redirect URL: ${redirect_to}`);
-    }
-
-    const context = await request.newContext();
-    let response;
-
-    try {
-        response = await context.post('/__e2e__/force_login', {
-            data: JSON.stringify({ email, redirect_to }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-    } catch (error) {
-        throw new Error(`Request failed: ${error.message}`);
-    }
+async function forceLogin(page, { email, redirect_to = '/' }) {
+    const response = await page.request.post('/__e2e__/force_login', {
+        data: { email: email, redirect_to: redirect_to },
+        headers: { 'Content-Type': 'application/json' }
+    });
 
     if (response.ok()) {
-        let storageState;
-        try{
-            storageState = await context.storageState();
-        } catch (error) {
-            throw new Error(`Error parsing storage state: ${error.message}`);
-        }
-        await page.context().addCookies(storageState.cookies);
         await page.goto(redirect_to);
-        return { cookies: storageState.cookies, context };
     } else {
-        throw new Error(`Failed to login: ${response.status()} at ${response.url()}`);
+        console.error(`Login failed with status: ${response.status()}`);
     }
 }
 ```
@@ -97,4 +72,5 @@ async function forceLogin(page, { email, redirect_to }) {
 Examples of usage in Playwright specs:
 ```js
 await forceLogin(page, { email: 'someuser@mail.com', redirect_to: '/profile' });
+
 ```
