@@ -56,15 +56,23 @@ In `playwright/support/on-rails.js`:
 
 ```js
 async function forceLogin(page, { email, redirect_to = '/' }) {
+    // Validate inputs
+    if (!email || typeof email !== 'string' || !redirect_to || typeof redirect_to !== 'string') {
+        throw new Error('Invalid input: email and redirect_to must be non-empty strings');
+    }
+
     const response = await page.request.post('/__e2e__/force_login', {
         data: { email: email, redirect_to: redirect_to },
         headers: { 'Content-Type': 'application/json' }
     });
 
+    // Handle response based on status code
     if (response.ok()) {
         await page.goto(redirect_to);
     } else {
         console.error(`Login failed with status: ${response.status()}`);
+        // Throw an exception for specific error statuses
+        throw new Error(`Login failed with status: ${response.status()}`);
     }
 }
 ```
