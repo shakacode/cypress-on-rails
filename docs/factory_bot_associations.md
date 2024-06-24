@@ -59,8 +59,8 @@ There are a few ways you can set up associations with the correct data using Pla
 ```js
 const records = await appFactories([['create', 'author', { name: 'James' }]], context);
 await appFactories([['create', 'post', { title: 'Playwright is cool', author_id: records[0].id }]], context);
-```
 // Note: These Playwright examples demonstrate asynchronous interactions with the server for setting up data associations. Ensure that your environment is configured to handle these async operations.
+```
 
 
 ## 2. Using transient attributes

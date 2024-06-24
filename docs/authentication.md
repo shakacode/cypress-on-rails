@@ -56,17 +56,27 @@ In `playwright/support/on-rails.js`:
 
 ```js
 async function forceLogin(page, { email, redirect_to }) {
-    const context = await request.newContext();
+    if (!isValidEmail(email)) {
+        throw new Error(`Invalid email format: ${email}`);
+    }
+    
+    if (!isValidUrl(redirect_to)) {
+        throw new Error(`Invalid redirect URL: ${redirect_to}`);
+    }
 
-    const response = await context.post('/__e2e__/force_login', {
-        data: JSON.stringify({
-            email: email,
-            redirect_to: redirect_to
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+    const context = await request.newContext();
+    let response;
+
+    try {
+        response = await context.post('/__e2e__/force_login', {
+            data: JSON.stringify({ email, redirect_to }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    } catch (error) {
+        throw new Error(`Request failed: ${error.message}`);
+    }
 
     if (response.ok()) {
         let storageState;
