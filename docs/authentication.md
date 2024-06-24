@@ -53,6 +53,7 @@ cy.forceLogin({email: 'someuser@mail.com'})
 ```
 
 In `playwright/support/on-rails.js`:
+
 ```js
 async function forceLogin(page, { email, redirect_to }) {
     const context = await request.newContext();
@@ -68,7 +69,12 @@ async function forceLogin(page, { email, redirect_to }) {
     });
 
     if (response.ok()) {
-        const storageState = await context.storageState();
+        let storageState;
+        try{
+            storageState = await context.storageState();
+        } catch (error) {
+            throw new Error(`Error parsing storage state: ${error.message}`);
+        }
         await page.context().addCookies(storageState.cookies);
         await page.goto(redirect_to);
         return { cookies: storageState.cookies, context };
