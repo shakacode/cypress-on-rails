@@ -38,18 +38,18 @@ Need help with cypress-on-rails? Contact [Justin Gordon](mailto:justin@shakacode
 ----
 
 # New to Cypress?
-Suggest you first learn the basics of Cypress before attempting to integrate with Ruby on Rails.
+Consider first learning the basics of Cypress before attempting to integrate with Ruby on Rails.
 
 * [Good start Here](https://docs.cypress.io/examples/tutorials.html#Best-Practices)
 
 # Totally new to Playwright?
-Suggest you first learn the basics of Playwright before attempting to integrate with Ruby on Rails.
+Consider first learning the basics of Playwright before attempting to integrate with Ruby on Rails.
 
 * [Good start Here](https://playwright.dev/docs/writing-tests)
 
 ## Overview
 
-Gem for using [cypress.io](http://github.com/cypress-io/) or [playwright.dev](https://playwright.dev/) in Rails and Ruby Rack applications with the goal of controlling state as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State)
+Gem for using [cypress.io](http://github.com/cypress-io/) or [playwright.dev](https://playwright.dev/) in Rails and Ruby Rack applications to control state as mentioned in [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html#Organizing-Tests-Logging-In-Controlling-State). 
 
 It allows you to run code in the context of the application when executing Cypress or Playwright tests.
 Do things like:
